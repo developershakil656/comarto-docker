@@ -37,12 +37,13 @@ services:
     container_name: admin-frontend
 
   mysql:
-    image: mysql:8.4
+    image: mysql:8.0
     container_name: mysql
     env_file: ./env/mysql.env
     volumes:
-      - ./mysql/data:/var/lib/mysql
+      - mysql_data:/var/lib/mysql
     restart: unless-stopped
+    
 
   phpmyadmin:
     image: phpmyadmin:latest
@@ -64,5 +65,6 @@ services:
       - MEILI_MASTER_KEY=${MEILI_MASTER_KEY}
 
 volumes:
+  mysql_data:
   frontend_build:
   admin_frontend_build:

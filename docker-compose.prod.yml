@@ -31,5 +31,5 @@ services:
   admin-backend:
     restart: always
 
-  mysql:
-    restart: always
+  # mysql:
+  #   restart: always
