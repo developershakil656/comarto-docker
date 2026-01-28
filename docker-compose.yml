@@ -1,0 +1,68 @@
+services:
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - APP_DOMAIN=${APP_DOMAIN:-comarto.com}
+      - NGINX_ENVSUBST_FILTER=APP_
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - backend
+      - admin-backend
+
+  backend:
+    build: ./backend
+    container_name: backend
+    volumes:
+      - ./env/backend.env:/var/www/backend/.env
+    command: php-fpm
+
+  admin-backend:
+    build: ./admin-backend
+    container_name: admin-backend
+    volumes:
+      - ./env/admin-backend.env:/var/www/admin-backend/.env
+    command: php-fpm
+
+  frontend:
+    build: ./frontend
+    container_name: frontend
+
+  admin-frontend:
+    build: ./admin-frontend
+    container_name: admin-frontend
+
+  mysql:
+    image: mysql:8.4
+    container_name: mysql
+    env_file: ./env/mysql.env
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+    restart: unless-stopped
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: phpmyadmin
+    restart: unless-stopped
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      UPLOAD_LIMIT: 64M
+    depends_on:
+      - mysql
+
+  meilisearch:
+    image: getmeili/meilisearch:v1.12.0
+    container_name: meilisearch
+    volumes:
+      - ./meilisearch/data:/meili_data
+    environment:
+      - MEILI_MASTER_KEY=${MEILI_MASTER_KEY}
+
+volumes:
+  frontend_build:
+  admin_frontend_build:

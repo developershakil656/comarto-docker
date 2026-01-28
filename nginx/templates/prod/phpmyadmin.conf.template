@@ -1,0 +1,22 @@
+server {
+    listen 80;
+    server_name pma.${APP_DOMAIN};
+    location /.well-known/acme-challenge/ { root /var/www/certbot; }
+    location / { return 301 https://$host$request_uri; }
+}
+
+server {
+    listen 443 ssl;
+    server_name pma.${APP_DOMAIN};
+
+    ssl_certificate /etc/letsencrypt/live/${APP_DOMAIN}/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/${APP_DOMAIN}/privkey.pem;
+
+    location / {
+        [cite_start]proxy_pass http://phpmyadmin:80; [cite: 21]
+        [cite_start]proxy_set_header Host $host; [cite: 22]
+        [cite_start]proxy_set_header X-Real-IP $remote_addr; [cite: 22]
+        [cite_start]proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for; [cite: 22]
+        [cite_start]proxy_set_header X-Forwarded-Proto $scheme; [cite: 22]
+    }
+}

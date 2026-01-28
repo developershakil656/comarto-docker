@@ -1,0 +1,62 @@
+<template lang="">
+<div class="top-[76px] z-10 sticky shadow-lg shadow-white">
+    <div class="container mx-auto">
+        <!-- Top Filter Bar -->
+        <div class="bg-white p-4 mb-4 flex flex-wrap gap-2 items-center justify-between">
+            <div class="flex flex-wrap gap-2 items-center font-semibold">
+                <div class="border p-1 rounded-md">
+                    <button class="px-5 py-1 mr-1 rounded-md bg-black text-white">
+                        <CubeIcon class="h-5 w-5 inline-block" />
+                        Products
+                    </button>
+                    <button class="px-5 py-1 rounded-md transition hover:bg-gray-200 duration-200 ease-in-out text-black">
+                        <TruckIcon class="h-5 w-5 inline-block" />
+                        Suppliers
+                    </button>
+                </div>
+                <select class="px-5 py-2.5 rounded-md border">
+                    <option>Business Type</option>
+                    <option>Indore</option>
+                    <option>Nashik</option>
+                </select>
+                <select class="px-3 py-2.5 rounded-md border focus:outline-none">
+                    <option>Seller Type</option>
+                    <option>Wholesaler</option>
+                    <option>Retailer</option>
+                </select>
+                <select class="px-3 py-2.5 rounded-md border focus:outline-none">
+                    <option>Brand</option>
+                    <option>Brand A</option>
+                    <option>Brand B</option>
+                </select>
+                <select class="px-3 py-2.5 rounded-md border focus:outline-none">
+                    <option>Price Range</option>
+                    <option>Low to High</option>
+                    <option>High to Low</option>
+                </select>
+                <select class="px-3 py-2.5 rounded-md border focus:outline-none">
+                    <option>Type</option>
+                    <option>Type 1</option>
+                    <option>Type 2</option>
+                </select>
+            </div>
+            <button class="flex items-center gap-2 px-4 py-2 rounded-md border border-gray-300 bg-gray-100 text-gray-700 font-semibold">
+                <span>⏷</span> All Filters
+            </button>
+        </div>
+    </div>
+</div>
+</template>
+
+<script>
+import {
+    CubeIcon,
+    TruckIcon
+} from "@heroicons/vue/24/outline";
+export default {
+    components: {
+        CubeIcon,
+        TruckIcon
+    }
+}
+</script>

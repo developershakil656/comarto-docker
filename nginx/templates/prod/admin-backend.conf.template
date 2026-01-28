@@ -1,0 +1,38 @@
+server {
+    listen 80;
+    server_name admin-api.${APP_DOMAIN};
+    location /.well-known/acme-challenge/ { root /var/www/certbot; }
+    location / { return 301 https://$host$request_uri; }
+}
+
+server {
+    listen 443 ssl;
+    server_name admin-api.${APP_DOMAIN};
+
+    ssl_certificate /etc/letsencrypt/live/${APP_DOMAIN}/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/${APP_DOMAIN}/privkey.pem;
+
+    root /var/www/admin-backend/public;
+    [cite_start]index index.php index.html; [cite: 2]
+    [cite_start]client_max_body_size 20M; [cite: 1]
+
+    [cite_start]resolver 127.0.0.11 valid=30s; [cite: 1]
+    [cite_start]set $upstream_admin admin-backend; [cite: 1]
+
+    location / {
+        [cite_start]try_files $uri $uri/ /index.php?$query_string; [cite: 3]
+    }
+
+    location /storage/ {
+        alias /var/www/admin-backend/public/storage/;
+        try_files $uri $uri/ =404;
+        add_header 'Access-Control-Allow-Origin' '*';
+    }
+
+    location ~ \.php$ {
+        [cite_start]include fastcgi_params; [cite: 4]
+        [cite_start]fastcgi_pass $upstream_admin:9000; [cite: 4]
+        [cite_start]fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name; [cite: 4]
+        fastcgi_param HTTPS on; 
+    }
+}

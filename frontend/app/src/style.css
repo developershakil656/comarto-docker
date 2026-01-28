@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1552px;
+    padding-left: 4rem;
+    padding-right: 4rem
+}
+
+@media (min-width: 768px) {
+    .container {
+        padding-left: 2rem;
+        padding-right: 2rem
+    }
+}
+
+@media (max-width: 767px) {
+    .container {
+        padding-left: .75rem;
+        padding-right: .75rem
+    }
+}
+
+/* Prevent copying and right-clicking on protected content */
+.no-copy {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
+    pointer-events: auto;
+}
+
+.no-copy img {
+    pointer-events: none;
+}
+
+/* Disable text selection globally for protected areas */
+.protected-content {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Fallback for text-sm in case Tailwind utility is not picked/applied.
+   Put in base layer so responsive utilities (e.g., md:text-*) can override. */
+/* @layer base {
+    .text-sm {
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+    }
+} */

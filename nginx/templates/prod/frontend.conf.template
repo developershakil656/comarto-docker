@@ -1,0 +1,31 @@
+server {
+    listen 80;
+    server_name ${APP_DOMAIN};
+    location /.well-known/acme-challenge/ { root /var/www/certbot; }
+    location / { return 301 https://$host$request_uri; }
+}
+
+server {
+    listen 443 ssl;
+    server_name ${APP_DOMAIN};
+
+    ssl_certificate /etc/letsencrypt/live/${APP_DOMAIN}/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/${APP_DOMAIN}/privkey.pem;
+
+    # Point to the shared build volume
+    root /var/www/frontend;
+    index index.html;
+
+    location / {
+        # This is vital for SPA (Single Page Application) routing
+        try_files $uri $uri/ /index.html;
+    }
+
+    location /api {
+        set $upstream_backend backend;
+        fastcgi_pass $upstream_backend:9000;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME /var/www/backend/public/index.php;
+        fastcgi_param HTTPS on;
+    }
+}

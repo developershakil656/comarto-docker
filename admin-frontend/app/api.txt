@@ -1,0 +1,98 @@
+{
+  "get_all": {
+    "request": {},
+    "response": {
+      "status": true,
+      "message": "Home top categories fetched successfully",
+      "data": [
+        {
+          "id": 1,
+          "category": {
+            "id": 1,
+            "name": "Agriculture",
+            "slug": "agriculture"
+          },
+          "recommended": [5, 8, 12],
+          "serial": 1,
+          "status": "active"
+        }
+      ]
+    }
+  },
+
+  "create": {
+    "request": {
+      "category_id": 1,
+      "recommended": [5, 8, 12],
+      "serial": 1,
+      "status": "active"
+    },
+    "response": {
+      "status": true,
+      "message": "Home top category created successfully",
+      "data": {
+        "id": 1,
+        "category": {
+          "id": 1,
+          "name": "Agriculture",
+          "slug": "agriculture"
+        },
+        "recommended": [5, 8, 12],
+        "serial": 1,
+        "status": "active"
+      }
+    }
+  },
+
+  "show": {
+    "request": {},
+    "response": {
+      "status": true,
+      "message": "Home top category details",
+      "data": {
+        "id": 1,
+        "category": {
+          "id": 1,
+          "name": "Agriculture",
+          "slug": "agriculture"
+        },
+        "recommended": [5, 8, 12],
+        "serial": 1,
+        "status": "active"
+      }
+    }
+  },
+
+  "update": {
+    "request": {
+      "category_id": 2,
+      "recommended": [10, 15, 18],
+      "serial": 2,
+      "status": "inactive"
+    },
+    "response": {
+      "status": true,
+      "message": "Home top category updated successfully",
+      "data": {
+        "id": 1,
+        "category": {
+          "id": 2,
+          "name": "Electronics",
+          "slug": "electronics"
+        },
+        "recommended": [10, 15, 18],
+        "serial": 2,
+        "status": "inactive"
+      }
+    }
+  },
+
+  "delete": {
+    "request": {},
+    "response": {
+      "status": true,
+      "message": "Home top category deleted successfully"
+    }
+  }
+
+}

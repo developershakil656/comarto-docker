@@ -1,0 +1,56 @@
+# ==========================================
+# 1. Docker & Infrastructure (Crucial)
+# ==========================================
+# Ignore the actual environment secrets
+env/*.env
+.env
+
+# Local-only Docker overrides (Keep this private to your machine)
+docker-compose.override.yml
+
+# Ignore Database and Search Engine data
+mysql/data/*
+meilisearch/data/*
+
+# Keep the data directories but ignore content
+!**/data/.gitkeep
+
+# ==========================================
+# 2. Global Node/Frontend (Vue.js)
+# ==========================================
+**/node_modules/
+**/dist/
+**/npm-debug.log*
+**/yarn-error.log*
+.parcel-cache
+.eslintcache
+
+# ==========================================
+# 3. Global PHP/Backend (Laravel)
+# ==========================================
+**/vendor/
+**/.phpunit.result.cache
+**/Homestead.json
+**/Homestead.yaml
+**/auth.json
+
+# Laravel Storage - Ignore logs and compiled views
+**/storage/*.key
+**/storage/framework/cache/data/*
+**/storage/framework/sessions/*
+**/storage/framework/testing/*
+**/storage/framework/views/*
+**/storage/logs/*.log
+
+# ==========================================
+# 4. OS & IDE Specific
+# ==========================================
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

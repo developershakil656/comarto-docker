@@ -1,0 +1,23 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Following extends Model
+{
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var list<string>
+     */
+    protected $fillable = [
+        'user_id',
+        'business_id'
+    ];
+
+    public function business()
+    {
+        return $this->belongsTo(Business::class, 'business_id', 'id');
+    }
+}

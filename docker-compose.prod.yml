@@ -1,0 +1,35 @@
+services:
+  nginx:
+    volumes:
+      - ./nginx/templates/prod:/etc/nginx/templates/:ro
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+      - /var/lib/letsencrypt:/var/lib/letsencrypt:ro
+      - /var/www/certbot:/var/www/certbot:ro
+      - ./admin-backend/app:/var/www/admin-backend:ro
+      - ./backend/app:/var/www/backend:ro
+      # Allow Nginx to serve the built frontend files
+      - ./frontend/app/dist:/var/www/frontend:ro
+      - ./admin-frontend/app/dist:/var/www/admin-frontend:ro
+
+  frontend:
+    image: alpine:latest
+    restart: "no" # Built files stay on host, container doesn't need to stay up
+    command: sh -c "echo 'Frontend built assets mounted directly to nginx.' && tail -f /dev/null"
+    volumes:
+      - ./frontend/app/dist:/app/dist
+
+  admin-frontend:
+    image: alpine:latest
+    restart: "no"
+    command: sh -c "echo 'Admin frontend built assets mounted directly to nginx.' && tail -f /dev/null"
+    volumes:
+      - ./admin-frontend/app/dist:/app/dist
+
+  backend:
+    restart: always
+
+  admin-backend:
+    restart: always
+
+  mysql:
+    restart: always

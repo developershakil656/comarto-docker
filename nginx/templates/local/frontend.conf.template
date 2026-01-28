@@ -1,0 +1,32 @@
+server {
+    listen 80;
+    server_name ${APP_DOMAIN};
+
+    # This is the internal Docker DNS IP
+    resolver 127.0.0.11 valid=30s;
+
+    location / {
+        # Proxy to the frontend container's dev server port
+        proxy_pass http://frontend:5173; 
+        
+        # Required for Hot Module Replacement (WebSockets)
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        
+        # Standard proxy headers
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    location /api {
+        # Using a variable prevents Nginx from crashing if the backend is down
+        set $upstream_backend backend; 
+        
+        fastcgi_pass $upstream_backend:9000;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME /var/www/backend/public/index.php;
+    }
+}

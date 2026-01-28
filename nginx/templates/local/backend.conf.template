@@ -1,0 +1,31 @@
+server {
+    listen 80;
+    server_name api.${APP_DOMAIN};
+
+    client_max_body_size 20M;
+
+    resolver 127.0.0.11 valid=30s;
+    set $upstream_backend backend;
+
+    root /var/www/backend/public;
+    index index.php index.html;
+
+    disable_symlinks off;
+
+    # Handle Laravel Storage
+    location /storage/ {
+        root /var/www/backend/public;
+        try_files $uri $uri/ =404;
+    }
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    location ~ \.php$ {
+        include fastcgi_params;
+        fastcgi_pass $upstream_backend:9000;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    }
+}
