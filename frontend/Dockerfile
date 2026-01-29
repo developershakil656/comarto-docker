@@ -11,4 +11,4 @@ FROM alpine:latest
 WORKDIR /var/www/frontend
 COPY --from=build-stage /app/dist .
 # This command keeps the container from exiting while copying build to shared volume
-CMD ["sh", "-c", "cp -at /shared_frontend/ . && tail -f /dev/null"]
+CMD ["sh", "-c", "cp -a ./. /shared_frontend/ && tail -f /dev/null"]

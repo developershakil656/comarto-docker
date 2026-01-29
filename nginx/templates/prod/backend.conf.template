@@ -20,7 +20,7 @@ server {
     set $upstream_backend backend;
 
     location /storage/ {
-        alias /var/www/backend/public/storage/;
+        alias /var/www/backend/storage/app/public/;
         try_files $uri $uri/ =404;
     }
 

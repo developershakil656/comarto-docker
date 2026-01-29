@@ -12,16 +12,12 @@ services:
       - admin_frontend_build:/var/www/admin-frontend:ro
 
   frontend:
-    image: alpine:latest
-    restart: "no" # Built files stay on host, container doesn't need to stay up
-    command: sh -c "echo 'Frontend built assets mounted directly to nginx.' && tail -f /dev/null"
+    restart: "always"
     volumes:
       - frontend_build:/shared_frontend
 
   admin-frontend:
-    image: alpine:latest
-    restart: "no"
-    command: sh -c "echo 'Admin frontend built assets mounted directly to nginx.' && tail -f /dev/null"
+    restart: "always"
     volumes:
       - admin_frontend_build:/shared_admin_frontend
 
