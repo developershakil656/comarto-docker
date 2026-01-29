@@ -19,6 +19,7 @@ services:
     container_name: backend
     volumes:
       - ./env/backend.env:/var/www/backend/.env
+      - ./backend/app:/var/www/backend
     command: php-fpm
 
   admin-backend:
@@ -26,6 +27,7 @@ services:
     container_name: admin-backend
     volumes:
       - ./env/admin-backend.env:/var/www/admin-backend/.env
+      - ./admin-backend/app:/var/www/admin-backend
     command: php-fpm
 
   frontend:
@@ -43,6 +45,11 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     
 
   phpmyadmin:
