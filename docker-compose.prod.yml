@@ -8,22 +8,22 @@ services:
       - ./admin-backend/app:/var/www/admin-backend:ro
       - ./backend/app:/var/www/backend:ro
       # Allow Nginx to serve the built frontend files
-      - ./frontend/app/dist:/var/www/frontend:ro
-      - ./admin-frontend/app/dist:/var/www/admin-frontend:ro
+      - frontend_build:/var/www/frontend:ro 
+      - admin_frontend_build:/var/www/admin-frontend:ro
 
   frontend:
     image: alpine:latest
     restart: "no" # Built files stay on host, container doesn't need to stay up
     command: sh -c "echo 'Frontend built assets mounted directly to nginx.' && tail -f /dev/null"
     volumes:
-      - ./frontend/app/dist:/app/dist
+      - frontend_build:/shared_frontend
 
   admin-frontend:
     image: alpine:latest
     restart: "no"
     command: sh -c "echo 'Admin frontend built assets mounted directly to nginx.' && tail -f /dev/null"
     volumes:
-      - ./admin-frontend/app/dist:/app/dist
+      - admin_frontend_build:/shared_admin_frontend
 
   backend:
     restart: always
