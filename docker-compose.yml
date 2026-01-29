@@ -19,7 +19,6 @@ services:
     container_name: backend
     volumes:
       - ./env/backend.env:/var/www/backend/.env
-      - ./backend/app:/var/www/backend
     command: php-fpm
 
   admin-backend:
@@ -27,7 +26,6 @@ services:
     container_name: admin-backend
     volumes:
       - ./env/admin-backend.env:/var/www/admin-backend/.env
-      - ./admin-backend/app:/var/www/admin-backend
     command: php-fpm
 
   frontend:

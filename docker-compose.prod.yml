@@ -27,9 +27,13 @@ services:
 
   backend:
     restart: always
+    volumes:
+      - ./backend/app/storage:/var/www/backend/storage
 
   admin-backend:
     restart: always
+    volumes:
+      - ./admin-backend/app/storage:/var/www/admin-backend/storage
 
   # mysql:
   #   restart: always
