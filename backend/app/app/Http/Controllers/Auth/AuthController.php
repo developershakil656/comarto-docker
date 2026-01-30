@@ -182,7 +182,7 @@ class AuthController extends Controller
         $appName = config('app.name');
 
         // Construct the message with the frontend URL
-        $message = "Your $appName verification code is: $otp";
+        $message = "Your $appName verification code is: $otp. This code is valid for 5 minutes. please do not share this code with anyone.";
 
         try {
             $response = Http::get('http://bulksmsbd.net/api/smsapi', [
