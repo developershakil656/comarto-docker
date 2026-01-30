@@ -1,7 +1,7 @@
 <template>
   <div class="space-y-6">
     <!-- Stats Cards -->
-    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
       <div class="bg-white rounded-2xl shadow-sm p-6 admin-card">
             <p class="text-sm font-medium text-gray-600">Total Users</p>
         <div class="flex items-center justify-between">
@@ -99,6 +99,20 @@
           </div>
         </div>
       </router-link>
+
+      <a href="https://bulksmsbd.net" target="_blank" class="bg-white rounded-2xl shadow-sm p-6 admin-card">
+        <p class="text-sm font-medium text-gray-600">SMS Balance</p>
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-3xl font-bold text-gray-900 mt-2">{{ formattedSmsBalance }}</p>
+          </div>
+          <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/>
+            </svg>
+          </div>
+        </div>
+      </a>
     </div>
 
     <!-- Today's Stats -->
@@ -219,10 +233,19 @@ import ActivityChart from '../components/ActivityChart.vue'
 
 const dashboardStore = useDashboardStore()
 
+// SMS Balance data
+const smsBalance = ref(0)
+const smsBalanceLoading = ref(false)
+
 // Dashboard data
 const dashboardSummary = computed(() => dashboardStore.summary)
 const todayStats = computed(() => dashboardStore.todayStats)
 const weeklyGraph = computed(() => dashboardStore.weeklyGraph)
+
+// Formatted SMS balance with 2 decimal places
+const formattedSmsBalance = computed(() => {
+  return smsBalance.value.toFixed(2)
+})
 
 // Prepare chart data for ActivityChart component
 const weeklyChartData = computed(() => {
@@ -293,7 +316,24 @@ const loadStats = async () => {
   }
 }
 
+const loadSmsBalance = async () => {
+  smsBalanceLoading.value = true
+  try {
+    const response = await fetch('https://bulksmsbd.net/api/getBalanceApi?api_key=HNLjU0stwIAXijmqBJkx')
+    const data = await response.json()
+    if (data.response_code === 202 && typeof data.balance !== 'undefined') {
+      smsBalance.value = parseFloat(data.balance)
+    }
+  } catch (error) {
+    console.error('Error loading SMS balance:', error)
+    smsBalance.value = 0
+  } finally {
+    smsBalanceLoading.value = false
+  }
+}
+
 onMounted(() => {
   loadStats()
+  loadSmsBalance()
 })
 </script>

@@ -44,7 +44,7 @@
             <label class="mb-1 font-medium text-gray-600">Full Name</label>
             <div class="flex items-center rounded-md border p-0.5 bg-gray-50">
                 <div class="flex-1 px-4 py-2 text-gray-900 truncate">
-                    {{ userData.name || 'Not provided' }}
+                    {{ userData.name || 'Guest' }}
                 </div>
                 <button @click="openNameModal()" class="px-3 py-1 text-sm text-primary hover:text-primary-dark transition-colors">
                     Edit
@@ -67,11 +67,11 @@
                 </button>
             </div>
             <div v-else class="flex flex-col space-y-3">
-                <div class="text-sm text-gray-500 italic">Please enter your email</div>
                 <button @click="openEmailModal()" class="inline-flex items-center px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark transition-colors w-fit">
                     <PlusIcon class="w-4 h-4 mr-2" />
                     Add Email
                 </button>
+                <div class="text-sm text-gray-500 italic">Please enter your email</div>
             </div>
             
             <!-- Toasts now used instead of inline messages -->

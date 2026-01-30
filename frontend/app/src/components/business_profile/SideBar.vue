@@ -278,7 +278,7 @@ export default {
 
             ---
             Reported by: ${this.user?.name || 'Anonymous User'}
-            User Email: ${this.user?.email || 'Not provided'}`;
+            User Email: ${this.user?.email || 'No number'}`;
 
         // 3. Construct the mailto link (using report@comarto.com as recommended)
         const mailtoLink = `mailto:report@comarto.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;

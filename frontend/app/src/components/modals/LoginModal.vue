@@ -259,7 +259,7 @@ export default {
             try {
                 this.loading = true;
                 // Use store action for OTP login
-                const {result, message} = await this.$store.dispatch('otpLogin', {
+                const {user, result, message} = await this.$store.dispatch('otpLogin', {
                     number: this.mobile,
                     otp: otpString
                 });
@@ -270,10 +270,11 @@ export default {
                 
 
                 // Close modal first
-                this.$emit('close');// Check if user name is null and show name modal
+                this.$emit('close');
+                // Check if user name is null and show name modal
 
-                if (result.user) {
-                    if(!result.user.name){
+                if (user) {
+                    if(!user.name){
                         this.showName = true;
                     }
                 }

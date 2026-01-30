@@ -1,7 +1,7 @@
 <template>
 <div class="hidden lg:flex bg-white shadow-lg rounded-lg p-4 sm:p-6 lg:p-8 flex-col items-center h-fit self-start w-full">
     <img :src="user?.profile || 'https://placehold.co/150x150/0b845c/white?text=Profile'" alt="Avatar" class="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 rounded-full border-2 sm:border-4 border-primary object-cover mb-3 sm:mb-4" />
-    <div class="text-lg sm:text-xl font-semibold mb-1 text-center">{{ user?.name || 'User' }}</div>
+    <div class="text-lg sm:text-xl font-semibold mb-1 text-center">{{ user?.name || 'Guest' }}</div>
     <div class="text-gray-500 text-xs sm:text-sm mb-4 sm:mb-6 text-center">{{ user?.email || user?.number || 'No number' }}</div>
     <nav class="w-full">
         <ul class="space-y-2 w-full">

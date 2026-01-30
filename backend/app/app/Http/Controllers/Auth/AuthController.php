@@ -15,6 +15,8 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
 use Vinkla\Hashids\Facades\Hashids;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
@@ -166,20 +168,56 @@ class AuthController extends Controller
         $validator = Validator::make($request->all(), [
             'number' => 'required|digits:11',
         ]);
-        if ($validator->fails())
+
+        if ($validator->fails()) {
             return error_response('validation error!', $validator->errors());
+        }
 
         $otp = rand(100000, 999999);
         $expiresAt = now()->addMinutes(5);
 
-        Otp::updateOrCreate(
-            ['number' => $request->number], // condition to find the record
-            ['otp' => $otp, 'expires_at' => $expiresAt]
-        );
+        // Fetch values from config
+        $apiKey = config('services.bulksms.api_key');
+        $senderId = config('services.bulksms.sender_id');
+        $appName = config('app.name');
 
-        return success_response('OTP has been sent to your number.', [
-            'otp' => $otp // Remove in production
-        ]);
+        // Construct the message with the frontend URL
+        $message = "Your $appName verification code is: $otp";
+
+        try {
+            $response = Http::get('http://bulksmsbd.net/api/smsapi', [
+                'api_key'  => $apiKey,
+                'type'     => 'text',
+                'number'   => '88'.$request->number,
+                'senderid' => $senderId,
+                'message'  => $message,
+            ]);
+
+            $data = $response->json();
+            $code = $data['response_code'] ?? null;
+
+            if ($code == 202) {
+                Otp::updateOrCreate(
+                    ['number' => $request->number],
+                    ['otp' => $otp, 'expires_at' => $expiresAt]
+                );
+
+                return success_response('OTP has been sent successfully.', ['otp' => $otp]);
+            }
+
+            // Handle specific error codes from your list
+            $errorMessage = match ($code) {
+                1001 => 'The phone number provided is invalid.',
+                1007 => 'SMS gateway balance is insufficient.',
+                1032 => 'Server IP not whitelisted. Please contact admin.',
+                default => $data['error_message'] ?? 'SMS provider error occurred.',
+            };
+
+            return error_response($errorMessage, ['vendor_code' => $code]);
+        } catch (\Exception $e) {
+            Log::error("BulkSMSBD Critical Error: " . $e->getMessage());
+            return error_response('Unable to connect to SMS gateway.');
+        }
     }
 
     #for check business number or login

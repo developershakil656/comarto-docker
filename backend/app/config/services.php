@@ -36,9 +36,14 @@ return [
     ],
     
     'google' => [
-    'client_id' => env('GOOGLE_CLIENT_ID'),
-    'client_secret' => env('GOOGLE_CLIENT_SECRET'),
-    'redirect' => env('GOOGLE_REDIRECT_URI'),
-],
+        'client_id' => env('GOOGLE_CLIENT_ID'),
+        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+        'redirect' => env('GOOGLE_REDIRECT_URI'),
+    ],
+
+    'bulksms' => [
+        'api_key' => env('BULKSMS_API_KEY'),
+        'sender_id' => env('BULKSMS_SENDER_ID'),
+    ],
 
 ];

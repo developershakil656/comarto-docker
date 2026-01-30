@@ -4,7 +4,7 @@
       <button @click="closeSidebar" class="absolute top-3 text-gray-600 hover:text-gray-800 bg-gray-200 p-2 rounded"><ChevronLeftIcon class="h-5"/></button>
       <div class="flex flex-col items-center mt-8 pb-4 border-b">
         <img :src="user?.profile || 'https://placehold.co/150x150/0b845c/white?text=Profile'" class="w-28 h-28 rounded-full object-cover border-2 border-gray-300" alt="Profile" />
-        <div class="mt-2 font-semibold text-base md:text-lg">{{ user?.name || 'User' }}</div>
+        <div class="mt-2 font-semibold text-base md:text-lg">{{ user?.name || 'Guest' }}</div>
         <div class="text-xs sm:text-sm line-clamp-1 text-gray-500">{{ user?.email || user?.number || '' }}</div>
       </div>
       <div class="">
