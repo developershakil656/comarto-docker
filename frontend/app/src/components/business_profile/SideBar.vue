@@ -127,7 +127,7 @@
           💡 Have feedback or spotted an issue? <br />
           Help us keep this information accurate and relevant for you!
         </p>
-        <p class="text-primary mt-2">report@comarto.com</p>
+        <p class="text-primary mt-2">comarto.com@gmail.com</p>
         <button
           @click="reportError"
           class="py-2 px-4 text-primary font-semibold border border-primary rounded-md mt-3 hover:bg-primary/15 duration-200 ease-in-out"
@@ -280,8 +280,7 @@ export default {
             Reported by: ${this.user?.name || 'Anonymous User'}
             User Email: ${this.user?.email || 'No number'}`;
 
-        // 3. Construct the mailto link (using report@comarto.com as recommended)
-        const mailtoLink = `mailto:report@comarto.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        const mailtoLink = `mailto:comarto.com@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
         // 4. Trigger the mail client
         window.location.href = mailtoLink;

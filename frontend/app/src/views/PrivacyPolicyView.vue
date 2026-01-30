@@ -61,7 +61,7 @@
         <h2 class="text-2xl font-semibold mt-8 mb-4">Contact Us</h2>
         <p class="mb-4">
           If you have any questions about this privacy policy, please contact us at:
-          <a href="mailto:privacy@comarto.com" class="text-blue-600 hover:underline">privacy@comarto.com</a>
+          <a href="mailto:comarto.com@gmail.com" class="text-blue-600 hover:underline">comarto.com@gmail.com</a>
         </p>
       </div>
     </div>

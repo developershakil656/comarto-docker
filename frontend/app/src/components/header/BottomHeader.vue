@@ -86,7 +86,7 @@ export default {
             this.showInquiryModal = false;
         },
         openContactEmail() {
-            window.location.href = 'mailto:contact@comarto.com';
+            window.location.href = 'mailto:comarto.com@gmail.com';
         },
     },
 }

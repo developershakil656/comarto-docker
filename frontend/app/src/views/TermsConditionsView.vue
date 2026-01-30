@@ -78,10 +78,81 @@
           taking effect.
         </p>
         
+        <h2 class="text-2xl font-semibold mt-8 mb-4">Refund Policy</h2>
+        <p class="mb-4">
+          Please note that we generally do not provide refunds for services rendered through our platform.
+          This policy applies to all purchases and services provided through Comarto.
+        </p>
+        
+        <h3 class="text-xl font-semibold mt-6 mb-3">Exception for Technical Issues</h3>
+        <p class="mb-4">
+          Refunds may be considered on a case-by-case basis for genuine technical issues, specifically:
+        </p>
+        <ul class="list-disc pl-6 mb-4">
+          <li>Duplicate charges resulting from network connectivity problems</li>
+          <li>Payment processing errors due to system technical failures</li>
+          <li>Other verifiable technical malfunctions that result in unintended charges</li>
+        </ul>
+        <p class="mb-4">
+          <strong>Note:</strong> All other services, including completed business listings, lead credits, 
+          customized services, and free trial periods are non-refundable once delivered or utilized.
+        </p>
+        
+        <h3 class="text-xl font-semibold mt-6 mb-3">Refund Process</h3>
+        <p class="mb-4">
+          To request a refund, please contact our support team with the following information:
+        </p>
+        <ul class="list-disc pl-6 mb-4">
+          <li>Order/transaction reference number</li>
+          <li>Reason for refund request</li>
+          <li>Supporting documentation (if applicable)</li>
+        </ul>
+        <p class="mb-4">
+          Refund requests are typically processed within 5-7 business days. Once approved, refunds will be 
+          credited to the original payment method within 3-5 business days.
+        </p>
+        
+        <h3 class="text-xl font-semibold mt-6 mb-3">Non-Refundable Services</h3>
+        <p class="mb-4">
+          The following items and services are strictly non-refundable:
+        </p>
+        <ul class="list-disc pl-6 mb-4">
+          <li>Completed business listing services</li>
+          <li>Lead credits once purchased and available for use</li>
+          <li>Customized services already delivered</li>
+          <li>Free trial periods</li>
+          <li>Services that have already been rendered or activated</li>
+          <li>Change of mind or business decisions</li>
+          <li>User error in service selection or configuration</li>
+        </ul>
+        
+        <h3 class="text-xl font-semibold mt-6 mb-3">Payment Methods</h3>
+        <p class="mb-4">
+          Refunds will be processed using the same payment method used for the original transaction. 
+          In cases where the original payment method is no longer available, alternative arrangements 
+          will be made on a case-by-case basis.
+        </p>
+        
+        <h3 class="text-xl font-semibold mt-6 mb-3">Technical Issue Reporting</h3>
+        <p class="mb-4">
+          If you believe you have experienced a technical issue that may qualify for consideration, 
+          please contact our support team with detailed documentation:
+        </p>
+        <ul class="list-disc pl-6 mb-4">
+          <li>Transaction reference numbers</li>
+          <li>Screenshots of the technical issue</li>
+          <li>Timestamps of the occurrence</li>
+          <li>Payment confirmation details</li>
+        </ul>
+        <p class="mb-4">
+          Technical issue reports are reviewed within 3-5 business days. If approved, refunds for 
+          qualifying technical issues will be processed to the original payment method within 7-10 business days.
+        </p>
+        
         <h2 class="text-2xl font-semibold mt-8 mb-4">Contact Us</h2>
         <p class="mb-4">
           If you have any questions about these Terms and Conditions, please contact us at:
-          <a href="mailto:legal@comarto.com" class="text-blue-600 hover:underline">legal@comarto.com</a>
+          <a href="mailto:comarto.com@gmail.com" class="text-blue-600 hover:underline">comarto.com@gmail.com</a>
         </p>
       </div>
     </div>
@@ -102,9 +173,9 @@ export default {
     const { setMetaTags } = useSEO();
     setMetaTags(
       'Terms & Conditions - Comarto',
-      'Read Comarto\'s terms and conditions governing the use of our B2B marketplace platform and services in Bangladesh.',
+      'Read Comarto\'s terms and conditions and refund policy governing the use of our B2B marketplace platform and services in Bangladesh.',
       null,
-      'Comarto, terms and conditions, user agreement, B2B, marketplace, Bangladesh'
+      'Comarto, terms and conditions, refund policy, user agreement, B2B, marketplace, Bangladesh'
     );
   }
 }

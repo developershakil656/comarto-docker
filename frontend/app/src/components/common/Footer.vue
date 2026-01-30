@@ -10,10 +10,13 @@
           </p>
           <div class="flex space-x-4">
             <!-- Social Icons -->
-            <a href="https://facebook.com/comarto" target="_blank" rel="noopener noreferrer" class="text-gray-600 hover:text-primary transition-colors">
+            <a href="https://facebook.com/comartobd" target="_blank" rel="noopener noreferrer" class="text-gray-600 hover:text-primary transition-colors">
               <img src="@/assets/icons/svgs/FacebookIcon.svg" alt="Facebook" class="w-6 h-6" />
             </a>
-            <a href="https://twitter.com/comarto" target="_blank" rel="noopener noreferrer" class="text-gray-600 hover:text-primary transition-colors">
+            <a href="https://wa.me/8801919215182" target="_blank" rel="noopener noreferrer" class="text-gray-600 hover:text-primary transition-colors">
+              <img src="@/assets/icons/svgs/WhatsappIcon.svg" alt="WhatsApp" class="w-6 h-6" />
+            </a>
+            <!-- <a href="https://twitter.com/comarto" target="_blank" rel="noopener noreferrer" class="text-gray-600 hover:text-primary transition-colors">
               <img src="@/assets/icons/svgs/XIcon.svg" alt="X (Twitter)" class="w-6 h-6" />
             </a>
             <a href="https://instagram.com/comarto" target="_blank" rel="noopener noreferrer" class="text-gray-600 hover:text-primary transition-colors">
@@ -21,7 +24,7 @@
             </a>
             <a href="https://linkedin.com/company/comarto" target="_blank" rel="noopener noreferrer" class="text-gray-600 hover:text-primary transition-colors">
               <img src="@/assets/icons/svgs/LinkedInIcon.svg" alt="LinkedIn" class="w-6 h-6" />
-            </a>
+            </a> -->
           </div>
         </div>
 
@@ -42,7 +45,6 @@
           <ul class="space-y-2">
             <li><router-link to="/privacy-policy" class="text-gray-600 hover:text-primary transition-colors">Privacy Policy</router-link></li>
             <li><router-link to="/terms-conditions" class="text-gray-600 hover:text-primary transition-colors">Terms & Conditions</router-link></li>
-            <li><router-link to="/refund-policy" class="text-gray-600 hover:text-primary transition-colors">Refund Policy</router-link></li>
             <li><router-link to="/disclaimer" class="text-gray-600 hover:text-primary transition-colors">Disclaimer</router-link></li>
           </ul>
         </div>
@@ -53,7 +55,7 @@
           <ul class="space-y-2 text-gray-600">
             <li class="flex items-start">
               <EnvelopeIcon class="w-5 h-5 mr-2 mt-0.5 flex-shrink-0" />
-              <span>contact@comarto.com</span>
+              <span>comarto.com@gmail.com</span>
             </li>
             <li class="flex items-start">
               <PhoneIcon class="w-5 h-5 mr-2 mt-0.5 flex-shrink-0" />
@@ -76,7 +78,6 @@
           <div class="flex space-x-6">
             <router-link to="/privacy-policy" class="text-gray-600 hover:text-primary text-sm transition-colors">Privacy Policy</router-link>
             <router-link to="/terms-conditions" class="text-gray-600 hover:text-primary text-sm transition-colors">Terms & Conditions</router-link>
-            <router-link to="/refund-policy" class="text-gray-600 hover:text-primary text-sm transition-colors">Refund Policy</router-link>
             <router-link to="/disclaimer" class="text-gray-600 hover:text-primary text-sm transition-colors">Disclaimer</router-link>
           </div>
         </div>

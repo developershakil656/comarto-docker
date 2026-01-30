@@ -39,7 +39,6 @@ import BuyLeadCredits from '../views/business/BuyLeadCredits.vue'
 import MakeReviewView from '../views/MakeReviewView.vue'
 import PrivacyPolicyView from '../views/PrivacyPolicyView.vue'
 import TermsConditionsView from '../views/TermsConditionsView.vue'
-import RefundPolicyView from '../views/RefundPolicyView.vue'
 import DisclaimerView from '../views/DisclaimerView.vue'
 
 const routes = [
@@ -94,7 +93,6 @@ const routes = [
       // Legal Pages
       { path: 'privacy-policy', name: 'privacy-policy', component: PrivacyPolicyView },
       { path: 'terms-conditions', name: 'terms-conditions', component: TermsConditionsView },
-      { path: 'refund-policy', name: 'refund-policy', component: RefundPolicyView },
       { path: 'disclaimer', name: 'disclaimer', component: DisclaimerView },
 
       // Business Profile & Reviews
