@@ -120,6 +120,7 @@
                 </button>
                 <button
                   @click="openWhatsApp"
+                  v-if="businessData?.alternate_number"
                   class="text-primary gap-1 py-[5px] rounded-md items-center flex px-2 text-sm font-medium border-primary border hover:bg-primary/15 transition-all"
                 >
                   <img
@@ -191,7 +192,7 @@
                   }}
                 </button>
                 <button
-                  @click="openWhatsApp"
+                  @click="openWhatsApp" v-if="businessData?.alternate_number"
                   class="text-primary gap-1 py-[5px] rounded-md items-center flex px-2 text-sm font-medium border-primary border hover:bg-primary/15 transition-all"
                 >
                   <img

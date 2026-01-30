@@ -157,7 +157,8 @@
             </button>
             <button
               class="text-primary px-4 py-1 rounded-md flex items-center gap-1 text-xs md:text-sm font-medium border-primary border hover:bg-primary/15 transition-all"
-              @click.stop.prevent="whatsappBusiness(product.business.number)"
+              @click.stop.prevent="whatsappBusiness(product.business.alternate_number)"
+              v-if="product.business.alternate_number"
             >
               <img
                 src="@/assets/icons/svgs/WhatsappIcon.svg"

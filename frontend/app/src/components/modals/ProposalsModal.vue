@@ -109,15 +109,6 @@
                         <ClipboardDocumentIcon class="w-4 h-4" />
                       </button>
                     </div>
-                    <div v-if="proposal.alternate_number" class="flex items-center gap-2">
-                      <PhoneIcon class="w-4 h-4 text-gray-400" />
-                      <span class="text-xs md:text-sm text-gray-600">{{ proposal.alternate_number }}</span>
-                      <button @click="copyToClipboard(proposal.alternate_number)"
-                        class="p-1 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded transition"
-                        title="Copy number">
-                        <ClipboardDocumentIcon class="w-4 h-4" />
-                      </button>
-                    </div>
                   </div>
                 </div>
 
@@ -127,6 +118,12 @@
                     class="inline-flex items-center px-3 py-2 border border-transparent text-sm md:text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 w-full md:w-auto">
                     <PhoneIcon class="w-4 h-4 mr-1" />
                     Call
+                  </button>
+
+                  <button v-if="proposal.alternate_number" @click="openWhatsApp(proposal.alternate_number)"
+                    class="inline-flex items-center px-3 py-2 border border-transparent text-sm md:text-base font-medium rounded-md text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-400 w-full md:w-auto">
+                    <img src="@/assets/icons/svgs/WhatsappIcon.svg" class="w-4 h-4 mr-1" alt="WhatsApp" />
+                    WhatsApp
                   </button>
 
                   <button @click="sendMessage(proposal)"
@@ -212,6 +209,13 @@ export default {
       } catch (e) {
         push.error('Failed to copy');
       }
+    },
+
+    openWhatsApp(phoneNumber) {
+      const message = `Hi, I'm interested in your business proposal. Can you provide more information?`;
+      const cleanedNumber = phoneNumber.replace(/\D/g, '');
+      const whatsappUrl = `https://wa.me/${cleanedNumber}?text=${encodeURIComponent(message)}`;
+      window.open(whatsappUrl, '_blank');
     },
 
     async sendMessage(proposal) {

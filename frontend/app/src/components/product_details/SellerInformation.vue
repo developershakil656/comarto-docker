@@ -41,7 +41,7 @@
         >
           <PhoneIcon class="inline-block h-4" />{{ business.number || 'N/A' }}
         </button>
-        <button @click="openWhatsApp" class="text-primary gap-1 w-full py-1 rounded-md flex mb-2 justify-center items-center text-sm font-medium border-primary border hover:bg-primary/15 transition-all">
+        <button @click="openWhatsApp" v-if="business.alternate_number" class="text-primary gap-1 w-full py-1 rounded-md flex mb-2 justify-center items-center text-sm font-medium border-primary border hover:bg-primary/15 transition-all">
           <img src="@/assets/icons/svgs/WhatsappIcon.svg" class="w-6" alt="WhatsApp" />
           WhatsApp
         </button>

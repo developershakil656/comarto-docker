@@ -16,7 +16,7 @@
             }}
           </button>
         </div>
-        <div class="border-b" v-if="businessData?.alternate_number">
+        <!-- <div class="border-b" v-if="businessData?.alternate_number">
           <button
             @click="callPhone(businessData.alternate_number)"
             class="flex items-center gap-2 py-2.5 px-2 my-1 cursor-pointer hover:bg-primary/15 duration-200 ease-in-out rounded-md w-full text-left"
@@ -25,10 +25,11 @@
               businessData.alternate_number
             }}
           </button>
-        </div>
+        </div> -->
         <div class="border-b">
           <button
             @click="openWhatsApp"
+            v-if="businessData?.alternate_number"
             class="flex items-center gap-2 py-2.5 px-2 my-1 cursor-pointer hover:bg-primary/15 duration-200 ease-in-out rounded-md w-full text-left"
           >
             <img

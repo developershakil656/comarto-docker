@@ -30,7 +30,7 @@
                 type="text"
                 name="searchKeyword"
                 v-model="searchKeyword"
-                placeholder='Search "SONALIKA Tractor"'
+                placeholder='export quality denim in savar'
                 class="outline-none text-xs md:text-sm flex-1 p-2 pl-4 placeholder-gray-500"
                 @keyup.enter="onSearch"
               />
@@ -156,7 +156,7 @@
           type="text"
           name="searchKeyword"
           v-model="searchKeyword"
-          placeholder='Search "SONALIKA Tractor"'
+          placeholder='export quality denim in savar'
           class="outline-none text-xs md:text-sm flex-1 p-2 pl-4 placeholder-gray-500"
           @keyup.enter="onSearch"
         />
