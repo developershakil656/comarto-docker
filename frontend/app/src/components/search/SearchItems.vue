@@ -179,6 +179,7 @@
                   }}
                 </button>
                 <a
+                  v-if="item.business.alternate_number"
                   @click.stop
                   :href="`https://wa.me/${
                     item.business.alternate_number
@@ -221,6 +222,7 @@
                 }}
               </button>
               <a
+                v-if="item.business.alternate_number"
                 @click.stop
                 :href="`https://wa.me/${
                   item.business.alternate_number
