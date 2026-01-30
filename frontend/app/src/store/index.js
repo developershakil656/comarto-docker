@@ -957,9 +957,18 @@ export default createStore({
         commit("SET_AUTH_LOADING", false);
       }
     },
-    logout({ commit }) {
-      commit("SET_USER", null);
-      commit("SET_TOKEN", null);
+    async logout({ commit }) {
+      try {
+        // Call the backend logout API to invalidate the session
+        await axios.post("/user/logout");
+      } catch (error) {
+        console.error("Error during logout API call:", error);
+        // Continue with local logout even if API call fails
+      } finally {
+        // Clear local state regardless of API call outcome
+        commit("SET_USER", null);
+        commit("SET_TOKEN", null);
+      }
     },
 
     // Check if user is authenticated by verifying token
