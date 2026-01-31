@@ -1,14 +1,17 @@
 server {
     listen 80;
     server_name ${APP_DOMAIN};
-    location /.well-known/acme-challenge/ { root /var/www/certbot; }
-    location / { return 301 https://$host$request_uri; }
+    location /.well-known/acme-challenge/ { 
+        root /var/www/certbot;
+    }
+    location / { 
+        return 301 https://$host$request_uri; 
+    }
 }
 
 server {
     listen 443 ssl;
     server_name ${APP_DOMAIN};
-
     ssl_certificate /etc/letsencrypt/live/${APP_DOMAIN}/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/${APP_DOMAIN}/privkey.pem;
 
@@ -24,10 +27,11 @@ server {
     index index.html;
 
     # Enable gzip compression
-    gzip on;
-    gzip_vary on;
-    gzip_min_length 1024;
-    gzip_proxied expired no-cache no-store private must-revalidate auth;
+    gzip on; 
+    gzip_vary on; 
+    gzip_min_length 1024; 
+    # FIXED: Removed 'must-revalidate' which is not a valid gzip_proxied parameter
+    gzip_proxied expired no-cache no-store private auth; 
     gzip_types text/plain text/css text/xml text/javascript application/x-javascript application/xml+rss application/json;
 
     # Cache static assets
@@ -52,13 +56,12 @@ server {
     # Cache HTML files for shorter period
     location ~* \.html$ {
         expires 1h;
-        add_header Cache-Control "public, must-revalidate";
+        add_header Cache-Control "public, must-revalidate"; 
     }
 
     location / {
         # This is vital for SPA (Single Page Application) routing
-        try_files $uri $uri/ /index.html;
-        
+        try_files $uri $uri/ /index.html; 
         # Set cache control for index.html
         expires -1;
         add_header Cache-Control "no-cache, no-store, must-revalidate";
