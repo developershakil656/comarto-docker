@@ -35,7 +35,7 @@
                 <label class="font-medium text-gray-700 mb-1">Business Profile Picture</label>
                 <div class="relative group">
                     <div class="w-32 h-32 bg-gray-100 flex items-center justify-center overflow-hidden border border-gray-300 rounded-lg relative">
-                        <img v-if="profilePreview || currentProfile" :src="profilePreview || currentProfile" alt="Profile Preview" class="object-cover w-full h-full" />
+                        <OptimizedImage v-if="profilePreview || currentProfile" :src="profilePreview || currentProfile" alt="Profile Preview" class="object-cover w-full h-full" />
                         <CameraIcon v-else class="w-12 h-12 text-gray-400" />
                         
                         <!-- Loading overlay when updating -->
@@ -260,6 +260,7 @@ import { mapGetters, mapActions } from 'vuex';
 import { push } from 'notivue';
 import { ref, computed, watch, nextTick } from 'vue';
 import { validateImageFile } from '@/utils/imageValidation.js';
+import OptimizedImage from '@/components/common/OptimizedImage.vue';
 
 export default {
     components: {
@@ -276,7 +277,8 @@ export default {
         CheckCircleIcon,
         ExclamationCircleIcon,
         PencilIcon,
-        EyeIcon
+        EyeIcon,
+        OptimizedImage
     },
     data() {
         return {

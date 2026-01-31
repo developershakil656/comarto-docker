@@ -1,7 +1,7 @@
 <template>
 <div class="mx-auto mt-4 h-fit">
     <!-- navigation tabs -->
-    <div class="bg-white sticky top-16 z-[51] pt-2 md:px-6">
+    <div class="bg-white sticky top-0 md:top-16 z-[51] pt-2 md:px-6">
         <button v-if="showLeftArrow" @click="scrollTabs('left')" class="absolute left-0 top-1/2 -translate-y-1/2 bg-white/80 backdrop-blur-sm rounded-full p-1 shadow-md z-10 md:hidden">
             <ChevronLeftIcon class="h-6 w-6 text-gray-700" />
         </button>

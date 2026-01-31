@@ -162,7 +162,7 @@
 
     <!-- Register Business Promo Box -->
     <div class="w-full flex justify-center">
-      <img src="https://placehold.co/325x325" alt="Register Business" class="rounded-md shadow" />
+      <OptimizedImage src="https://placehold.co/325x325" alt="Register Business" class="rounded-md shadow" />
     </div>
 
     <!-- Quote Box -->
@@ -215,6 +215,7 @@ import {
 import axios from 'axios';
 import InquiryModal from '../modals/InquiryModal.vue';
 import { useModalScroll } from '@/composables/useModalScroll';
+import OptimizedImage from '@/components/common/OptimizedImage.vue';
 export default {
   components: {
     UserIcon,
@@ -222,6 +223,7 @@ export default {
     CubeIcon,
     TruckIcon,
     ChevronUpIcon,
+    OptimizedImage,
     InquiryModal
   },
   emits: ['filter-change', 'close'],

@@ -15,7 +15,7 @@
               <div
                 class="rounded-lg border content-center bg-green-50 max-h-44 max-w-44 md:max-h-52 md:max-w-52 product-image overflow-hidden"
               >
-                <img
+                <OptimizedImage
                   :src="
                     businessData.business_profile ||
                     'https://placehold.co/200x200'
@@ -294,6 +294,7 @@
 // import MakeReview from "@/MakeReview.vue";
 import MakeReview from "@/components/MakeReview.vue";
 import VerifiedBadge from "@/components/common/VerifiedBadge.vue";
+import OptimizedImage from '@/components/common/OptimizedImage.vue';
 import { mapGetters, mapActions } from "vuex";
 import {
   StarIcon,
@@ -325,6 +326,7 @@ export default {
     ChatBubbleLeftRightIcon,
     ChevronLeftIcon,
     ChevronRightIcon,
+    OptimizedImage
   },
   props: {
     businessData: {

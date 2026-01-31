@@ -5,9 +5,9 @@
             delay: 5000,
             disableOnInteraction: false
         }" class="bg-gray-300 rounded-lg text-center main-swiper container">
-            <swiper-slide><img class="w-full h-full object-cover" src="https://admin-api.comarto.com/storage/sliders/wholesale-business-from-teknaf-to-tetuliya.png" alt=""></swiper-slide>
-            <swiper-slide><img class="w-full h-full object-cover" src="https://admin-api.comarto.com/storage/sliders/suppliers-in-bangladesh.png" alt=""></swiper-slide>
-            <swiper-slide><img class="w-full h-full object-cover" src="https://admin-api.comarto.com/storage/sliders/local-wholesale-businesses-in-bangladesh.png" alt=""></swiper-slide>
+            <swiper-slide><OptimizedImage class="w-full h-full object-cover" src="https://admin-api.comarto.com/storage/sliders/wholesale-business-from-teknaf-to-tetuliya.png" alt="" /></swiper-slide>
+            <swiper-slide><OptimizedImage class="w-full h-full object-cover" src="https://admin-api.comarto.com/storage/sliders/suppliers-in-bangladesh.png" alt="" /></swiper-slide>
+            <swiper-slide><OptimizedImage class="w-full h-full object-cover" src="https://admin-api.comarto.com/storage/sliders/local-wholesale-businesses-in-bangladesh.png" alt="" /></swiper-slide>
         </swiper>
     </div>
 </div>
@@ -21,6 +21,7 @@ import {
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import OptimizedImage from '@/components/common/OptimizedImage.vue';
 import {
     Navigation,
     Autoplay,
@@ -30,7 +31,8 @@ export default {
     components: {
         Swiper,
         SwiperSlide,
-        Pagination
+        Pagination,
+        OptimizedImage
     },
     setup() {
         return {

@@ -27,7 +27,7 @@
                         @click="navigateToCategory(category.slug, category.id)">
                         <!-- Image -->
                         <div class="w-full h-36 md:h-48 bg-primary/10 flex-shrink-0">
-                            <img :src="category.icon || 'https://placehold.co/150/F5F5DC/808080?text=No+Image'"
+                            <OptimizedImage :src="category.icon || 'https://placehold.co/150/F5F5DC/808080?text=No+Image'"
                                 :alt="category.name" class="w-full h-full object-cover object-center" />
                         </div>
 
@@ -52,6 +52,7 @@ import {
     ChevronLeftIcon,
     ChevronRightIcon,
 } from "@heroicons/vue/24/solid";
+import OptimizedImage from '@/components/common/OptimizedImage.vue';
 import {
     Swiper,
     SwiperSlide

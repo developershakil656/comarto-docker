@@ -91,7 +91,7 @@
             </div>
           </div>
           <div class="w-[550px] -ml-36">
-            <img  src="./../assets/images/comarto.com-create-business.png" alt="Man Thumbs Up"/>
+            <OptimizedImage :src="businessImage" alt="Man Thumbs Up"/>
           </div>
           <!-- Replace the src with your own image if available -->
         </div>
@@ -169,6 +169,8 @@ import { CheckCircleIcon, DevicePhoneMobileIcon, UserIcon, BuildingOffice2Icon, 
 import { BuildingOfficeIcon, MagnifyingGlassIcon } from '@heroicons/vue/24/outline';
 import MobileBottomNavigation from '@/components/common/MobileBottomNavigation.vue'
 import Swal from 'sweetalert2';
+import OptimizedImage from '@/components/common/OptimizedImage.vue';
+import businessImage from '@/assets/images/comarto.com-create-business.png';
 
 const router = useRouter();
 const store = useStore();

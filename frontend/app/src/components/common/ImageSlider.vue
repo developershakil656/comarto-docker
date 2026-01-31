@@ -31,7 +31,7 @@
             @click="openLightbox(index)"
           >
             <div class="relative">
-              <img 
+              <OptimizedImage 
                 :src="image.url" 
                 :alt="`Image ${index + 1}`"
                 class="w-24 h-24 object-cover rounded-lg border border-gray-200 group-hover/item:border-primary transition-all duration-300 group-hover/item:scale-105"
@@ -88,7 +88,7 @@
         <div class="flex flex-col items-center">
           <!-- Image Viewer -->
           <div class="w-full">
-            <img 
+            <OptimizedImage 
               :src="currentImageUrl" 
               :alt="`Image ${lightboxIndex + 1}`"
               class="max-w-full max-h-[70vh] object-contain mx-auto rounded-lg"
@@ -109,7 +109,7 @@
               :class="lightboxIndex === index ? 'border-primary' : 'border-gray-600 hover:border-primary'"
             >
               <div class="w-16 h-16 bg-gray-800">
-                <img 
+                <OptimizedImage 
                   :src="image.url" 
                   :alt="`Thumbnail ${index + 1}`"
                   class="w-full h-full object-cover"
@@ -130,6 +130,7 @@ import {
   MagnifyingGlassPlusIcon,
   XMarkIcon
 } from '@heroicons/vue/24/outline';
+import OptimizedImage from '@/components/common/OptimizedImage.vue';
 export default {
   name: 'ImageSlider',
   props: {
@@ -150,7 +151,8 @@ export default {
     ChevronLeftIcon,
     ChevronRightIcon,
     MagnifyingGlassPlusIcon,
-    XMarkIcon
+    XMarkIcon,
+    OptimizedImage
   },
   data() {
     return {

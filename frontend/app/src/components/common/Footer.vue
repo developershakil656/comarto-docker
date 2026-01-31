@@ -88,13 +88,15 @@
 
 <script>
 import { EnvelopeIcon, PhoneIcon, MapPinIcon } from '@heroicons/vue/24/outline';
+import OptimizedImage from '@/components/common/OptimizedImage.vue';
 
 export default {
   name: 'Footer',
   components: {
     EnvelopeIcon,
     PhoneIcon,
-    MapPinIcon
+    MapPinIcon,
+    OptimizedImage
   },
   computed: {
     currentYear() {

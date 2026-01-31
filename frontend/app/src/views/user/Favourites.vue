@@ -46,7 +46,7 @@
       <div
           class="rounded-lg border content-center bg-green-50 max-h-44 max-w-44 md:max-h-52 md:max-w-52 product-image overflow-hidden"
         >
-          <img
+          <OptimizedImage
             :src="product.feature_image || 'https://placehold.co/200x200'"
             :alt="product.name"
             class="w-full h-full object-cover transition-transform duration-500 ease-in-out transform group-hover:scale-110"
@@ -230,6 +230,7 @@
 import { mapGetters, mapActions } from "vuex";
 import StarRating from "@/components/StarRating.vue";
 import VerifiedBadge from "@/components/common/VerifiedBadge.vue";
+import OptimizedImage from '@/components/common/OptimizedImage.vue';
 import {
   HeartIcon,
   BuildingOfficeIcon,
@@ -250,6 +251,7 @@ export default {
     ReceiptPercentIcon,
     MapPinIcon,
     StarRating,
+    OptimizedImage,
     VerifiedBadge,
     ChevronLeftIcon,
     ChevronRightIcon,

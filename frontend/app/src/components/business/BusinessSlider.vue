@@ -5,7 +5,7 @@
         <ChevronLeftIcon class="w-5 h-5" />
       </button>
       <div class="flex flex-col items-center mt-8 pb-4 border-b">
-        <img :src="myBusiness?.business_profile || 'https://placehold.co/150x150/0b845c/white?text=Profile'" class="w-28 h-28 rounded-full object-cover border-2 border-gray-300" alt="Profile" />
+        <OptimizedImage :src="myBusiness?.business_profile || 'https://placehold.co/150x150/0b845c/white?text=Profile'" class="w-28 h-28 rounded-full object-cover border-2 border-gray-300" alt="Profile" />
         <div class="mt-2 font-semibold text-base md:text-lg">{{ myBusiness.business_name }}</div>
         <div class="text-xs sm:text-sm line-clamp-1 text-gray-500">{{ myBusiness.name }}</div>
       </div>
@@ -95,6 +95,7 @@ import {
   InboxIcon,
   BanknotesIcon
 } from '@heroicons/vue/24/outline';
+import OptimizedImage from '@/components/common/OptimizedImage.vue';
 
 export default {
   name: 'BusinessSlider',
@@ -114,7 +115,8 @@ export default {
     HomeIcon,
     ArrowLeftOnRectangleIcon,
     InboxIcon,
-    BanknotesIcon
+    BanknotesIcon,
+    OptimizedImage
   },
   data() {
     return {

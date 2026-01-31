@@ -38,7 +38,7 @@
             class="items-center cursor-pointer hidden md:flex"
             @click="sidebarOpen = true"
           >
-            <img
+            <OptimizedImage
               :src="myBusiness?.business_profile || 'https://placehold.co/150x150/0b845c/white?text=Profile'"
               alt="Profile"
               class="w-9 h-9 rounded-full object-cover border border-gray-300"
@@ -65,6 +65,7 @@ import {
   EnvelopeIcon
 } from '@heroicons/vue/24/outline'
 import BusinessSlider from '@/components/business/BusinessSlider.vue'
+import OptimizedImage from '@/components/common/OptimizedImage.vue'
 
 export default {
   name: 'BusinessHeader',
@@ -84,7 +85,8 @@ export default {
     ChevronLeftIcon,
     Squares2X2Icon,
     EnvelopeIcon,
-    BusinessSlider
+    BusinessSlider,
+    OptimizedImage
   },
 
   data() {

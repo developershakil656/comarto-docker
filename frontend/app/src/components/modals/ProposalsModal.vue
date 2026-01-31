@@ -66,7 +66,7 @@
               <div class="flex flex-col md:flex-row md:items-start md:space-x-4 gap-4">
                 <!-- Business Profile Image -->
                 <div class="flex-shrink-0">
-                  <img :src="proposal.business_profile || 'https://placehold.co/80x80/0b845c/white?text=Business'"
+                  <OptimizedImage :src="proposal.business_profile || 'https://placehold.co/80x80/0b845c/white?text=Business'"
                     alt="Business Profile" class="w-16 h-16 rounded-lg object-cover border-2 border-gray-200" />
                 </div>
 
@@ -162,6 +162,7 @@ import { ClipboardDocumentIcon } from '@heroicons/vue/24/outline';
 import VerifiedBadge from '@/components/common/VerifiedBadge.vue';
 import MobileModalHeader from '@/components/common/MobileModalHeader.vue';
 import { useModalScroll } from '@/composables/useModalScroll';
+import OptimizedImage from '@/components/common/OptimizedImage.vue';
 
 export default {
   name: 'ProposalsModal',
@@ -173,7 +174,8 @@ export default {
     ChatBubbleLeftRightIcon,
     ClipboardDocumentIcon,
     VerifiedBadge,
-    MobileModalHeader
+    MobileModalHeader,
+    OptimizedImage
   },
   setup() {
     const { openModal, closeModal } = useModalScroll()

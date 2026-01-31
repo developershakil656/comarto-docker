@@ -68,7 +68,7 @@
               <h3 class="text-sm font-medium text-gray-700 mb-3">Video Preview</h3>
               <div class="border border-gray-200 rounded-lg overflow-hidden bg-gray-50 max-w-xl mx-auto">
                 <div class="aspect-video relative">
-                  <img 
+                  <OptimizedImage 
                     :src="videoPreview.thumbnail" 
                     :alt="videoPreview.title"
                     class="w-full h-full object-cover"
@@ -141,7 +141,7 @@
               >
                 <template #item="{ element: image, index }">
                   <div class="relative group">
-                    <img
+                    <OptimizedImage
                       :src="image.url"
                       :alt="`Business image ${index + 1}`"
                       class="w-full h-32 object-cover rounded-xl border-4 border-gray-300"
@@ -230,12 +230,14 @@ import { validateImageFile } from '@/utils/imageValidation.js';
 import MobileModalHeader from '@/components/common/MobileModalHeader.vue';
 import axios from 'axios';
 import { useModalScroll } from '@/composables/useModalScroll';
+import OptimizedImage from '@/components/common/OptimizedImage.vue';
 
 export default {
   name: 'BusinessGalleryModal',
   components: {
     draggable,
-    MobileModalHeader
+    MobileModalHeader,
+    OptimizedImage
   },
   setup() {
     const { openModal, closeModal } = useModalScroll()

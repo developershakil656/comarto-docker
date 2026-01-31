@@ -133,6 +133,7 @@ import EnterNameModal from '@/components/modals/EnterNameModal.vue';
 import { useModalScroll } from '@/composables/useModalScroll';
 import MobileModalHeader from '@/components/common/MobileModalHeader.vue';
 import { push } from 'notivue';
+import OptimizedImage from '@/components/common/OptimizedImage.vue';
 
 export default {
     components: {
@@ -141,7 +142,8 @@ export default {
         Form,
         Field,
         EnterNameModal,
-        MobileModalHeader
+        MobileModalHeader,
+        OptimizedImage
     },
     props: {
         show: {

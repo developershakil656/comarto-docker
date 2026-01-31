@@ -219,10 +219,11 @@ import AdminDashboardHeader from '@/components/business/AdminDashboardHeader.vue
 import { push } from 'notivue'
 import axios from 'axios'
 import Swal from 'sweetalert2'
+import OptimizedImage from '@/components/common/OptimizedImage.vue'
 
 export default {
   name: 'BuyLeadCredits',
-  components: { AdminDashboardHeader },
+  components: { AdminDashboardHeader, OptimizedImage },
   data() {
     return {
       packages: [],

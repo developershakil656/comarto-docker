@@ -872,6 +872,7 @@
 import { mapGetters } from "vuex";
 import VerifiedBadge from "@/components/common/VerifiedBadge.vue";
 import AttachmentPreviewModal from "@/components/common/AttachmentPreviewModal.vue";
+import OptimizedImage from '@/components/common/OptimizedImage.vue';
 import {
   PhotoIcon,
   PaperClipIcon,
@@ -888,6 +889,7 @@ export default {
   components: {
     VerifiedBadge,
     AttachmentPreviewModal,
+    OptimizedImage,
     PhotoIcon,
     PaperClipIcon,
     XMarkIcon,

@@ -44,7 +44,7 @@
           <!-- Selected Images -->
           <div v-if="editForm.images && editForm.images.length > 0" class="flex flex-wrap gap-2 mb-3">
             <div v-for="(image, index) in editForm.images" :key="index" class="relative">
-              <img :src="image.url || image" alt="Review image" class="w-20 h-20 object-cover rounded-md border" />
+              <OptimizedImage :src="image.url || image" alt="Review image" class="w-20 h-20 object-cover rounded-md border" />
               <button @click="removeImage(index)" class="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white rounded-full flex items-center justify-center text-xs hover:bg-red-600">
                 ×
               </button>
@@ -89,6 +89,7 @@ import axios from 'axios'
 import { validateImageFile } from '@/utils/imageValidation.js'
 import MobileModalHeader from '@/components/common/MobileModalHeader.vue'
 import { useModalScroll } from '@/composables/useModalScroll'
+import OptimizedImage from '@/components/common/OptimizedImage.vue'
 
 export default {
   name: 'EditReviewModal',
@@ -97,7 +98,8 @@ export default {
     PlusIcon,
     PhotoIcon,
     StarRating,
-    MobileModalHeader
+    MobileModalHeader,
+    OptimizedImage
   },
   setup() {
     const { openModal, closeModal } = useModalScroll()

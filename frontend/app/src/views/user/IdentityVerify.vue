@@ -125,7 +125,7 @@
               </div>
               <div v-if="nidFrontPreview" class="mt-3 flex justify-center">
                 <div class="relative inline-block">
-                  <img :src="nidFrontPreview" alt="NID Front Preview" class="w-64 rounded-lg border shadow-sm" />
+                  <OptimizedImage :src="nidFrontPreview" alt="NID Front Preview" class="w-64 rounded-lg border shadow-sm" />
                   <button 
                     @click="removeImage('front')" 
                     class="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center hover:bg-red-600 transition-colors"
@@ -174,7 +174,7 @@
               </div>
               <div v-if="nidBackPreview" class="mt-3 flex justify-center">
                 <div class="relative inline-block">
-                  <img :src="nidBackPreview" alt="NID Back Preview" class="w-64 rounded-lg border shadow-sm" />
+                  <OptimizedImage :src="nidBackPreview" alt="NID Back Preview" class="w-64 rounded-lg border shadow-sm" />
                   <button 
                     @click="removeImage('back')" 
                     class="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center hover:bg-red-600 transition-colors"
@@ -265,7 +265,11 @@
 import axios from 'axios'
 import { validateImageFile } from '@/utils/imageValidation.js'
 import {push} from 'notivue'
+import OptimizedImage from '@/components/common/OptimizedImage.vue'
 export default {
+    components: {
+        OptimizedImage
+    },
     data() {
         return {
             isNumberVerified: true, // Set to true if the user's number is verified

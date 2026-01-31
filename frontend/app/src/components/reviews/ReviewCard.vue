@@ -3,7 +3,7 @@
     <!-- Review Header -->
     <div class="flex items-center justify-between mb-2">
       <div class="flex items-center">
-        <img :src="review.user.profile" alt="avatar" class="w-10 h-10 rounded-full mr-3" />
+        <OptimizedImage :src="review.user.profile" alt="avatar" class="w-10 h-10 rounded-full mr-3" />
         <div>
           <div class="font-semibold text-sm capitalize">{{ review.user.name }} <span v-if="currentUser && currentUser.id === review.user.id" class="ml-1 bg-red-100 text-red-700 px-1.5 py-0.5 rounded text-[10px]">You</span></div>
           <div class="text-xs text-gray-700">{{ review.date }}</div>
@@ -44,7 +44,7 @@
     <!-- First Reply Only -->
     <div v-if="review.replies && review.replies.length" class="space-y-2 mt-3">
       <div class="flex items-start bg-primary/10 rounded p-2">
-        <img :src="review.replies[0].user.profile" alt="owner" class="w-10 h-10 rounded-full mr-2" />
+        <OptimizedImage :src="review.replies[0].user.profile" alt="owner" class="w-10 h-10 rounded-full mr-2" />
         <div>
           <div @click="openRepliesModal(review)" class="cursor-pointer">
             <div class="text-sm font-semibold capitalize">
@@ -87,6 +87,7 @@ import {
 } from '@heroicons/vue/24/outline'
 import StarRating from '@/components/StarRating.vue'
 import ReviewImageGallery from '@/components/ReviewImageGallery.vue'
+import OptimizedImage from '@/components/common/OptimizedImage.vue'
 
 export default {
   name: 'ReviewCard',
@@ -97,7 +98,8 @@ export default {
     PencilIcon,
     TrashIcon,
     StarRating,
-    ReviewImageGallery
+    ReviewImageGallery,
+    OptimizedImage
   },
   props: {
     review: {

@@ -18,7 +18,7 @@
           <div v-if="videoLoading" class="w-full h-full flex items-center justify-center">
             <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
           </div>
-          <img 
+          <OptimizedImage 
             v-else-if="videoThumbnail"
             :src="videoThumbnail" 
             :alt="videoTitle || 'YouTube Video'"
@@ -51,7 +51,7 @@
         class="relative group cursor-pointer rounded-lg overflow-hidden border border-gray-200 hover:border-primary transition-all duration-300 hover:shadow-lg"
       >
         <div class="aspect-square bg-gray-100">
-          <img 
+          <OptimizedImage 
             :src="image.url || image.image_url" 
             :alt="`Business Image ${index + 1}`"
             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
@@ -138,7 +138,7 @@
 
           <!-- Image Viewer -->
           <div v-else class="w-full">
-            <img 
+            <OptimizedImage 
               :src="currentImageUrl" 
               :alt="`Business Image ${currentIndex + 1}`"
               class="max-w-full max-h-[70vh] object-contain mx-auto rounded-lg"
@@ -161,7 +161,7 @@
               :class="currentIndex === index ? 'border-white' : 'border-gray-600 hover:border-gray-400'"
             >
               <div class="w-16 h-16 bg-gray-800">
-                <img 
+                <OptimizedImage 
                   v-if="item.type === 'image'"
                   :src="item.url || item.image_url" 
                   :alt="`Thumbnail ${index + 1}`"
@@ -182,8 +182,13 @@
 </template>
 
 <script>
+import OptimizedImage from '@/components/common/OptimizedImage.vue'
+
 export default {
   name: 'BusinessGallery',
+  components: {
+    OptimizedImage
+  },
   props: {
     businessData: {
       type: Object,

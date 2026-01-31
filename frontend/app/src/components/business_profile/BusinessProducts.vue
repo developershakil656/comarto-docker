@@ -92,7 +92,7 @@
                         
                         <router-link :to="`/product/${product.slug}`" class="flex flex-col h-full">
                             <div class="w-full h-36 md:h-48 bg-primary/10 flex-shrink-0">
-                                <img :src="product.feature_image || 'https://placehold.co/180/F5F5DC/808080?text=No+Image'" :alt="product.name" class="w-full h-full object-cover" />
+                                <OptimizedImage :src="product.feature_image || 'https://placehold.co/180/F5F5DC/808080?text=No+Image'" :alt="product.name" class="w-full h-full object-cover" />
                             </div>
                             <div class="p-4 flex flex-col justify-between flex-1">
                                 <div>
@@ -124,6 +124,7 @@
 
 <script>
 import SkeletonLoader from '@/components/SkeletonLoader.vue';
+import OptimizedImage from '@/components/common/OptimizedImage.vue';
 import {
     CubeIcon,
     FunnelIcon,
@@ -141,6 +142,7 @@ export default {
         ChevronDownIcon,
         MagnifyingGlassIcon,
         HeartIcon,
+        OptimizedImage,
         HeartIconSolid,
         SkeletonLoader
     },

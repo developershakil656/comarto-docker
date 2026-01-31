@@ -32,12 +32,12 @@
                 <router-link :to="`/${business.slug}`"
                     class="group flex gap-4 items-start cursor-pointer">
                     <!-- <div class="max-h-52 max-w-52 product-image rounded-lg border content-center bg-green-50 overflow-hidden">
-                    <img :src="business.business_profile || 'https://placehold.co/260x200'" :alt="business.business_name" class="w-full h-full object-cover transition-transform duration-500 ease-in-out transform group-hover:scale-110" />
+                    <OptimizedImage :src="business.business_profile || 'https://placehold.co/260x200'" :alt="business.business_name" class="w-full h-full object-cover transition-transform duration-500 ease-in-out transform group-hover:scale-110" />
                 </div> -->
                     <div class="max-h-40 max-w-40 product-image">
                         <div
                             class="rounded-lg border content-center bg-green-50 max-h-44 max-w-44 md:max-h-52 md:max-w-52 product-image overflow-hidden">
-                            <img :src="business.business_profile || 'https://placehold.co/200x200'"
+                            <OptimizedImage :src="business.business_profile || 'https://placehold.co/200x200'"
                                 :alt="business.business_name"
                                 class="w-full h-full object-cover transition-transform duration-500 ease-in-out transform group-hover:scale-110" />
                         </div>
@@ -153,6 +153,7 @@
 import { mapGetters, mapActions } from 'vuex'
 import StarRating from '@/components/StarRating.vue'
 import VerifiedBadge from '@/components/common/VerifiedBadge.vue'
+import OptimizedImage from '@/components/common/OptimizedImage.vue'
 import {
     BuildingOfficeIcon,
     PhoneIcon,
@@ -169,6 +170,7 @@ export default {
         ReceiptPercentIcon,
         MapPinIcon,
         StarRating,
+        OptimizedImage,
         VerifiedBadge,
         ChevronLeftIcon,
         ChevronRightIcon

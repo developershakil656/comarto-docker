@@ -73,7 +73,7 @@
                             <router-link :to="`/${businessData?.slug}`" class="flex items-start space-x-4">
                                 <div class="w-20 h-20 bg-yellow-100 rounded-lg flex items-center justify-center flex-shrink-0">
                                     <img 
-                                        :src="businessData?.business_profile || 'https://placehold.co/80x80/FFD700/000000?text=GHEE'" 
+                                        :src="businessData?.business_profile || 'https://placehold.co/80x80/FFD700/000000?text=SHOP'" 
                                         :alt="businessData?.business_name"
                                         class="w-full h-full object-cover rounded-lg"
                                     />

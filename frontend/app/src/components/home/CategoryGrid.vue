@@ -24,7 +24,7 @@
           class="flex flex-col items-center group cursor-pointer transition-transform duration-200 hover:-translate-y-1"
         >
           <div class="w-20 h-20 bg-white rounded-xl shadow-md flex items-center justify-center mb-3 group-hover:shadow-lg transition-shadow duration-200">
-            <img 
+            <OptimizedImage 
               :src="category.icon" 
               :alt="category.name"
               class="w-16 h-16 object-contain"
@@ -43,11 +43,13 @@
 <script>
 import axios from 'axios'
 import SkeletonLoader from '../SkeletonLoader.vue'
+import OptimizedImage from '@/components/common/OptimizedImage.vue'
 
 export default {
   name: 'CategoryGrid',
   components: {
-    SkeletonLoader
+    SkeletonLoader,
+    OptimizedImage
   },
   data() {
     return {

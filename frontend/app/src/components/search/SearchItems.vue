@@ -59,7 +59,7 @@
               <div
                 class="rounded-lg border content-center bg-green-50 max-h-44 max-w-44 md:max-h-52 md:max-w-52 product-image overflow-hidden"
               >
-                <img
+                <OptimizedImage
                   :src="
                     (isSuppliersView
                       ? item.business.business_profile
@@ -286,6 +286,7 @@ import { HeartIcon as HeartIconSolid } from "@heroicons/vue/24/solid";
 import StarRating from "@/components/StarRating.vue";
 import SkeletonLoader from "@/components/SkeletonLoader.vue";
 import VerifiedBadge from "@/components/common/VerifiedBadge.vue";
+import OptimizedImage from '@/components/common/OptimizedImage.vue';
 export default {
   components: {
     BuildingOfficeIcon,
@@ -297,6 +298,7 @@ export default {
     HeartIconSolid,
     SkeletonLoader,
     VerifiedBadge,
+    OptimizedImage
   },
   emits: ["toggle-sidebar"],
   styles: {

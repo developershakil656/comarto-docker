@@ -14,13 +14,12 @@
             @mouseleave="resumeAutoplay"
         >
             <swiper-slide v-for="(img, idx) in images" :key="idx">
-                    <img 
+                <OptimizedImage 
                     :src="img" 
                     alt="Product Image" 
                     class="max-w-96 w-full rounded-lg object-contain max-h-96 cursor-pointer hover:opacity-90 transition-opacity"
                     @click="openLightbox(idx)"
                 />
-                
             </swiper-slide>
         </swiper>
         <swiper
@@ -33,7 +32,7 @@
             style="max-width: 260px;"
         >
             <swiper-slide v-for="(img, idx) in images" :key="'thumb-' + idx">
-                <img :src="typeof img === 'string' ? img.replace('400x400', '80x80') : img" alt="Product Thumbnail" class="w-full h-20 border-2 rounded-lg cursor-pointer" :class="{ 'border-primary': activeIndex === idx, 'border-gray-300': activeIndex !== idx }" @click="slideTo(idx)" />
+                <OptimizedImage :src="typeof img === 'string' ? img.replace('400x400', '80x80') : img" alt="Product Thumbnail" class="w-full h-20 border-2 rounded-lg cursor-pointer" :class="{ 'border-primary': activeIndex === idx, 'border-gray-300': activeIndex !== idx }" @click="slideTo(idx)" />
             </swiper-slide>
         </swiper>
 
@@ -84,7 +83,7 @@
                 <div class="flex flex-col items-center">
                     <!-- Image Viewer -->
                     <div class="w-full">
-                        <img 
+                        <OptimizedImage 
                             :src="currentImageUrl" 
                             :alt="`Product Image ${lightboxIndex + 1}`"
                             class="max-w-full max-h-[80vh] object-contain mx-auto rounded-lg"
@@ -105,7 +104,7 @@
                             :class="lightboxIndex === index ? 'border-white' : 'border-gray-600 hover:border-gray-400'"
                         >
                             <div class="w-16 h-16 bg-gray-800">
-                                <img 
+                                <OptimizedImage 
                                     :src="image" 
                                     :alt="`Thumbnail ${index + 1}`"
                                     class="w-full h-full object-cover"
@@ -150,6 +149,7 @@ import 'swiper/css/thumbs';
 import 'swiper/css/navigation';
 import { Thumbs, Navigation, Autoplay } from 'swiper/modules';
 import { ref, onMounted, onUnmounted, computed } from 'vue';
+import OptimizedImage from '@/components/common/OptimizedImage.vue';
 
 export default {
     name: 'GallerySlider',
@@ -162,6 +162,7 @@ export default {
     components: {
         Swiper,
         SwiperSlide,
+        OptimizedImage
     },
     setup(props) {
         const thumbsSwiper = ref(null);

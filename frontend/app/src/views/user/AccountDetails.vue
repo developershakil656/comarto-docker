@@ -19,7 +19,7 @@
             <!-- <label class="mb-1 font-medium text-gray-600">Profile Picture</label> -->
             <div class="flex items-center space-x-4">
                 <div class="relative group">
-                    <img :src="userData.profile || 'https://placehold.co/150x150/0b845c/white?text=Profile'" alt="Profile" class="w-28 h-28 rounded-full object-cover border-2 border-gray-300" />
+                    <OptimizedImage :src="userData.profile || 'https://placehold.co/150x150/0b845c/white?text=Profile'" alt="Profile" class="w-28 h-28 rounded-full object-cover border-2 border-gray-300" />
 
                     <!-- Hover overlay with camera icon -->
                     <div class="absolute inset-0 bg-black bg-opacity-50 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center">
@@ -351,6 +351,7 @@
 <script>
 import authMixin from '@/mixins/authMixin.js'
 import { validateImageFile } from '@/utils/imageValidation.js'
+import OptimizedImage from '@/components/common/OptimizedImage.vue'
 import {
     push
 } from 'notivue'
@@ -379,6 +380,7 @@ export default {
         PlusIcon,
         XMarkIcon,
         OtpVerificationModal,
+        OptimizedImage,
         EnterNameModal,
         GoogleIcon,
         CheckCircleIcon,

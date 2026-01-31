@@ -29,7 +29,7 @@
              >
                  <!-- Review Images -->
                  <div class="w-52 h-52 rounded-lg border content-center bg-green-50 overflow-hidden flex-shrink-0">
-                     <img 
+                     <OptimizedImage 
                          :src="review.images && review.images.length > 0 ? review.images[0].url : (review.business.business_profile || 'https://placehold.co/208x208')" 
                          :alt="`Review image for ${review.business.business_name}`"
                          class="w-full h-full object-cover" 
@@ -66,7 +66,7 @@
                                 :key="image.id"
                                 class="w-24 h-24 rounded-lg border content-center bg-green-50 overflow-hidden flex-shrink-0"
                             >
-                                <img 
+                                <OptimizedImage 
                                     :src="image.url" 
                                     :alt="`Review image ${index + 2}`"
                                     class="w-full h-full object-cover" 
@@ -119,11 +119,13 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import StarRating from '@/components/StarRating.vue'
 import { useUserReviews } from '@/composables/useUserReviews'
+import OptimizedImage from '@/components/common/OptimizedImage.vue'
 
 export default {
     name: 'UserReviews',
     components: {
         StarRating,
+        OptimizedImage
     },
     setup() {
         const { reviews, loading, loadingMore, meta, fetchUserReviews, loadMoreReviews, canLoadMore } = useUserReviews()

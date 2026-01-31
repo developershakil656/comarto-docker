@@ -1,45 +1,45 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import store from '../store/index.js'
 
-// Layouts
+// Layouts - Keep commonly used layouts loaded
 import HomeLayout from '../layouts/HomeLayout.vue'
 import UserProfileLayout from '../layouts/UserProfileLayout.vue'
 
-// Views
-import HomeView from '../views/HomeView.vue'
-import SearchView from '../views/SearchView.vue'
-import ProductDetailsView from '../views/ProductDetailsView.vue'
-import BusinessView from '../views/BusinessProfileView.vue'
-import FreeListingView from '../views/FreeListingView.vue'
-import RegisterBusinessView from '../views/RegisterBusinessView.vue'
-import CategoryDetailView from '../views/CategoryDetailView.vue'
-import AllCategoriesView from '../views/AllCategoriesView.vue'
+// Lazy load views to reduce initial bundle size
+const HomeView = () => import('../views/HomeView.vue')
+const SearchView = () => import('../views/SearchView.vue')
+const ProductDetailsView = () => import('../views/ProductDetailsView.vue')
+const BusinessView = () => import('../views/BusinessProfileView.vue')
+const FreeListingView = () => import('../views/FreeListingView.vue')
+const RegisterBusinessView = () => import('../views/RegisterBusinessView.vue')
+const CategoryDetailView = () => import('../views/CategoryDetailView.vue')
+const AllCategoriesView = () => import('../views/AllCategoriesView.vue')
 
 // User Views
-import AccountDetails from '../views/user/AccountDetails.vue'
-import Following from '../views/user/Following.vue'
-import Favourites from '../views/user/Favourites.vue'
-import Reviews from '../views/user/Reviews.vue'
-import IdentityVerify from '../views/user/IdentityVerify.vue'
-import Inquiries from '../views/user/Inquiries.vue'
-import ConversationsListView from '../views/ConversationsListView.vue'
-import ConversationMessagesView from '../views/ConversationMessagesView.vue'
+const AccountDetails = () => import('../views/user/AccountDetails.vue')
+const Following = () => import('../views/user/Following.vue')
+const Favourites = () => import('../views/user/Favourites.vue')
+const Reviews = () => import('../views/user/Reviews.vue')
+const IdentityVerify = () => import('../views/user/IdentityVerify.vue')
+const Inquiries = () => import('../views/user/Inquiries.vue')
+const ConversationsListView = () => import('../views/ConversationsListView.vue')
+const ConversationMessagesView = () => import('../views/ConversationMessagesView.vue')
 
 // Business Views
-import BusinessDashboard from '../views/business/BusinessDashboard.vue'
-import BusinessDetails from '../views/business/BusinessDetails.vue'
-import BusinessReviews from '../views/business/BusinessReviews.vue'
-import AddProduct from '../views/business/AddProduct.vue'
-import BusinessProducts from '../views/business/BusinessProducts.vue'
-import EditProduct from '../views/business/EditProduct.vue'
-import LeadsView from '../views/business/LeadsView.vue'
-import BuyLeadCredits from '../views/business/BuyLeadCredits.vue'
+const BusinessDashboard = () => import('../views/business/BusinessDashboard.vue')
+const BusinessDetails = () => import('../views/business/BusinessDetails.vue')
+const BusinessReviews = () => import('../views/business/BusinessReviews.vue')
+const AddProduct = () => import('../views/business/AddProduct.vue')
+const BusinessProducts = () => import('../views/business/BusinessProducts.vue')
+const EditProduct = () => import('../views/business/EditProduct.vue')
+const LeadsView = () => import('../views/business/LeadsView.vue')
+const BuyLeadCredits = () => import('../views/business/BuyLeadCredits.vue')
 
 // Legal/Static Views
-import MakeReviewView from '../views/MakeReviewView.vue'
-import PrivacyPolicyView from '../views/PrivacyPolicyView.vue'
-import TermsConditionsView from '../views/TermsConditionsView.vue'
-import DisclaimerView from '../views/DisclaimerView.vue'
+const MakeReviewView = () => import('../views/MakeReviewView.vue')
+const PrivacyPolicyView = () => import('../views/PrivacyPolicyView.vue')
+const TermsConditionsView = () => import('../views/TermsConditionsView.vue')
+const DisclaimerView = () => import('../views/DisclaimerView.vue')
 
 const routes = [
   // --- GROUP 1: Routes using HomeLayout (Header/Nav included) ---

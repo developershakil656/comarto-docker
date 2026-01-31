@@ -51,7 +51,7 @@
           <div v-if="imageLoading" class="flex items-center justify-center w-full h-96 bg-gray-800 rounded">
             <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-white"></div>
           </div>
-          <img 
+          <OptimizedImage 
             v-show="!imageLoading"
             :src="currentAttachmentUrl" 
             :alt="`Image ${currentIndex + 1}`"
@@ -90,7 +90,7 @@
             :class="currentIndex === index ? 'border-white' : 'border-gray-600 hover:border-gray-400'"
           >
             <div class="w-16 h-16 bg-gray-800">
-              <img 
+              <OptimizedImage 
                 :src="getImageUrl(image)" 
                 :alt="`Thumbnail ${index + 1}`"
                 class="w-full h-full object-cover"
@@ -106,11 +106,13 @@
 <script>
 import { XMarkIcon } from '@heroicons/vue/24/outline'
 import { useModalScroll } from '@/composables/useModalScroll'
+import OptimizedImage from '@/components/common/OptimizedImage.vue'
 
 export default {
   name: 'AttachmentPreviewModal',
   components: {
-    XMarkIcon
+    XMarkIcon,
+    OptimizedImage
   },
   setup() {
     const { openModal, closeModal } = useModalScroll()

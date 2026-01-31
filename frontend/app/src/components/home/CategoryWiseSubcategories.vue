@@ -41,7 +41,7 @@
               <div
                 class="aspect-[4/3] bg-gray-50 flex items-center justify-center p-3"
               >
-                <img
+                <OptimizedImage
                   v-if="item.icon"
                   :src="item.icon"
                   :alt="item.name"
@@ -64,11 +64,13 @@
 
 <script>
 import SkeletonLoader from "../SkeletonLoader.vue";
+import OptimizedImage from '@/components/common/OptimizedImage.vue';
 
 export default {
   name: "CategoryWiseSubcategories",
   components: {
     SkeletonLoader,
+    OptimizedImage
   },
   props: {
     title: { type: String, required: true },

@@ -48,7 +48,7 @@
             class="flex items-center p-3 sm:p-4 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors duration-200 border border-gray-100 group">
             <div
               class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-gray-100 flex items-center justify-center mr-3 sm:mr-4 flex-shrink-0 group-hover:bg-gray-200 transition-colors duration-200">
-              <img v-if="subcategory.icon" :src="subcategory.icon" :alt="subcategory.name"
+              <OptimizedImage v-if="subcategory.icon" :src="subcategory.icon" :alt="subcategory.name"
                 class="w-6 h-6 sm:w-8 sm:h-8 object-contain" />
               <div v-else class="h-6 w-6 sm:h-8 sm:w-8 bg-gray-200 rounded"></div>
             </div>
@@ -87,6 +87,7 @@ import { ArrowLeftIcon } from '@heroicons/vue/24/outline'
 import BottomHeader from '@/components/header/BottomHeader.vue'
 import SkeletonLoader from '@/components/SkeletonLoader.vue'
 import MobileBottomNavigation from '@/components/common/MobileBottomNavigation.vue'
+import OptimizedImage from '@/components/common/OptimizedImage.vue'
 
 export default {
   name: 'CategoryDetailView',
@@ -94,7 +95,8 @@ export default {
     ArrowLeftIcon,
     BottomHeader,
     SkeletonLoader,
-    MobileBottomNavigation
+    MobileBottomNavigation,
+    OptimizedImage
   },
   data() {
     return {

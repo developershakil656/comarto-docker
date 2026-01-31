@@ -106,7 +106,7 @@
           <tbody class="divide-y divide-gray-100">
             <tr v-for="product in paginatedProducts" :key="product.id" class="hover:bg-gray-50">
               <td class="px-4 py-3">
-                <img :src="featureImage(product)" alt="Product" class="max-w-36 w-28 h-24 md:w-36 md:h-24 object-cover rounded-md bg-gray-100" />
+                <OptimizedImage :src="featureImage(product)" alt="Product" class="max-w-36 w-28 h-24 md:w-36 md:h-24 object-cover rounded-md bg-gray-100" />
               </td>
               <td class="px-4 py-3 font-medium text-gray-900">{{ product.name }}</td>
               <td class="px-4 py-3 text-gray-700">{{ truncate(product.details, 150) }}</td>
@@ -182,6 +182,7 @@ import { mapActions, mapGetters } from 'vuex';
 import BusinessMobileBottomNavigation from '@/components/business/BusinessMobileBottomNavigation.vue';
 import { push } from 'notivue';
 import { ref, computed, watch, nextTick } from 'vue';
+import OptimizedImage from '@/components/common/OptimizedImage.vue';
 
 export default {
   name: 'BusinessProducts',
@@ -194,7 +195,8 @@ export default {
     EyeIcon,
     PlusIcon,
     DeleteProductModal,
-    BusinessMobileBottomNavigation
+    BusinessMobileBottomNavigation,
+    OptimizedImage
   },
   data() {
     return {

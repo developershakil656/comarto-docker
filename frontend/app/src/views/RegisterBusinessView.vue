@@ -281,7 +281,7 @@
               <div class="w-full flex justify-center mb-8">
                 <label class="flex flex-col items-center justify-center w-60 h-44 border-2 border-dashed border-blue-400 rounded-xl cursor-pointer hover:bg-blue-50 transition">
                   <div v-if="photoPreview" class="w-full h-full relative">
-                    <img :src="photoPreview" alt="Business Profile Preview" class="w-full h-full object-cover rounded-xl" />
+                    <OptimizedImage :src="photoPreview" alt="Business Profile Preview" class="w-full h-full object-cover rounded-xl" />
                     <button 
                       @click.stop="removePhoto" 
                       class="absolute top-2 right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center hover:bg-red-600"
@@ -369,6 +369,7 @@ import { required, min } from '@vee-validate/rules';
 import axios from 'axios';
 import { CameraIcon } from '@heroicons/vue/24/outline';
 import MobileBottomNavigationVue from '@/components/common/MobileBottomNavigation.vue';
+import OptimizedImage from '@/components/common/OptimizedImage.vue';
 
 const router = useRouter();
 const store = useStore();

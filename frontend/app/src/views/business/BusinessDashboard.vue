@@ -263,7 +263,7 @@ export default {
             push.info('Opening business profile score management');
         },
         handleDownloadApp() {
-            push.info('Downloading QR Code');
+            push.info('Comming soon!');
             // Implement actual QR code download logic here
         },
         handleAddAddress() {

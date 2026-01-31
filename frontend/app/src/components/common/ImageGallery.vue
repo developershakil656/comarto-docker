@@ -8,7 +8,7 @@
         class="relative group cursor-pointer"
         @click="openLightbox(index)"
       >
-        <img 
+        <OptimizedImage 
           :src="image.url" 
           :alt="`Image ${index + 1}`"
           class="w-24 h-24 object-cover rounded-lg border border-gray-200 hover:border-primary transition-all duration-300 hover:scale-105"
@@ -68,7 +68,7 @@
         <div class="flex flex-col items-center">
           <!-- Image Viewer -->
           <div class="w-full">
-            <img 
+            <OptimizedImage 
               :src="currentImageUrl" 
               :alt="`Image ${currentIndex + 1}`"
               class="max-w-full max-h-[70vh] object-contain mx-auto rounded-lg"
@@ -89,7 +89,7 @@
               :class="currentIndex === index ? 'border-white' : 'border-gray-600 hover:border-gray-400'"
             >
               <div class="w-16 h-16 bg-gray-800">
-                <img 
+                <OptimizedImage 
                   :src="image.url" 
                   :alt="`Thumbnail ${index + 1}`"
                   class="w-full h-full object-cover"
@@ -104,8 +104,13 @@
 </template>
 
 <script>
+import OptimizedImage from '@/components/common/OptimizedImage.vue';
+
 export default {
   name: 'ImageGallery',
+  components: {
+    OptimizedImage
+  },
   props: {
     images: {
       type: Array,

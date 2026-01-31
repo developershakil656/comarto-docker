@@ -7,12 +7,14 @@
             <div class="flex gap-4 justify-between items-center">
               <!-- Logo -->
               <div class="text-2xl font-bold text-primary">
-                <router-link to="/"
-                  ><img
+                <router-link to="/">
+                  <OptimizedImage
                     src="/logo.svg"
                     alt="Logo"
                     class="h-7"
-                /></router-link>
+                    :lazy="false"
+                  />
+                </router-link>
               </div>
 
               <!-- Search and Location -->
@@ -107,7 +109,7 @@
                   <BellAlertIcon class="w-6 mr-4" />
                 </button>
                 <!-- <div class=""> -->
-                <img
+                <OptimizedImage
                   :src="
                     user?.profile ||
                     'https://placehold.co/150x150/0b845c/white?text=Profile'
@@ -121,7 +123,7 @@
               <!-- <div class="flex items-center">
                                 <BellAlertIcon class="w-6 mr-4 " />
                                 <div class="">
-                                    <img src="https://placehold.co/150x150/0b845c/white?text=Profile" alt="Profile" class="w-9 h-9 rounded-full object-cover border border-gray-300" @click="onProfileClick" />
+                                    <OptimizedImage src="https://placehold.co/150x150/0b845c/white?text=Profile" alt="Profile" class="w-9 h-9 rounded-full object-cover border border-gray-300" @click="onProfileClick" />
                                 </div>
                             </div> -->
             </div>
@@ -187,6 +189,7 @@ import UserSlider from "@/components/user/UserSlider.vue";
 import LoginModal from "@/components/modals/LoginModal.vue";
 import EnterNameModal from "@/components/modals/EnterNameModal.vue";
 import SearchLocation from "@/components/header/SearchLocation.vue";
+import OptimizedImage from "@/components/common/OptimizedImage.vue";
 export default {
   props: {
     keyword: {
@@ -204,6 +207,7 @@ export default {
     LoginModal,
     EnterNameModal,
     SearchLocation,
+    OptimizedImage,
     EnvelopeIcon,
   },
   data() {

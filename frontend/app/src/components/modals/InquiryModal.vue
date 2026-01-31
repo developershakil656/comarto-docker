@@ -264,10 +264,11 @@ import { mapGetters, mapActions } from 'vuex'
 import { push } from 'notivue';
 import { useModalScroll } from '@/composables/useModalScroll';
 import MobileModalHeader from '@/components/common/MobileModalHeader.vue';
+import OptimizedImage from '@/components/common/OptimizedImage.vue';
 
 export default {
   name: 'InquiryModal',
-  components: { MobileModalHeader },
+  components: { MobileModalHeader, OptimizedImage },
   setup() {
     const { openModal, closeModal } = useModalScroll()
     return { openModal, closeModal }

@@ -4,7 +4,7 @@
       <h2 class="font-semibold text-gray-800 mb-4">Seller Information</h2>
       <div class="bg-white rounded-xl flex items-start gap-2 my-4">
             <router-link :to="`/${business.slug}`" class="w-20 h-20">
-            <img :src="business.business_profile || 'https://placehold.co/64x64/FFD700/000000?text=store'" :alt="business.business_name || 'Seller'" class="mx-auto w-20 h-20 rounded-lg object-cover border" />
+            <OptimizedImage :src="business.business_profile || 'https://placehold.co/64x64/FFD700/000000?text=store'" :alt="business.business_name || 'Seller'" class="mx-auto w-20 h-20 rounded-lg object-cover border" />
         </router-link>
         <div class="flex-1">
           <div class="flex items-center gap-2">
@@ -58,8 +58,8 @@
         </button>
       </div>
     </div>
-    <div class="w-full flex justify-center mb-2">
-      <img src="https://placehold.co/325x325" alt="Register Business" class="rounded-md shadow">
+    <div class="w-full flex justify-center mb-2 hidden">
+      <OptimizedImage src="https://placehold.co/325x325" alt="Register Business" class="rounded-md shadow" />
     </div>
   </div>
 </template>
@@ -67,13 +67,14 @@
 import { StarIcon, PhoneIcon, ReceiptPercentIcon } from "@heroicons/vue/24/solid";
 import { MapIcon, GlobeAltIcon } from "@heroicons/vue/24/outline";
 import VerifiedBadge from '@/components/common/VerifiedBadge.vue';
+import OptimizedImage from '@/components/common/OptimizedImage.vue';
 export default {
   props: {
     business: { type: Object, required: true },
     businessDetails: { type: Object, required: false },
     product: { type: Object, required: false }
   },
-  components: { StarIcon, PhoneIcon, ReceiptPercentIcon, MapIcon, GlobeAltIcon, VerifiedBadge },
+  components: { StarIcon, PhoneIcon, ReceiptPercentIcon, MapIcon, GlobeAltIcon, VerifiedBadge, OptimizedImage },
   computed: {
     fullAddress() {
       const { address, location = {} } = this.business;

@@ -34,7 +34,7 @@
 
                             <!-- Image -->
                             <div class="w-full h-36 md:h-48 bg-primary/10 flex-shrink-0">
-                                <img :src="product.feature_image || 'https://placehold.co/180/F5F5DC/808080?text=No+Image'"
+                                <OptimizedImage :src="product.feature_image || 'https://placehold.co/180/F5F5DC/808080?text=No+Image'"
                                     :alt="product.name" class="w-full h-full object-cover" />
                             </div>
 
@@ -77,6 +77,7 @@ import {
     ChevronLeftIcon,
     ChevronRightIcon,
 } from "@heroicons/vue/24/solid";
+import OptimizedImage from '@/components/common/OptimizedImage.vue';
 import {
     HeartIcon
 } from "@heroicons/vue/24/outline";

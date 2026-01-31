@@ -3,7 +3,7 @@
     <div class="w-72 sm:w-80 bg-white h-full shadow-lg p-5 relative flex flex-col overflow-y-auto" :class="isClosing ? 'animate-slide-out-right' : 'animate-slide-in-right'" @click.stop>
       <button @click="closeSidebar" class="absolute top-3 text-gray-600 hover:text-gray-800 bg-gray-200 p-2 rounded"><ChevronLeftIcon class="h-5"/></button>
       <div class="flex flex-col items-center mt-8 pb-4 border-b">
-        <img :src="user?.profile || 'https://placehold.co/150x150/0b845c/white?text=Profile'" class="w-28 h-28 rounded-full object-cover border-2 border-gray-300" alt="Profile" />
+        <OptimizedImage :src="user?.profile || 'https://placehold.co/150x150/0b845c/white?text=Profile'" class="w-28 h-28 rounded-full object-cover border-2 border-gray-300" alt="Profile" />
         <div class="mt-2 font-semibold text-base md:text-lg">{{ user?.name || 'Guest' }}</div>
         <div class="text-xs sm:text-sm line-clamp-1 text-gray-500">{{ user?.email || user?.number || '' }}</div>
       </div>
@@ -103,6 +103,7 @@
 <script>
 import { HeartIcon, ChevronLeftIcon, BookmarkIcon, UserIcon, Cog6ToothIcon, BellAlertIcon, ChatBubbleOvalLeftEllipsisIcon, PhoneIcon, BuildingOffice2Icon, ArrowRightOnRectangleIcon, BuildingOfficeIcon, IdentificationIcon, StarIcon  } from '@heroicons/vue/24/outline';
 import { useModalScroll } from '@/composables/useModalScroll';
+import OptimizedImage from '@/components/common/OptimizedImage.vue';
 export default {
   name: 'UserSlider',
   props: {
@@ -124,7 +125,8 @@ export default {
     ArrowRightOnRectangleIcon,
     BuildingOfficeIcon,
     IdentificationIcon,
-    StarIcon
+    StarIcon,
+    OptimizedImage
   },
   data() {
     return {
