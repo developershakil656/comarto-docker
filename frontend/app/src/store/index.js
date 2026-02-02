@@ -1379,9 +1379,9 @@ export default createStore({
           commit("SET_MY_BUSINESS", response.data.data);
 
           // Also update business details if available
-          if (state.myBusinessDetails) {
-            commit("SET_MY_BUSINESS_DETAILS", response.data.data);
-          }
+          // if (state.myBusinessDetails) {
+          //   commit("SET_MY_BUSINESS_DETAILS", response.data.data);
+          // }
         }
 
         return response.data;

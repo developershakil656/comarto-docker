@@ -95,7 +95,7 @@
                   </div>
                   <!-- pricing -->
                   <div class="flex items-baseline font-semibold">
-                    <span class="text-xs md:text-xl font-poppins"
+                    <span class="text-xs md:text-base font-poppins"
                       >৳ {{ item.price }}</span
                     >
                     <span

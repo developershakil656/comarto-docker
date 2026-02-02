@@ -13,7 +13,7 @@
                             class="w-20 h-20 rounded-lg object-cover border flex-shrink-0" /> -->
             <div class="flex flex-col max-w-40 justify-center gap-2">
               <div
-                class="rounded-lg border content-center bg-green-50 max-h-44 max-w-44 md:max-h-52 md:max-w-52 product-image overflow-hidden"
+                class="rounded-lg border content-center bg-green-50 max-h-44 max-w-44 md:max-h-52 md:max-w-52 product-image overflow-hidden aspect-square"
               >
                 <OptimizedImage
                   :src="

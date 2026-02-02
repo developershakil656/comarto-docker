@@ -347,7 +347,11 @@ export default {
       this.isVisible = newVal; // This line is correct
       if (newVal) {
         this.isClosing = false;
-        this.openModal('search-sidebar');
+        // Only lock scroll for mobile (when overlay is visible)
+        // Desktop sidebar should not lock scroll
+        if (window.innerWidth < 768) {
+          this.openModal('search-sidebar');
+        }
       } else {
         this.closeModal('search-sidebar');
       }
@@ -435,6 +439,26 @@ export default {
         this.$emit('close');
       }, 400); // Match animation duration
     },
+    
+    // Handle window resize to update scroll locking behavior
+    handleResize() {
+      if (this.resizeTimeout) {
+        clearTimeout(this.resizeTimeout);
+      }
+      
+      this.resizeTimeout = setTimeout(() => {
+        // Update scroll locking based on current screen size
+        if (this.isOpen) {
+          if (window.innerWidth < 768) {
+            // Mobile - enable scroll lock
+            this.openModal('search-sidebar');
+          } else {
+            // Desktop - disable scroll lock
+            this.closeModal('search-sidebar');
+          }
+        }
+      }, 150); // Throttle resize events
+    },
   },
   setup() {
     const { openModal, closeModal } = useModalScroll();
@@ -455,6 +479,9 @@ export default {
     // Initialize categories search
     this.searchCategories();
     this.addClickOutsideListeners();
+    
+    // Add resize listener
+    window.addEventListener('resize', this.handleResize);
   },
   beforeUnmount() {
     // Clear timeout
@@ -464,6 +491,14 @@ export default {
     this.removeClickOutsideListeners();
     if (this.isOpen) {
       this.closeModal('search-sidebar');
+    }
+    
+    // Remove resize listener
+    window.removeEventListener('resize', this.handleResize);
+    
+    // Clear resize timeout
+    if (this.resizeTimeout) {
+      clearTimeout(this.resizeTimeout);
     }
   }
 }

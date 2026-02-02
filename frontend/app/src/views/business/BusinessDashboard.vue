@@ -1,4 +1,5 @@
 <template>
+    <div>
     <div class="bg-gray-50 min-h-screen font-poppins">
         <div class="flex">
             <!-- Removed static sidebar -->
@@ -133,6 +134,7 @@
 
     <!-- Mobile Bottom Navigation for Business -->
     <BusinessMobileBottomNavigation />
+    </div>
 </template>
 
 <script>
@@ -248,13 +250,13 @@ export default {
         async handleAddressUpdated(updatedAddress) {
             // The store is already updated by the modal, so we just need to refresh the data
             await this.$store.dispatch('fetchMyBusiness');
-            push.success('Business address updated successfully!');
+            // push.success('Business address updated successfully!');
         },
 
         async handleGalleryUpdated(galleryData) {
             // Refresh the business data to get updated gallery
             await this.$store.dispatch('fetchMyBusiness');
-            push.success('Business gallery updated successfully!');
+            // push.success('Business gallery updated successfully!');
         },
         handleAdvertiseClick() {
             push.info('Opening advertising options');

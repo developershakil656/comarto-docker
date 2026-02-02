@@ -169,12 +169,7 @@ export default {
           this.setLocationSearchText();
         }
         
-        // Debug: Log the data received
-        console.log('BusinessAddressModal opened with:', {
-          initialData: this.initialData,
-          form: this.form,
-          locationSearch: this.locationSearch
-        });
+        
       } else {
         this.closeModal('business-address-modal');
       }
@@ -235,7 +230,6 @@ export default {
         push.success('Business address updated successfully');
         
       } catch (error) {
-        console.error('Error updating business address:', error);
         this.error = error.response?.data?.message || 'Failed to update business address. Please try again.';
       } finally {
         this.loading = false;

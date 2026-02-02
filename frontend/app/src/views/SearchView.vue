@@ -8,7 +8,7 @@
 </div>
 
 <div class="min-h-screen container mx-auto">
-    <div class="max-w-7xl mx-auto flex flex-col md:flex-row gap-6 mt-4">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row gap-6 my-4">
         <SearchSidebar
             :selectedBusinessTypes="selectedBusinessTypes"
             :isOpen="isSidebarOpen"
@@ -42,7 +42,8 @@ export default {
         return {
             isSidebarOpen: false,
             searchTimeout: null,
-            updatingRouteFromStore: false // Flag to prevent infinite loop between route and store watchers
+            updatingRouteFromStore: false, // Flag to prevent infinite loop between route and store watchers
+            resizeTimeout: null // Throttle resize events
         };
     },
     props: {
@@ -254,6 +255,22 @@ export default {
         
                 this.$store.dispatch('search', params);
             }, 300);
+        },
+        
+        setSidebarState() {
+            // Throttled version to prevent scroll jank
+            if (this.resizeTimeout) {
+                clearTimeout(this.resizeTimeout);
+            }
+            
+            this.resizeTimeout = setTimeout(() => {
+                // Get screen width
+                const screenWidth = window.innerWidth;
+                
+                // Tailwind's md breakpoint is 768px
+                // Set sidebar open for medium screens and above
+                this.isSidebarOpen = screenWidth >= 768;
+            }, 150); // 150ms throttle as per best practice
         }
     },
     async mounted() {
@@ -287,6 +304,12 @@ export default {
             }
         }
         
+        // Set sidebar open state based on screen size
+        this.setSidebarState();
+        
+        // Add resize listener to handle screen size changes
+        window.addEventListener('resize', this.setSidebarState);
+        
         // Perform initial search with all parameters
         this.doSearch(keyword, businessTypes, suppliers, categorySlugs, location);
     },
@@ -295,6 +318,14 @@ export default {
         if (this.searchTimeout) {
             clearTimeout(this.searchTimeout);
         }
+        
+        // Clean up resize timeout
+        if (this.resizeTimeout) {
+            clearTimeout(this.resizeTimeout);
+        }
+        
+        // Remove resize listener
+        window.removeEventListener('resize', this.setSidebarState);
     }
 };
 </script>
