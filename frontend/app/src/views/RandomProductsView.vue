@@ -59,10 +59,10 @@
               
               <!-- Pricing -->
               <div class="flex items-baseline font-semibold mb-2">
-                <span class="font-poppins">৳ {{ item.price }}</span>
+                <span class="font-poppins sm">৳ {{ item.price }}</span>
                 <span
                   v-if="item.product_unit"
-                  class="text-sm ml-1 font-normal"
+                  class="text-xs ml-1 font-normal"
                 >
                   / {{ getUnitDisplay(item) }}
                 </span>

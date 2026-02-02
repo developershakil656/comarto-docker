@@ -45,8 +45,8 @@
                                         {{ product.name }}
                                     </h3>
                                     <div class="flex flex-wrap items-baseline mb-3">
-                                        <span class="font-poppins font-semibold">৳ {{ product.price ||
-                                            'N/A' }}</span>/ <span class="text-sm ml-1 font-normal">{{
+                                        <span class="font-poppins sm font-semibold">৳ {{ product.price ||
+                                            'N/A' }}</span>/ <span class="text-xs ml-1 font-normal">{{
                                             getUnitDisplay(product)
                                             }}</span>
                                     </div>
