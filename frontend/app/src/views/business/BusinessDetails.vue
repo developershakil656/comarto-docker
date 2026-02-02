@@ -386,7 +386,6 @@ export default {
                 // Validate file using utility function
                 const validation = validateImageFile(this.form.businessProfile);
                 if (!validation.isValid) {
-                    push.error(validation.error);
                     return;
                 }
 

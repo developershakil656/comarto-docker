@@ -370,6 +370,7 @@ import axios from 'axios';
 import { CameraIcon } from '@heroicons/vue/24/outline';
 import MobileBottomNavigationVue from '@/components/common/MobileBottomNavigation.vue';
 import OptimizedImage from '@/components/common/OptimizedImage.vue';
+import { validateImageFile } from '@/utils/imageValidation.js';
 
 const router = useRouter();
 const store = useStore();
@@ -747,15 +748,23 @@ const createBusiness = async () => {
       
       // Upload profile photo if provided
       if (businessProfilePhoto.value) {
-        try {
-          const formData = new FormData();
-          formData.append('business_profile', businessProfilePhoto.value);
-          formData.append('_method', 'PUT');
-          await axios.post('/user/business/profile', formData);
-          push.success('Business profile photo uploaded successfully!');
-        } catch (photoError) {
-          console.error('Error uploading profile photo:', photoError);
-          push.warning('Business created but profile photo upload failed');
+        // Validate the image before uploading
+        const validation = validateImageFile(businessProfilePhoto.value);
+        
+        if (validation.isValid) {
+          try {
+            const formData = new FormData();
+            formData.append('business_profile', businessProfilePhoto.value);
+            formData.append('_method', 'PUT');
+            await axios.post('/user/business/profile', formData);
+            push.success('Business profile photo uploaded successfully!');
+          } catch (photoError) {
+            console.error('Error uploading profile photo:', photoError);
+            push.warning('Business created but profile photo upload failed');
+          }
+        } else {
+          console.error('Profile photo validation failed:', validation.error);
+          push.warning('Profile photo validation failed: ' + validation.error);
         }
       }
       
@@ -796,9 +805,25 @@ const createBusiness = async () => {
 function handlePhotoUpload(event) {
   const file = event.target.files[0];
   if (file) {
-    photoPreview.value = URL.createObjectURL(file);
-    businessProfilePhoto.value = file;
-    photoError.value = ''; // Clear previous error
+    // Validate the image file using the utility function
+    const validation = validateImageFile(file);
+    
+    if (validation.isValid) {
+      // Revoke previous preview URL if exists
+      if (photoPreview.value) {
+        URL.revokeObjectURL(photoPreview.value);
+      }
+      
+      photoPreview.value = URL.createObjectURL(file);
+      businessProfilePhoto.value = file;
+      photoError.value = ''; // Clear previous error
+    } else {
+      // Display validation error
+      photoError.value = validation.error;
+      
+      // Reset the file input
+      event.target.value = '';
+    }
   }
 }
 
@@ -882,6 +907,13 @@ async function checkSlugAvailability() {
 function handlePhotoNextStep() {
   if (!businessProfilePhoto.value) {
     photoError.value = 'Business profile photo is required.';
+    return;
+  }
+  
+  // Validate the image before proceeding
+  const validation = validateImageFile(businessProfilePhoto.value);
+  if (!validation.isValid) {
+    photoError.value = validation.error;
     return;
   }
   

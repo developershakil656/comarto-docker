@@ -337,7 +337,6 @@ export default {
             if (file) {
                 const validation = validateImageFile(file);
                 if (!validation.isValid) {
-                    push.error(validation.error);
                     return;
                 }
                 const preview = URL.createObjectURL(file);

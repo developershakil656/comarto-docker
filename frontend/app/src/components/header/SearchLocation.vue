@@ -6,7 +6,7 @@
       <label class="flex items-center">
         <MapPinIcon class="inline-block h-6 w-6 mr-1 text-gray-800" />
         <input
-          type="text"
+          type="search"
           name="searchLocation"
           v-model="searchQuery"
           :placeholder="selectedLocation || 'All Bangladesh'"

@@ -487,7 +487,6 @@ export default {
             // Validate file using utility function
             const validation = validateImageFile(file);
             if (!validation.isValid) {
-                push.error(validation.error);
                 return;
             }
 
