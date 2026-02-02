@@ -159,6 +159,121 @@ class FrontendNecessaryController extends Controller
         ]);
     }
 
+    #random products
+    public function randomProducts(Request $request)
+    {
+        $perPage = (int) $request->get('per_page', 20);
+        $page = max((int) $request->get('page', 1), 1);
+        $offset = ($page - 1) * $perPage;
+
+        $locationParam = $request->location;
+
+        $upazila = '';
+        $district = '';
+
+        if ($locationParam) {
+            $location = explode(',', $locationParam);
+            $upazila = isset($location[1]) ? trim($location[0]) : '';
+            $district = isset($location[1]) ? trim($location[1]) : trim($location[0]);
+        }
+
+        $baseFilters = [
+            'status = "active"',
+            'stock = "in stock"',
+        ];
+
+        $collectedIds = [];
+
+        /** -----------------------------
+         * 1️⃣ Upazila priority
+         * ----------------------------- */
+        if ($upazila) {
+            $upazilaHits = Product::search(null)
+                ->options([
+                    'filter' => array_merge($baseFilters, ['upazila_name = "' . $upazila . '"']),
+                    'sort' => ['random_sort_key:asc'],
+                    'offset' => $offset,
+                    'limit' => $perPage,
+                    'attributesToRetrieve' => ['id'],
+                ])
+                ->raw()['hits'] ?? [];
+
+            $collectedIds = array_merge($collectedIds, collect($upazilaHits)->pluck('id')->toArray());
+        }
+
+        $used = count($collectedIds);
+
+        /** -----------------------------
+         * 2️⃣ District fallback
+         * ----------------------------- */
+        if ($used < $perPage && $district) {
+            $districtOffset = max(0, $offset - $used);
+
+            $districtHits = Product::search(null)
+                ->options([
+                    'filter' => array_merge(
+                        $baseFilters,
+                        [
+                            'district_name = "' . $district . '"',
+                            $upazila ? 'upazila_name != "' . $upazila . '"' : ''
+                        ]
+                    ),
+                    'sort' => ['random_sort_key:asc'],
+                    'offset' => $districtOffset,
+                    'limit' => $perPage - $used,
+                    'attributesToRetrieve' => ['id'],
+                ])
+                ->raw()['hits'] ?? [];
+
+            $collectedIds = array_merge($collectedIds, collect($districtHits)->pluck('id')->toArray());
+            $used = count($collectedIds);
+        }
+
+        /** -----------------------------
+         * 3️⃣ Other locations
+         * ----------------------------- */
+        if ($used < $perPage) {
+            $otherOffset = max(0, $offset - $used);
+
+            $otherFilters = array_filter([
+                $upazila ? 'upazila_name != "' . $upazila . '"' : null,
+                $district ? 'district_name != "' . $district . '"' : null,
+            ]);
+
+            $otherHits = Product::search(null)
+                ->options([
+                    'filter' => array_merge($baseFilters, $otherFilters),
+                    'sort' => ['random_sort_key:asc'],
+                    'offset' => $otherOffset,
+                    'limit' => $perPage - $used,
+                    'attributesToRetrieve' => ['id'],
+                ])
+                ->raw()['hits'] ?? [];
+
+            $collectedIds = array_merge($collectedIds, collect($otherHits)->pluck('id')->toArray());
+        }
+
+        /** -----------------------------
+         * 4️⃣ Fetch Eloquent models in the same order
+         * ----------------------------- */
+        $products = Product::whereIn('id', $collectedIds)
+            ->with(['business.location', 'business.details', 'categories']) // eager load relations
+            ->orderByRaw("FIELD(id, " . implode(',', $collectedIds) . ")")
+            ->get();
+
+        return success_response('Products fetched', [
+            'data' => SearchProductResource::collection($products),
+            'meta' => [
+                'current_page' => $page,
+                'last_page' => $products->count() < $perPage ? $page : $page + 1,
+                'per_page' => $perPage,
+                'total' => $perPage,
+            ]
+        ]);
+    }
+
+
+
     #single product
     public function product($slug)
     {

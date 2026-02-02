@@ -29,6 +29,7 @@ Route::prefix('/v1')->group(function () {
         Route::get('suggested/categories', [HomePageController::class, 'suggested_categories'])->name('suggested.categories');
 
         Route::get('search', [FrontendNecessaryController::class, 'search'])->name('search');
+        Route::get('random/products', [FrontendNecessaryController::class, 'randomProducts'])->name('random.products');
 
         Route::get('product/{slug}', [FrontendNecessaryController::class, 'product'])->name('product');
         Route::get('business/products/{business_id}', [FrontendNecessaryController::class, 'business_products'])->name('business.products');

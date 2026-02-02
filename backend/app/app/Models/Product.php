@@ -29,7 +29,8 @@ class Product extends Model
         'product_unit_id',
         'business_id',
         'stock',
-        'category_slugs'
+        'category_slugs',
+        'random_sort_key'
     ];
 
     protected $casts = [
@@ -50,7 +51,7 @@ class Product extends Model
         return [
             'name' => $this->name,
             'slug' => $this->slug,
-            'details' => $this->details,
+            // 'details' => $this->details,
             'business_type' => $this->business?->business_type,
             'upazila_name' => $this->business?->location?->upazila_name,
             'district_name' => $this->business?->location?->district_name,
@@ -59,11 +60,12 @@ class Product extends Model
             'business' => $this->business ? [
                 "business_name" => $this->business->business_name,
                 "number" => $this->business->number,
-                // "alternate_number" => $this->business->alternate_number,
+                "alternate_number" => $this->business->alternate_number,
                 "payment_type" => $this->business->details?->payment_type,
-                "website" => $this->business->details?->website,
+                // "website" => $this->business->details?->website,
             ] : null,
-            'related_categories' => $this->relatedCategories()
+            'related_categories' => $this->relatedCategories(),
+            'random_sort_key' => (int) $this->random_sort_key,
         ];
     }
 

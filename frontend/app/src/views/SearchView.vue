@@ -40,7 +40,7 @@ export default {
     },
     data() {
         return {
-            isSidebarOpen: true,
+            isSidebarOpen: false,
             searchTimeout: null,
             updatingRouteFromStore: false // Flag to prevent infinite loop between route and store watchers
         };

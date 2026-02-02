@@ -641,6 +641,73 @@ export default createStore({
         commit("SET_LOADING_MORE", false);
       }
     },
+    
+    async fetchRandomProducts({ commit, state }, { location = "" } = {}) {
+      try {
+        commit("SET_LOADING", true);
+        commit("SET_LOADING_MORE", false);
+        
+        // Get filtered location
+        const filteredLocation = location.replace(/, District$/, "");
+        
+        // Reset search parameters for random products
+        commit("SET_SEARCH_PARAMS", { location: filteredLocation });
+        
+        // Make API request for random products
+        const response = await axios.get(`/random/products?location=${encodeURIComponent(filteredLocation)}`);
+        
+        const list = response?.data?.data?.data || [];
+        const meta = response?.data?.data?.meta || {
+          current_page: 1,
+          last_page: 1,
+          total: list.length,
+        };
+        
+        commit("SET_SEARCH_RESULTS", Array.isArray(list) ? list : []);
+        commit("SET_SEARCH_META", meta);
+        
+        return list;
+      } catch (error) {
+        console.error("Error fetching random products:", error);
+        commit("SET_SEARCH_RESULTS", []);
+        commit("SET_SEARCH_META", { current_page: 1, last_page: 1, total: 0 });
+        throw error;
+      } finally {
+        commit("SET_LOADING", false);
+      }
+    },
+    
+    async loadMoreRandomProducts({ commit, state, getters }) {
+      try {
+        if (!getters.canLoadMore || state.loadingMore) return [];
+        commit("SET_LOADING_MORE", true);
+        
+        const nextPage = (state.searchMeta?.current_page || 1) + 1;
+        const p = state.searchParams || {};
+        
+        const filteredLocation = (
+          p.location ||
+          state.selectedLocation ||
+          ""
+        ).replace(/, District$/, "");
+        
+        // Make API request for random products with pagination
+        const response = await axios.get(`/random/products?location=${encodeURIComponent(filteredLocation)}&page=${nextPage}`);
+        
+        const list = response?.data?.data?.data || [];
+        const meta = response?.data?.data?.meta || null;
+        
+        commit("APPEND_SEARCH_RESULTS", Array.isArray(list) ? list : []);
+        if (meta) commit("SET_SEARCH_META", meta);
+        
+        return list;
+      } catch (error) {
+        console.error("Error loading more random products:", error);
+        return [];
+      } finally {
+        commit("SET_LOADING_MORE", false);
+      }
+    },
     async fetchBusinessData({ commit }, businessSlug) {
       try {
         commit("SET_LOADING", true);

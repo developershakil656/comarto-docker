@@ -1,5 +1,5 @@
 <template>
-  <div class="md:text-sm text-xs relative">
+  <div class="md:text-sm text-xs relative location-search">
     <div
       class="border border-gray-300 rounded-md bg-gray-100 p-1 md:p-2 shadow-md focus-within:ring-1 focus-within:ring-primary"
     >
@@ -17,14 +17,14 @@
         <ChevronDownIcon
           class="inline-block h-6 w-6 ml-1 text-gray-800 transition-transform duration-200 cursor-pointer"
           :class="{ 'rotate-180': showLocationDropdown }"
-          @click="toggleLocationDropdown"
+          @click.stop.prevent="toggleLocationDropdown"
         />
       </label>
     </div>
     <!-- Location Dropdown -->
     <div
       v-if="showLocationDropdown"
-      class="absolute top-full left-0 w-full bg-white border border-primary rounded-md shadow-lg z-50 max-h-72 overflow-y-auto dropdown-container"
+      class="absolute top-full left-0 w-full bg-white border border-primary rounded-md shadow-lg z-[60] max-h-72 overflow-y-auto dropdown-container"
     >
       <!-- Locations List -->
       <div v-if="locations.length > 0">
@@ -109,7 +109,7 @@ export default {
       }, 500);
     },
     handleClickOutside(e) {
-      if (!e.target.closest(".relative")) {
+      if (!e.target.closest(".location-search")) {
         this.showLocationDropdown = false;
       }
     },

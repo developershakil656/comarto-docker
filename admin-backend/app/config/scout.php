@@ -144,6 +144,7 @@ return [
         'index-settings' => [
             Product::class => [
                 'filterableAttributes' => ['upazila_name','district_name','business_type','related_categories', 'status', 'stock'],
+                'sortableAttributes' => ['random_sort_key'],
             ],
         ],
     ],

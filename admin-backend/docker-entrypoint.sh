@@ -36,5 +36,9 @@ php artisan config:cache
 php artisan route:cache
 php artisan view:cache
 
+# --- 6. Start Laravel Scheduler in the background ---
+echo "Starting Laravel Scheduler..."
+php artisan schedule:work > /dev/null 2>&1 &
+
 echo "Admin-Backend is ready. Starting php-fpm..."
 exec "$@"

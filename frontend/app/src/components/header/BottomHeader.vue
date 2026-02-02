@@ -19,6 +19,7 @@
                 <nav class="flex space-x-8">
                     <router-link to="/" class="hover:text-primary/85" active-class="text-primary">Home</router-link>
                     <router-link to="/categories" class="hover:text-primary/85" active-class="text-primary">All Categories</router-link>
+                    <router-link to="/random/products" class="hover:text-primary/85" active-class="text-primary">Random Products</router-link>
                     <!-- <router-link to="/category/home-supplies" class="hover:text-primary/85" active-class="text-primary">Home Supplies</router-link> -->
                     <router-link to="/category/apparel-fashion" class="hover:text-primary/85" active-class="text-primary">Apparel & Fashion</router-link>
                     <!-- <router-link to="/category/food-beverage" class="hover:text-primary/85" active-class="text-primary">Food & Beverage</router-link> -->

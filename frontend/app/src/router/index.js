@@ -14,6 +14,7 @@ const FreeListingView = () => import('../views/FreeListingView.vue')
 const RegisterBusinessView = () => import('../views/RegisterBusinessView.vue')
 const CategoryDetailView = () => import('../views/CategoryDetailView.vue')
 const AllCategoriesView = () => import('../views/AllCategoriesView.vue')
+const RandomProductsView = () => import('../views/RandomProductsView.vue')
 
 // User Views
 const AccountDetails = () => import('../views/user/AccountDetails.vue')
@@ -57,6 +58,7 @@ const routes = [
       { path: 'categories', name: 'all-categories', component: AllCategoriesView },
       { path: 'category/:categorySlug', name: 'category-detail', component: CategoryDetailView },
       { path: 'product/:slug', name: 'product-detail', component: ProductDetailsView, props: true },
+      { path: 'random/products', name: 'random-products', component: RandomProductsView },
       { 
         path: 'free/listing', 
         name: 'free-listing', 
