@@ -45,7 +45,7 @@
                                         {{ product.name }}
                                     </h3>
                                     <div class="flex flex-wrap items-baseline mb-3">
-                                        <span class="text-sm md:text-xl font-poppins font-medium">৳ {{ product.price ||
+                                        <span class="font-poppins font-semibold">৳ {{ product.price ||
                                             'N/A' }}</span>/ <span class="text-sm ml-1 font-normal">{{
                                             getUnitDisplay(product)
                                             }}</span>
@@ -102,6 +102,7 @@ export default {
         ChevronRightIcon,
         HeartIcon,
         HeartIconSolid,
+        OptimizedImage
     },
     props: {
         title: {

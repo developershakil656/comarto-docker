@@ -23,7 +23,7 @@
                     <!-- <router-link to="/category/home-supplies" class="hover:text-primary/85" active-class="text-primary">Home Supplies</router-link> -->
                     <router-link to="/category/apparel-fashion" class="hover:text-primary/85" active-class="text-primary">Apparel & Fashion</router-link>
                     <!-- <router-link to="/category/food-beverage" class="hover:text-primary/85" active-class="text-primary">Food & Beverage</router-link> -->
-                    <router-link to="/category/industrial-supplies" class="hover:text-primary/85" active-class="text-primary">Industrial Supplies</router-link>
+                    <!-- <router-link to="/category/industrial-supplies" class="hover:text-primary/85" active-class="text-primary">Industrial Supplies</router-link> -->
                 </nav>
 
                 <!-- Right: Contact and Cart -->

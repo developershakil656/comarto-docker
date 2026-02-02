@@ -11,5 +11,5 @@ use Illuminate\Support\Facades\Schedule;
 // })->purpose('Display an inspiring quote');
 
 // Shuffle every night at midnight so users see a "fresh" list daily
-Schedule::command('products:shuffle')->dailyAt('00:00');
-// Schedule::command('products:shuffle')->everyFiveMinutes();
+// Schedule::command('products:shuffle')->dailyAt('00:00');
+Schedule::command('products:shuffle')->everySixHours();
