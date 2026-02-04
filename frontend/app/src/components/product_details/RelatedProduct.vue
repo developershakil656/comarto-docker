@@ -156,7 +156,7 @@ export default {
             return (item) => {
                 const unit = item.product_unit || {};
                 if (item.unit_quantity && item.unit_quantity > 1) {
-                    return `Per ${item.unit_quantity} ${unit.plural_form || unit.full_form || 'Units'}`;
+                    return `${item.unit_quantity} ${unit.plural_form}`;
                 }
                 return unit.short_form || unit.full_form || 'Unit';
             };

@@ -57,7 +57,7 @@
           >
             <div class="max-h-52 max-w-52 product-image">
               <div
-                class="rounded-lg border content-center bg-green-50 max-h-44 max-w-44 md:max-h-52 md:max-w-52 product-image overflow-hidden"
+                class="rounded-lg border content-center bg-green-50 max-h-44 max-w-44 md:max-h-52 md:max-w-52 product-image overflow-hidden aspect-square"
               >
                 <OptimizedImage
                   :src="
@@ -81,7 +81,7 @@
                 <template v-if="!isSuppliersView">
                   <div class="flex justify-between">
                     <h2
-                      class="text-sm md:text-xl font-semibold line-clamp-2 capitalize"
+                      class="text-sm md:text-base font-semibold line-clamp-2 capitalize"
                     >
                       {{ item.name }}
                     </h2>
@@ -349,9 +349,7 @@ export default {
       return (item) => {
         const unit = item.product_unit || {};
         if (item.unit_quantity && item.unit_quantity > 1) {
-          return `Per ${item.unit_quantity} ${
-            unit.plural_form || unit.full_form || "Units"
-          }`;
+          return `${item.unit_quantity} ${unit.plural_form}`;
         }
         return unit.short_form || unit.full_form || "Unit";
       };

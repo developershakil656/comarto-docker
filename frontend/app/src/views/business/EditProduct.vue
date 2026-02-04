@@ -250,7 +250,7 @@
                 <label class="block text-sm font-semibold text-gray-700 mb-2">Product Details *</label>
                 <textarea
                   v-model="form.details"
-                  rows="4"
+                  rows="6"
                   :class="[
                     'w-full px-4 py-3 border-2 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300',
                     fieldErrors.details ? 'border-red-300 focus:ring-red-500' : 'border-gray-200 hover:border-primary-200 focus:ring-primary-500'
@@ -279,7 +279,10 @@
             
             <div class="space-y-6">
               <div class="flex items-center justify-between">
-                <p class="text-gray-600">Add key-value pairs for product specifications</p>
+                <div>
+                  <p class="text-gray-600">Add key-value pairs for product specifications</p>
+                  <p class="text-gray-600 text-xs md:text-sm">(e.g., Origin: Bangladesh)</p>
+                </div>
                 <button
                   @click="addSpec"
                   type="button"

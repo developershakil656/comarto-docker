@@ -12,7 +12,7 @@
                 <!-- Product Name, Price, Quantity -->
                 <div class="bg-white p-3 md:w-7/12">
                     <div class="flex justify-between items-start">
-                        <h1 class="text-lg md:text-xl font-semibold capitalize">{{ product.name }}</h1>
+                        <h1 class="text-sm md:text-xl font-semibold capitalize">{{ product.name }}</h1>
                         <button
                             @click="toggleFavourite"
                             class="transition-colors p-1"
@@ -25,9 +25,8 @@
                     
                     <!-- Pricing -->
                     <div class="flex items-baseline mb-2 md:my-4">
-                        <span class="text-lg md:text-xl font-poppins font-semibold">৳ {{ product.price }}</span> /
-                        <!-- <span class="ml-1" v-if="showPerUnit"> Per {{product.unit_quantity}} {{ product.product_unit.plural_form }}</span> -->
-                        <span class="ml-1">{{ unitDisplay }}</span>
+                        <span class="text-sm md:text-lg font-poppins font-semibold">৳ {{ product.price }}</span> /
+                        <span class="ml-1 text-sm md:text-base">{{ unitDisplay }}</span>
                     </div>
                     
                     <!-- Quantity Input and Unit Display -->
@@ -60,7 +59,7 @@
 
                     <!-- Specifications -->
                     <div>
-                        <h2 class="text-lg md:text-xl font-semibold my-2">Specification</h2>
+                        <h2 class="text-sm md:text-base font-semibold my-2">Specification</h2>
                         <table class="table-auto border-collapse border w-full rounded-md p-2">
                             <tbody>
                                 <tr v-for="[key, value] in specificationEntries" :key="key">
@@ -76,7 +75,7 @@
             <!-- Description -->
             <div class="bg-white p-3 mt-3">
                 <div class="flex justify-between items-center mb-2">
-                    <h2 class="text-lg md:text-xl font-semibold text-gray-800">Description</h2>
+                    <h2 class="text-sm md:text-base font-semibold text-gray-800">Description</h2>
                     <button @click="scrollToDetails" class="text-primary hover:underline hover:text-primary/85 text-sm">View Details</button>
                 </div>
                 <p class="text-gray-700 leading-relaxed text-[15px] text-justify">
@@ -137,9 +136,10 @@ export default {
         unitDisplay() {
             const unit = this.product.product_unit;
             if (this.showPerUnit) {
-                return `Per ${this.product.unit_quantity} ${unit?.plural_form || unit?.full_form || 'Units'}`;
+                // return `Per ${this.product.unit_quantity} ${unit?.plural_form || unit?.full_form || 'Units'}`;
+                return `${this.product.unit_quantity} ${full_form}s`;
             }
-            return unit?.full_form || unit?.full_form || 'Unit';
+            return unit?.full_form || 'Unit';
         },
         specificationEntries() {
             return Object.entries(this.product.specification || {}).slice(0, 7);

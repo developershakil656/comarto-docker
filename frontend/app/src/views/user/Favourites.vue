@@ -57,7 +57,7 @@
         <div class="flex-1 flex flex-col">
           <div class="flex justify-between">
             <h2
-              class="text-sm md:text-xl font-semibold line-clamp-2 capitalize"
+              class="text-sm md:text-lg font-semibold line-clamp-2 capitalize"
             >
               {{ product.name }}
             </h2>
@@ -72,7 +72,7 @@
 
           <!-- pricing -->
           <div class="flex items-baseline font-semibold">
-            <span class="text-xs md:text-xl font-poppins"
+            <span class="text-xs md:text-base font-poppins"
               >৳ {{ product.price }}</span
             >
             <span
@@ -340,8 +340,7 @@ export default {
     getUnitDisplay(product) {
       const unit = product.product_unit || {};
       if (product.unit_quantity && product.unit_quantity > 1) {
-        return `Per ${product.unit_quantity} ${unit.plural_form || unit.full_form || "Units"
-          }`;
+        return `${product.unit_quantity} ${unit.plural_form}`;
       }
       return unit.short_form || unit.full_form || "Unit";
     },

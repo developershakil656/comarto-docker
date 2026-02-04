@@ -48,12 +48,18 @@ class ProductController extends Controller
             if (str_contains($price, '-')) {
                 // It's a price range, format both parts
                 $priceParts = explode('-', $price);
-                $minPrice = number_format(floatval(trim($priceParts[0])), 2, '.', '');
-                $maxPrice = number_format(floatval(trim($priceParts[1])), 2, '.', '');
-                $data['price'] = $minPrice . ' - ' . $maxPrice;
+                $minPrice = floatval(trim($priceParts[0]));
+                $maxPrice = floatval(trim($priceParts[1]));
+                
+                // Only add decimal places if there are actual decimal values
+                $minPriceFormatted = floor($minPrice) == $minPrice ? (int)$minPrice : number_format($minPrice, 2, '.', '');
+                $maxPriceFormatted = floor($maxPrice) == $maxPrice ? (int)$maxPrice : number_format($maxPrice, 2, '.', '');
+                
+                $data['price'] = $minPriceFormatted . ' - ' . $maxPriceFormatted;
             } else {
-                // It's a single price, format to 2 decimal places
-                $data['price'] = number_format(floatval($price), 2, '.', '');
+                // It's a single price, only add decimal places if there are actual decimal values
+                $priceFloat = floatval($price);
+                $data['price'] = floor($priceFloat) == $priceFloat ? (int)$priceFloat : number_format($priceFloat, 2, '.', '');
             }
         }
 
@@ -119,12 +125,18 @@ class ProductController extends Controller
             if (str_contains($price, '-')) {
                 // It's a price range, format both parts
                 $priceParts = explode('-', $price);
-                $minPrice = number_format(floatval(trim($priceParts[0])), 2, '.', '');
-                $maxPrice = number_format(floatval(trim($priceParts[1])), 2, '.', '');
-                $data['price'] = $minPrice . ' - ' . $maxPrice;
+                $minPrice = floatval(trim($priceParts[0]));
+                $maxPrice = floatval(trim($priceParts[1]));
+                
+                // Only add decimal places if there are actual decimal values
+                $minPriceFormatted = floor($minPrice) == $minPrice ? (int)$minPrice : number_format($minPrice, 2, '.', '');
+                $maxPriceFormatted = floor($maxPrice) == $maxPrice ? (int)$maxPrice : number_format($maxPrice, 2, '.', '');
+                
+                $data['price'] = $minPriceFormatted . ' - ' . $maxPriceFormatted;
             } else {
-                // It's a single price, format to 2 decimal places
-                $data['price'] = number_format(floatval($price), 2, '.', '');
+                // It's a single price, only add decimal places if there are actual decimal values
+                $priceFloat = floatval($price);
+                $data['price'] = floor($priceFloat) == $priceFloat ? (int)$priceFloat : number_format($priceFloat, 2, '.', '');
             }
         }
 

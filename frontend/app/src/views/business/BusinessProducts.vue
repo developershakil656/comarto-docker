@@ -326,7 +326,7 @@ export default {
     getUnitDisplay(product) {
       const unit = product.product_unit || {};
       if (product.unit_quantity && product.unit_quantity > 1) {
-        return `Per ${product.unit_quantity} ${unit.plural_form || unit.full_form || 'Units'}`;
+        return `${product.unit_quantity} ${unit.plural_form }`;
       }
       return unit.short_form || unit.full_form || 'Unit';
     }

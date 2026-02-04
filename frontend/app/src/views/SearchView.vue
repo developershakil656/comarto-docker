@@ -197,6 +197,15 @@ export default {
                 .map(word => word.charAt(0).toUpperCase() + word.slice(1))
                 .join(' ');
         },
+        checkScreenSize() {
+            // md breakpoint is 768px in Tailwind CSS
+            this.isLargeScreen = window.innerWidth >= 768;
+            // Set sidebar open state based on screen size on initial load only
+            if (this._isInitialLoad) {
+                this.isSidebarOpen = this.isLargeScreen;
+                this._isInitialLoad = false;
+            }
+        },
         onFilterChange(filter) {
             const businessTypes = filter.businessTypes || [];
             const categorySlugs = filter.categorySlugs || [];
