@@ -137,7 +137,7 @@ export default {
             const unit = this.product.product_unit;
             if (this.showPerUnit) {
                 // return `Per ${this.product.unit_quantity} ${unit?.plural_form || unit?.full_form || 'Units'}`;
-                return `${this.product.unit_quantity} ${full_form}s`;
+                return `${this?.product?.unit_quantity} ${unit?.full_form}s`;
             }
             return unit?.full_form || 'Unit';
         },
