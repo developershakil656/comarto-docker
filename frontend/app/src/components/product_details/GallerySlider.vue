@@ -80,22 +80,23 @@
                 </button>
 
                 <!-- Content -->
-                <div class="flex flex-col items-center">
+                <div class="flex flex-col items-center h-[95vh]">
                     <!-- Image Viewer -->
-                    <div class="w-full">
+                    <div class="w-full h-full flex items-center">
                         <OptimizedImage 
                             :src="currentImageUrl" 
                             :alt="`Product Image ${lightboxIndex + 1}`"
-                            class="max-w-full max-h-[80vh] object-contain mx-auto rounded-lg"
+                            class="max-w-full max-h-[70vh] object-contain mx-auto rounded-lg overflow-hidden"
                         />
-                        <div class="mt-4 text-center">
-                            <p class="text-white text-lg">{{ lightboxIndex + 1 }} of {{ images.length }}</p>
-                            <p class="text-white text-sm text-gray-300 mt-1">Product Gallery</p>
-                        </div>
                     </div>
 
                     <!-- Thumbnail Navigation -->
-                    <div v-if="images.length > 1" class="mt-6 flex gap-2 overflow-x-auto max-w-full pb-2">
+                    <div v-if="images.length > 1" class="items-baseline">
+                        <div class="mt-4 text-center">
+                            <p class="text-white text-lg">{{ lightboxIndex + 1 }} of {{ images.length }}</p>
+                            <!-- <p class="text-white text-sm text-gray-300 mt-1">Product Gallery</p> -->
+                        </div>
+                        <div class="mt-6 flex gap-2 overflow-x-auto max-w-full pb-2">
                         <div 
                             v-for="(image, index) in images" 
                             :key="index"
@@ -110,6 +111,7 @@
                                     class="w-full h-full object-cover"
                                 />
                             </div>
+                        </div>
                         </div>
                     </div>
                 </div>

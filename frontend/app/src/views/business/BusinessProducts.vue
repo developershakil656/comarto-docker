@@ -132,7 +132,7 @@
                 </div>
               </td>
               <td class="px-4 py-3">
-                <router-link :to="`/product/${product.slug}`" class="w-20 px-3 py-2 mb-1 flex items-center justify-center gap-1 rounded bg-green-500 text-white hover:bg-green-600 text-xs font-semibold mr-2">
+                <router-link :to="`/product/${product.slug}`" target="_blank" class="w-20 px-3 py-2 mb-1 flex items-center justify-center gap-1 rounded bg-green-500 text-white hover:bg-green-600 text-xs font-semibold mr-2">
                   <EyeIcon class="w-4 h-4" /> Show
                 </router-link>
                 <router-link :to="`/my/business/product/edit/${product.id}`" class="w-20 px-3 py-2 mb-1 flex items-center justify-center gap-1 rounded bg-blue-500 text-white hover:bg-blue-600 text-xs font-semibold mr-2">

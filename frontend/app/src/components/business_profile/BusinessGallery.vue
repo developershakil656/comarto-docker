@@ -118,10 +118,10 @@
         </button>
 
         <!-- Content -->
-        <div class="flex flex-col items-center">
+        <div class="flex flex-col items-center h-[95vh]">
           <!-- Video Player -->
-          <div v-if="currentItemType === 'video'" class="w-full">
-            <div class="aspect-video bg-black rounded-lg overflow-hidden">
+          <div v-if="currentItemType === 'video'" class="w-full h-full flex items-center">
+            <div class="aspect-video bg-black rounded-lg overflow-hidden w-full h-full max-h-[70vh]">
               <iframe
                 v-if="videoEmbedUrl"
                 :src="videoEmbedUrl"
@@ -131,28 +131,26 @@
                 allowfullscreen
               ></iframe>
             </div>
-            <div class="mt-4 text-center">
-              <h3 class="text-xl font-semibold text-white">{{ videoTitle || 'YouTube Video' }}</h3>
-            </div>
           </div>
 
           <!-- Image Viewer -->
-          <div v-else class="w-full">
+          <div v-else class="w-full h-full flex items-center">
             <OptimizedImage 
               :src="currentImageUrl" 
               :alt="`Business Image ${currentIndex + 1}`"
-              class="max-w-full max-h-[70vh] object-contain mx-auto rounded-lg"
+              class="max-w-full max-h-[70vh] object-contain mx-auto rounded-lg overflow-hidden"
             />
+          </div>
+
+          <!-- Thumbnail Navigation -->
+          <div v-if="totalItems > 1" class="mt-auto items-baseline">
             <div class="mt-4 text-center">
               <p class="text-white text-lg">{{ currentIndex + 1 }} of {{ totalItems }}</p>
               <p class="text-white text-sm mt-1">
                 {{ currentItemType === 'video' ? 'YouTube Video' : `Business Image ${currentIndex - getVideoOffset() + 1}` }}
               </p>
             </div>
-          </div>
-
-          <!-- Thumbnail Navigation -->
-          <div v-if="totalItems > 1" class="mt-6 flex gap-2 overflow-x-auto max-w-full pb-2">
+            <div class="mt-6 flex gap-2 overflow-x-auto max-w-full pb-2">
             <div 
               v-for="(item, index) in allItems" 
               :key="index"
@@ -173,6 +171,7 @@
                   </svg>
                 </div>
               </div>
+            </div>
             </div>
           </div>
         </div>
@@ -412,31 +411,6 @@ export default {
 </script>
 
 <style scoped>
-.line-clamp-2 {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-/* Custom scrollbar for thumbnails */
-.overflow-x-auto::-webkit-scrollbar {
-  height: 6px;
-}
-
-.overflow-x-auto::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 3px;
-}
-
-.overflow-x-auto::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: 3px;
-}
-
-.overflow-x-auto::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.5);
-}
 
 /* Gallery grid hover effects */
 .business-gallery .grid > div {

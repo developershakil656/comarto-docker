@@ -26,7 +26,7 @@ class BusinessGalleryController extends Controller
 
         // Store new image and retrieve its URL
         // Adjust the path as necessary to match your directory structure
-        $imagePath = image_link_generator($request->image, '/business/gallery/', $business->business_name);
+        $imagePath = image_link_generator($request->image, '/business/gallery/', $business->business_name, 0, false);
 
         // Prepare the data to be stored in the database
         $data = [

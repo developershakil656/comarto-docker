@@ -487,6 +487,7 @@
                   </label>
                 </div>
                 <p class="text-sm text-gray-500 mt-2">First image will be the feature image. Drag to reorder.</p>
+                <p class="text-sm text-gray-600 mt-1">Images: {{ images.length }}/10</p>
               </div>
 
               <div v-if="images.length > 0">
@@ -918,6 +919,18 @@ export default {
     async onImageChange(event) {
       const files = Array.from(event.target.files);
       console.log('Files selected:', files.length, files.map(f => f.name));
+      
+      // Check if adding these files would exceed the 10 image limit
+      if (this.images.length + files.length > 10) {
+        const availableSlots = 10 - this.images.length;
+        if (availableSlots > 0) {
+          push.error(`You can only upload ${availableSlots} more image(s). Maximum 10 images allowed.`);
+          return;
+        } else {
+          push.error(`Maximum 10 images reached. Cannot upload more images.`);
+          return;
+        }
+      }
       
       if (files.length === 0) return;
       

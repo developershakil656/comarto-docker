@@ -490,10 +490,11 @@
                     <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                   </svg>
                   <p class="mt-2 text-sm text-primary-600">Click to upload images</p>
-                  <p class="mt-1 text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
+                  <p class="mt-1 text-xs text-gray-500">JPEG, JPG, PNG, and WEBP up to 5MB</p>
                 </label>
               </div>
               <p class="text-sm text-gray-500 mt-2">First image will be the feature image. Drag to reorder.</p>
+              <p class="text-sm text-gray-600 mt-1">Images: {{ images.length }}/10</p>
             </div>
 
             <div v-if="images.length > 0">
@@ -797,6 +798,18 @@ export default {
     },
     onImageChange(event) {
       const files = Array.from(event.target.files);
+      
+      // Check if adding these files would exceed the 10 image limit
+      if (this.images.length + files.length > 10) {
+        const availableSlots = 10 - this.images.length;
+        if (availableSlots > 0) {
+          push.error(`You can only upload ${availableSlots} more image(s). Maximum 10 images allowed.`);
+        } else {
+          push.error(`Maximum 10 images reached. Cannot upload more images.`);
+        }
+        return;
+      }
+      
       files.forEach(file => {
         const validation = validateImageFile(file);
         if (!validation.isValid) {
