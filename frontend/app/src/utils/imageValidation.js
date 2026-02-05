@@ -42,12 +42,12 @@ export function validateImageFile(file) {
   }
 
   // Check file size (5MB = 5 * 1024 * 1024 bytes)
-  const maxSize = 2 * 1024 * 1024;
+  const maxSize = 5 * 1024 * 1024;
   if (file.size > maxSize) {
-    push.warning('File size must be less than 2MB');
+    push.warning('File size must be less than 5MB');
     return {
       isValid: false,
-      error: 'File size must be less than 2MB'
+      error: 'File size must be less than 5MB'
     };
   }
 

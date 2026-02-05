@@ -117,7 +117,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
                   </svg>
                   <p class="mt-2 text-sm text-primary-600">Click to upload images</p>
-                  <p class="mt-1 text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
+                  <p class="mt-1 text-xs text-gray-500">JPEG, JPG, PNG, and WEBP up to 5MB</p>
                 </label>
               </div>
               <p class="text-sm text-gray-500 mt-2">Drag to reorder images.</p>
@@ -465,23 +465,21 @@ export default {
           hasChanges = true;
         }
         
+        
+        push.success('Business gallery updated successfully!');
+        
         if (hasChanges) {
-          push.success('Business gallery updated successfully!');
           
           this.$emit('gallery-updated', {
             images: this.images,
             video_url: this.form.video_url
           });
-          
-          setTimeout(() => {
-            this.closeModal();
-          }, 1500);
-        } else {
-          push.info('No changes to save.');
-          setTimeout(() => {
-            // Clear any existing messages
-          }, 2000);
         }
+        
+        setTimeout(() => {
+          this.closeModal();
+        }, 1500);
+        
         
       } catch (error) {
         console.error('Error saving business gallery:', error);

@@ -19,6 +19,7 @@ services:
     container_name: backend
     volumes:
       - ./env/backend.env:/var/www/backend/.env
+      - ./docker-config/php-limits.ini:/usr/local/etc/php/conf.d/php-limits.ini
     command: php-fpm
 
   admin-backend:
@@ -26,6 +27,7 @@ services:
     container_name: admin-backend
     volumes:
       - ./env/admin-backend.env:/var/www/admin-backend/.env
+      - ./docker-config/php-limits.ini:/usr/local/etc/php/conf.d/php-limits.ini
     command: php-fpm
 
   frontend:

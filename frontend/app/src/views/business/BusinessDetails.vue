@@ -65,7 +65,7 @@
                 </div>
             </div>
             <div>
-                <router-link :to="`/${myBusiness?.slug}`" class="text-primary flex items-center gap-2 border border-primary rounded-md px-3 py-1.5 hover:bg-primary/10 transition-colors">
+                <router-link :to="`/${myBusiness?.slug}`" target="_blank" class="text-primary flex items-center gap-2 border border-primary rounded-md px-3 py-1.5 hover:bg-primary/10 transition-colors">
                     <EyeIcon class="w-5 h-5" />
                     Preview</router-link>
             </div>

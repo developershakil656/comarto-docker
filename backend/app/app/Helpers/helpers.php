@@ -1,7 +1,7 @@
 <?php
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Laravel\Facades\Image;
 use Illuminate\Support\Str;
-use Intervention\Image\Facades\Image;
 
 // api success response
 function success_response($message = 'data fetched', $data = null, $status_code = 200)
@@ -59,24 +59,53 @@ function slugify($text)
 }
 
 # image link generator
-function image_link_generator($image_file, $thumbnail_path = '/products/', $any_unique_info = '',$size = [400,400])
+function image_link_generator($image_file, $thumbnail_path = 'products/', $any_unique_info = '', $size = 820, $crop = true)
 {
-    // Get extension safely
-    $ext = $image_file->getClientOriginalExtension();
+    // 1. Sanitize Path
+    $thumbnail_path = rtrim($thumbnail_path, '/') . '/';
 
-    $slug = slugify($any_unique_info);
+    // 2. SEO Friendly Filename
+    $slug = Str::slug($any_unique_info) ?: 'business-file';
     $uniqueId = Str::random(6);
     $timestamp = now()->format('YmdHis');
-    $full_name = "{$slug}-{$uniqueId}-{$timestamp}.{$ext}";
+    $full_name = "{$slug}-{$uniqueId}-{$timestamp}.webp";
 
-    $path = $thumbnail_path . $full_name;
+    // 3. Read Image
+    $img = Image::read($image_file);
 
-    // Store file in storage/app/public/gallery/products/
-    Storage::disk('public')->putFileAs($thumbnail_path, $image_file, $full_name);
+    if ($crop) {
+        // --- PRODUCT MODE (Square) ---
+        // 'cover' crops the image to fill the $size x $size area.
+        // We use the original dimension if it's smaller than $size to prevent upscaling blur.
+        $originalMinSide = min($img->width(), $img->height());
+        $targetSize = ($originalMinSide < $size) ? $originalMinSide : $size;
 
-    // Return the path relative to storage
-    return 'storage' . $path;
+        $img->cover($targetSize, $targetSize, 'center');
+        
+        // Light sharpening makes product edges "pop" after resizing
+        $img->sharpen(10);
+    } else {
+        // --- DOCUMENT/NID MODE (Natural Ratio) ---
+        // We only scale down if it's huge (1600px+). 
+        // scaleDown ensures we NEVER stretch a small image upward (which causes blur).
+        $img->scaleDown(width: 1200);
+        
+        // Documents need more detail preserved
+        $img->sharpen(5);
+    }
+
+    // 4. Encode to WebP with High Quality
+    // 92 quality provides near-lossless clarity while still being much smaller than PNG/JPG
+    $processedImage = $img->toWebp(92);
+
+    // 5. Save to Storage
+    $savePath = $thumbnail_path . $full_name;
+    Storage::disk('public')->put($savePath, (string) $processedImage);
+
+    // 6. Return the relative URL for database storage
+    return 'storage/' . $savePath;
 }
+
 
 function delete_image($path)
 {

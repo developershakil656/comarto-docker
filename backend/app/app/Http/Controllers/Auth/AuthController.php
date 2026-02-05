@@ -293,7 +293,7 @@ class AuthController extends Controller
         // return $request->all();
         // Validate the request: Ensure the 'profile' is a valid image file (jpg, jpeg, png)
         $validator = Validator::make($request->all(), [
-            'profile' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048'  // Max size: 2MB (can be adjusted)
+            'profile' => 'required|image|mimes:jpeg,png,jpg,webp|max:5120'  // Max size: 5MB (can be adjusted)
         ]);
 
         // Return validation error if validation fails
@@ -308,7 +308,7 @@ class AuthController extends Controller
         }
 
         // Store the new image using the image_link_generator function
-        $image = image_link_generator($request->file('profile'), '/user/profile/', $user->name);
+        $image = image_link_generator($request->file('profile'), '/user/profile/', $user->name, 220);
 
         // Update the user's profile with the new image URL
         $user->profile = $image;
@@ -354,8 +354,8 @@ class AuthController extends Controller
         }
 
         // Store new images using the image_link_generator function
-        $nid_front = image_link_generator($request->file('nid_front'), '/user/nid/', $request->nid_number);
-        $nid_back = image_link_generator($request->file('nid_back'), '/user/nid/', $request->nid_number);
+        $nid_front = image_link_generator($request->file('nid_front'), '/user/nid/', $request->nid_number, 0, false);
+        $nid_back = image_link_generator($request->file('nid_back'), '/user/nid/', $request->nid_number, 0, false);
 
         // Update or create verification record
         $verification = AccountVerification::updateOrCreate(

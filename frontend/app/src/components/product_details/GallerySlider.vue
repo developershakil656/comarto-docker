@@ -4,7 +4,7 @@
             :modules="modules"
             :thumbs="{ swiper: thumbsSwiper }"
             :space-between="10"
-            class="mb-4 rounded-lg max-h-96 max-w-96 bg-primary/10"
+            class="mb-4 rounded-lg max-h-96 max-w-96 bg-primary/10 aspect-square"
             @swiper="setMainSwiper"
             @slideChange="onSlideChange"
             :loop="true"

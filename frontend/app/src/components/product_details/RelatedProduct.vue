@@ -33,7 +33,7 @@
                             </button>
 
                             <!-- Image -->
-                            <div class="w-full h-36 md:h-48 bg-primary/10 flex-shrink-0">
+                            <div class="w-full h-36 md:h-48 bg-primary/10 flex-shrink-0 aspect-square">
                                 <OptimizedImage :src="product.feature_image || 'https://placehold.co/180/F5F5DC/808080?text=No+Image'"
                                     :alt="product.name" class="w-full h-full object-cover" />
                             </div>

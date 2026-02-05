@@ -13,7 +13,7 @@ export function useSEO() {
       { property: 'twitter:description', content: description }
     ]
 
-    const imageToUse = image || '/logo.svg';
+    const imageToUse = image || '/logo.png';
     metaTags.push(
       { property: 'og:image', content: imageToUse },
       { property: 'twitter:image', content: imageToUse }

@@ -119,7 +119,7 @@ export default {
         setMetaTags(
           `${productName} - ${businessName} | ${location} Comarto B2B Marketplace`,
           `Buy ${productName} from ${businessName} in ${location}. Get wholesale prices and connect with verified suppliers in Bangladesh on Comarto.`,
-          this.productDetails.product.feature_image_url,
+          this.productDetails.product.gallery[0],
           `${productName}, ${businessName}, wholesale, suppliers, ${location}, Comarto, B2B, manufacturing, trade`
         );
       }

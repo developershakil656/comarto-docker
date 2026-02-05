@@ -89,7 +89,7 @@ class BusinessController extends Controller
     {
         // Validate uploaded file
         $validator = Validator::make($request->all(), [
-            'business_profile' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'business_profile' => 'required|image|mimes:jpeg,png,jpg,webp|max:5120',
         ]);
 
         if ($validator->fails()) {
@@ -112,7 +112,8 @@ class BusinessController extends Controller
             $file_url = image_link_generator(
                 $request->file('business_profile'),
                 '/business/profile/',
-                $data->business_name
+                $data->business_name,
+                300
             );
 
             // Save new file URL

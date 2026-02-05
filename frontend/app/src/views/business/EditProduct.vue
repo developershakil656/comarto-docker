@@ -1528,14 +1528,6 @@ export default {
   --tw-gradient-to: #047857;
 }
 
-/* Line clamp utility for video title */
-.line-clamp-2 {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
 /* Improve dragging experience */
 .sortable-ghost {
   opacity: 0.5;
