@@ -225,11 +225,11 @@
                 item-key="index"
               >
                 <template #item="{ element: image, index }">
-                  <div class="relative group">
+                  <div class="relative group aspect-square">
                     <OptimizedImage
                       :src="image.url"
                       :alt="`Business image ${index + 1}`"
-                      class="w-full h-32 object-cover rounded-xl border-4 border-gray-300"
+                      class="w-full h-full object-cover rounded-xl border-4 border-gray-300"
                     />
 
                     <div

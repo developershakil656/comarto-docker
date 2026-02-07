@@ -516,11 +516,11 @@
                   :disabled="imagePositionChanging"
                 >
                   <template #item="{ element: image, index }">
-                    <div class="relative group">
+                    <div class="relative group aspect-square">
                       <img
                         :src="image.url || image"
                         :alt="`Product image ${index + 1}`"
-                        class="w-full h-32 object-cover rounded-xl border-4 border-gray-300 transition-all duration-300"
+                        class="w-full h-full object-cover rounded-xl border-4 border-gray-300 transition-all duration-300"
                         :class="{ 
                           'border-primary': index === 0,
                           'border-blue-400': drag && dragStartIndex === index

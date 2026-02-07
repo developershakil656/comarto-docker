@@ -279,7 +279,7 @@
               </div>
               <!-- <p class="text-gray-500 mb-6">Showcase photos of your business to look authentic</p> -->
               <div class="w-full flex justify-center mb-8">
-                <label class="flex flex-col items-center justify-center w-60 h-44 border-2 border-dashed border-blue-400 rounded-xl cursor-pointer hover:bg-blue-50 transition">
+                <label class="flex flex-col items-center justify-center w-60 h-60 border-2 border-dashed border-blue-400 rounded-xl cursor-pointer hover:bg-blue-50 transition">
                   <div v-if="photoPreview" class="w-full h-full relative">
                     <OptimizedImage :src="photoPreview" alt="Business Profile Preview" class="w-full h-full object-cover rounded-xl" />
                     <button 

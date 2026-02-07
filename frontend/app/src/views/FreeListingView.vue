@@ -12,7 +12,7 @@
           <!-- Mobile Input -->
           <div class="flex flex-col sm:flex-row items-center bg-white rounded-lg shadow-md border p-1.5 my-8 w-full max-w-[466px]">
             <div class="flex">
-            <span class="flex flex-shrink-0 items-center px-2 border-r border-gray-300">
+            <span class="flex flex-shrink-0 items-center px-2 border-r border-gray-300 text-sm md:text-base">
               <img src="https://flagcdn.com/bd.svg" alt="BD Flag" class="w-6 mr-1" />
               +88
             </span>
@@ -98,14 +98,14 @@
       </div>
 
       <!-- Steps Section -->
-      <div class="bg-gray-50 md:py-12 md:mt-8">
+      <div class="bg-gray-50 md:py-12 md:mt-8 py-4">
         <div class="max-w-5xl mx-auto px-4">
           <h2 class="text-xl md:text-3xl font-bold text-center mb-10">Get a FREE Business Listing in 3 Simple Steps</h2>
           <div class="flex flex-col md:flex-row justify-between items-center gap-8 md:gap-4">
             <!-- Step 1 -->
             <div class="flex flex-col items-center text-center flex-1">
-              <div class="bg-white shadow-lg rounded-full w-20 md:w-24 h-20 md:h-24 flex items-center justify-center mb-4">
-                <DevicePhoneMobileIcon class="w-10 md:w-12 text-primary" />
+              <div class="shadow-lg rounded-full w-20 md:w-24 h-20 md:h-24 flex items-center justify-center mb-4 bg-blue-100">
+                <DevicePhoneMobileIcon class="w-10 md:w-12 text-blue-700" />
               </div>
               <h3 class="font-bold md:text-lg mb-1">Create Account</h3>
               <p class="text-gray-600">Enter your mobile number<br>to get started</p>
@@ -114,8 +114,8 @@
             <span class="hidden md:block text-3xl mx-4">→</span>
             <!-- Step 2 -->
             <div class="flex flex-col items-center text-center flex-1">
-              <div class="bg-white shadow-lg rounded-full w-20 md:w-24 h-20 md:h-24 flex items-center justify-center mb-4">
-                <BuildingOfficeIcon class="w-10 md:w-12 text-primary" />
+              <div class="shadow-lg rounded-full w-20 md:w-24 h-20 md:h-24 flex items-center justify-center mb-4 bg-green-100">
+                <BuildingOfficeIcon class="w-10 md:w-12 text-green-700" />
               </div>
               <h3 class="font-bold md:text-lg mb-1">Enter Business Details</h3>
               <p class="text-gray-600">Add name, address,<br>business hours and photos</p>
@@ -124,8 +124,8 @@
             <span class="hidden md:block text-3xl mx-4">→</span>
             <!-- Step 3 -->
             <div class="flex flex-col items-center text-center flex-1">
-              <div class="bg-white shadow-lg rounded-full w-20 md:w-24 h-20 md:h-24 flex items-center justify-center mb-4">
-                <MagnifyingGlassIcon class="w-10 md:w-12 text-primary" />
+              <div class="shadow-lg rounded-full w-20 md:w-24 h-20 md:h-24 flex items-center justify-center mb-4 bg-purple-100">
+                <MagnifyingGlassIcon class="w-10 md:w-12 text-purple-700" />
               </div>
               <h3 class="font-bold md:text-lg mb-1">Select Categories</h3>
               <p class="text-gray-600">List your products and boom!</p>

@@ -5,4 +5,4 @@ Disallow: /my/business/
 Disallow: /user/
 Disallow: /admin/
 
-Sitemap: http://localhost:8000/api/v1/sitemap
+Sitemap: https://api.comarto.com/api/v1/sitemap

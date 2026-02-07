@@ -6,13 +6,13 @@
       <label class="flex items-center">
         <MapPinIcon class="inline-block h-6 w-6 mr-1 text-gray-800" />
         <input
-          type="search"
+          type="text"
           name="searchLocation"
-          v-model="searchQuery"
+          :value="searchQuery"
+          @input="searchQuery = $event.target.value; debouncedSearch()"
           :placeholder="selectedLocation || 'All Bangladesh'"
           class="bg-gray-100 outline-none w-full text-black placeholder-gray-800"
           @focus="showLocationDropdown = true"
-          @input="debouncedSearch"
         />
         <ChevronDownIcon
           class="inline-block h-6 w-6 ml-1 text-gray-800 transition-transform duration-200 cursor-pointer"
