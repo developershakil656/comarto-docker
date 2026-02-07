@@ -220,9 +220,9 @@
                   />
                   <div class="relative flex-1">
                     <input
-                      v-model="unitDropdown.search"
-                    @focus="handleUnitFocus"
-                    @input="debouncedUnitSearch"
+                      :value="unitDropdown.search"
+                      @input="unitDropdown.search = $event.target.value; debouncedUnitSearch()"
+                      @focus="handleUnitFocus"
                       type="text"
                       :class="[
                         'w-full px-4 py-3 border-2 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300',
@@ -352,9 +352,9 @@
               </div>
               <div class="relative">
                 <input
-                  v-model="categoryDropdown.search"
                   @focus="handleCategoryFocus"
-                  @input="debouncedCategorySearch"
+                  :value="categoryDropdown.search"
+                  @input="categoryDropdown.search = $event.target.value; debouncedCategorySearch()"
                   type="text"
                   :class="[
                     'w-full px-4 py-3 border-2 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300',

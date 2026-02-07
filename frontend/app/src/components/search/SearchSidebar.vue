@@ -78,7 +78,7 @@
         <div>
           <!-- <label class="block text-sm font-semibold text-gray-700 mb-2">Search Categories</label> -->
           <div class="relative">
-            <input v-model="categoryDropdown.search" @focus="handleCategoryFocus" @input="debouncedCategorySearch"
+            <input @focus="handleCategoryFocus" :value="categoryDropdown.search" @input="categoryDropdown.search = $event.target.value; debouncedCategorySearch()"
               type="text"
               class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 hover:border-primary-200"
               placeholder="Type to search categories..." />

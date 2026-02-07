@@ -15,7 +15,6 @@
         <!-- <p class="text-gray-600 mb-4">Find and connect with businesses that have specific requirements.</p> -->
         <button
           class="w-full text-xs sm:text-sm hover:bg-primary/70 text-white font-medium p-1 sm:p-2 rounded-lg transition duration-300 border border-white"
-          @click="navigateToBuyPostRequirements"
         >
           <span class="hidden sm:inline">Post </span>Buy Requirement
         </button>
@@ -37,7 +36,6 @@
         <!-- <p class="text-gray-600 mb-4">Find and connect with businesses that have specific requirements.</p> -->
         <button
           class="w-full text-xs sm:text-sm hover:bg-sky-500/70 text-white font-medium p-1 sm:p-2 rounded-lg transition duration-300 border border-white"
-          @click="navigateToBuyPostRequirements"
         >
           List Business
         </button>
@@ -69,12 +67,7 @@ export default {
       buyRequirementImage,
       listBusinessImage
     }
-  },
-  methods: {
-    navigateToBuyPostRequirements() {
-      this.$router.push('/buy-post-requirements');
-    }
-  },
+  }
 };
 </script>
 

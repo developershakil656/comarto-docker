@@ -100,9 +100,11 @@
                   <label for="leads-location-search"
                     class="block text-sm font-medium text-gray-700 mb-2">Location</label>
                   <div class="relative location-dropdown">
-                    <input v-model="locationSearch" id="leads-location-search" name="leads-location-search"
+                    <input id="leads-location-search" name="leads-location-search"
                       :placeholder="selectedLocation || 'All Bangladesh'"
-                      @focus="closeAllDropdowns(); showLocationDropdown = true" @input="handleLocationInput" type="text"
+                      :value="locationSearch"
+                      @input="locationSearch = $event.target.value; handleLocationInput()"
+                      @focus="closeAllDropdowns(); showLocationDropdown = true" type="text"
                       class="w-full px-4 py-3 border placeholder-gray-800 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent pr-10" />
                     <!-- Clear location button -->
                     <button v-if="selectedLocation" @click="clearLocation"
@@ -134,9 +136,9 @@
                   <label for="leads-category-search"
                     class="block text-sm font-medium text-gray-700 mb-2">Categories</label>
                   <div class="relative">
-                    <input v-model="categorySearch" id="leads-category-search" name="leads-category-search"
+                    <input :value="categorySearch" id="leads-category-search" name="leads-category-search"
                       :placeholder="selectedCategories.length ? `${selectedCategories.length} selected` : 'Select Categories'"
-                      @focus="closeAllDropdowns(); showCategoryDropdown = true" @input="handleCategoryInput" type="text"
+                      @focus="closeAllDropdowns(); showCategoryDropdown = true" @input="categorySearch = $event.target.value; handleCategoryInput()" type="text"
                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
                     <div v-if="showCategoryDropdown"
                       class="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto">

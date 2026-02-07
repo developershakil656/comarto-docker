@@ -208,10 +208,10 @@
                       required
                     />
                     <div class="relative flex-1">
-                                             <input
-                         v-model="unitDropdown.search"
+                         <input
                          @focus="handleUnitFocus"
-                         @input="debouncedUnitSearch"
+                         :value="unitDropdown.search"
+                         @input="unitDropdown.search = $event.target.value; debouncedUnitSearch()"
                          type="text"
                          :class="[
                            'w-full px-4 py-3 border-2 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300',
@@ -340,10 +340,10 @@
                 Selected: {{ selectedCategories.length }}/{{ maxCategories }}
               </div>
                 <div class="relative">
-                                     <input
-                     v-model="categoryDropdown.search"
+                    <input
+                    :value="categoryDropdown.search"
+                    @input="categoryDropdown.search = $event.target.value; debouncedCategorySearch()"
                      @focus="handleCategoryFocus"
-                     @input="debouncedCategorySearch"
                      type="text"
                      :class="[
                        'w-full px-4 py-3 border-2 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300',

@@ -18,10 +18,10 @@
                   <MapPinIcon class="w-5 h-5" />
                 </span>
                 <input
-                  v-model="locationSearch"
                   @focus="showLocationDropdown = true"
                   @blur="handleInputBlur"
-                  @input="debouncedSearchLocations"
+                  :value="locationSearch"
+                  @input="locationSearch = $event.target.value; debouncedSearchLocations()"
                   type="text"
                   class="block w-full rounded-lg border border-gray-300 pl-12 pr-4 py-3 focus:border-primary focus:ring-blue-200 outline-none transition text-base"
                   autocomplete="off"

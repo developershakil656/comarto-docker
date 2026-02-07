@@ -105,9 +105,9 @@
                     id="business-location-search"
                     name="business-location-search"
                     placeholder="Search location..."
-                    v-model="locationSearch"
                     @focus="showLocationDropdown = true"
-                    @input="debouncedSearchLocations"
+                    :value="locationSearch"
+                    @input="locationSearch = $event.target.value; debouncedSearchLocations()"
                   />
                   <div v-if="showLocationDropdown && businessLocations.length > 0" class="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-y-auto">
                     <div 
