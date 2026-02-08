@@ -13,7 +13,6 @@
             :selectedBusinessTypes="selectedBusinessTypes"
             :isOpen="isSidebarOpen"
             :suppliers="suppliers"
-            :selectedCategories="selectedCategories"
             @filter-change="onFilterChange"
             @close="isSidebarOpen = false"
         />
@@ -63,18 +62,6 @@ export default {
         },
         suppliers() {
             return this.$route.query.suppliers === 'true';
-        },
-        selectedCategories() {
-            const q = this.$route.query.category_slugs;
-            if (!q) return [];
-            // Parse category slugs and create category objects
-            const categorySlugs = q.split(',').filter(Boolean);
-            // Get category names from store or create placeholder objects
-            const allCategories = this.$store.getters.productCategories || [];
-            return categorySlugs.map(slug => {
-                const category = allCategories.find(cat => cat.slug === slug);
-                return category || { slug, name: this.unslugify(slug) };
-            });
         }
     },
     watch: {
@@ -91,9 +78,7 @@ export default {
                     (newRoute.query && oldRoute.query && 
                      newRoute.query.business_type !== oldRoute.query.business_type) ||
                     (newRoute.query && oldRoute.query && 
-                     newRoute.query.suppliers !== oldRoute.query.suppliers) ||
-                    (newRoute.query && oldRoute.query && 
-                     newRoute.query.category_slugs !== oldRoute.query.category_slugs)) {
+                     newRoute.query.suppliers !== oldRoute.query.suppliers)) {
                     
                     // Get route parameters for search
                     const keyword = (newRoute.params && newRoute.params.keyword) || '';
@@ -102,12 +87,10 @@ export default {
                         ? newRoute.query.business_type.split(',').filter(Boolean)
                         : [];
                     const suppliers = (newRoute.query && newRoute.query.suppliers) === 'true';
-                    const categorySlugs = (newRoute.query && newRoute.query.category_slugs)
-                        ? newRoute.query.category_slugs.split(',').filter(Boolean)
-                        : [];
+
                     
                     // Perform search with updated parameters
-                    this.doSearch(keyword, businessTypes, suppliers, categorySlugs, location);
+                    this.doSearch(keyword, businessTypes, suppliers, location);
                 }
             },
             immediate: true // Trigger on initial route as well
@@ -149,23 +132,9 @@ export default {
         }
     },
     methods: {
-        updateSearchMetaTags(keyword, location, categorySlugs = null) {
+        updateSearchMetaTags(keyword, location) {
             const { setMetaTags } = useSEO();
             const locationName = location.replace(/-/g, ' ').replace('all bangladesh', 'Bangladesh');
-            
-            // Format category slugs similar to SearchItems component
-            let formattedCategorySlugs = null;
-            if (categorySlugs && categorySlugs.length > 0) {
-                // categorySlugs is already an array at this point
-                const categories = [...categorySlugs]; // Create a copy to avoid mutation
-                
-                if (categories.length === 1) {
-                    formattedCategorySlugs = this.unslugify(categories[0]);
-                } else {
-                    const lastCategory = categories.pop();
-                    formattedCategorySlugs = categories.map(cat => this.unslugify(cat)).join(', ') + ' and ' + this.unslugify(lastCategory);
-                }
-            }
             
             if (keyword) {
                 setMetaTags(
@@ -173,13 +142,6 @@ export default {
                     `Find ${keyword} products or suppliers, manufacturers and businesses in ${locationName}. Connect with verified sellers in Bangladesh on Comarto.`,
                     null,
                     `${keyword}, suppliers, manufacturers, ${locationName}, Comarto, B2B, wholesale, trade`
-                );
-            } else if (formattedCategorySlugs) {
-                setMetaTags(
-                    `Search Results for ${formattedCategorySlugs} in ${locationName} - Comarto B2B Marketplace`,
-                    `Find ${formattedCategorySlugs} products or suppliers, manufacturers and businesses in ${locationName}. Connect with verified sellers in Bangladesh on Comarto.`,
-                    null,
-                    `${formattedCategorySlugs}, suppliers, manufacturers, ${locationName}, Comarto, B2B, wholesale, trade`
                 );
             } else {
                 setMetaTags(
@@ -208,13 +170,13 @@ export default {
         },
         onFilterChange(filter) {
             const businessTypes = filter.businessTypes || [];
-            const categorySlugs = filter.categorySlugs || [];
             const query = {
                 ...this.$route.query,
                 business_type: businessTypes.join(','),
-                suppliers: filter.suppliers ? 'true' : 'false',
-                category_slugs: categorySlugs.join(',')
+                suppliers: filter.suppliers ? 'true' : 'false'
             };
+            // Remove category_slugs from query if present
+            // delete query.category_slugs;
             this.$router.replace({
                 name: 'search',
                 params: {
@@ -224,9 +186,9 @@ export default {
                 query
             });
         },
-        async doSearch(keyword, businessTypes, suppliers, categorySlugs = [], location = 'all-bangladesh') {
+        async doSearch(keyword, businessTypes, suppliers, location = 'all-bangladesh') {
             // Update meta tags for the search
-            this.updateSearchMetaTags(keyword, location, categorySlugs);
+            this.updateSearchMetaTags(keyword, location);
             
             // Location verification is now handled in the mounted hook and through the store watcher
             // We no longer need to verify the location here to prevent duplicate calls
@@ -247,9 +209,6 @@ export default {
                 }
                 if (suppliers) {
                     params.suppliers = 'true';
-                }
-                if (categorySlugs && categorySlugs.length) {
-                    params.category_slugs = categorySlugs.join(',');
                 }
         
                 // Add location to params if it's not 'all-bangladesh'
@@ -290,9 +249,7 @@ export default {
             ? this.$route.query.business_type.split(',').filter(Boolean)
             : [];
         const suppliers = this.$route.query.suppliers === 'true';
-        const categorySlugs = this.$route.query.category_slugs
-            ? this.$route.query.category_slugs.split(',').filter(Boolean)
-            : [];
+
         
         // Verify and set location on component mount
         if (location !== 'all-bangladesh') {
@@ -320,7 +277,7 @@ export default {
         window.addEventListener('resize', this.setSidebarState);
         
         // Perform initial search with all parameters
-        this.doSearch(keyword, businessTypes, suppliers, categorySlugs, location);
+        this.doSearch(keyword, businessTypes, suppliers, location);
     },
     beforeUnmount() {
         // Clean up timeout

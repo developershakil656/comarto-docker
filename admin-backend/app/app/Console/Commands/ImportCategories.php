@@ -16,13 +16,15 @@ class ImportCategories extends Command
 
     public function handle()
     {
+        set_time_limit(0);
         $this->info("Starting import...");
 
         // Load both files using helper
         $mainCategories  = $this->loadJson('categories/main_categories.json');
         $allCategories = $this->loadJson('categories/all_categories.json');
+        $allCategories2 = $this->loadJson('categories/all_categories_2.json');
 
-        if (!$mainCategories || !$allCategories) {
+        if (!$mainCategories || !$allCategories || !$allCategories2) {
             return 1;
         }
 
@@ -32,7 +34,12 @@ class ImportCategories extends Command
 
         // Import subcategories
         $this->importItems($allCategories, false);
-        $this->info("✔ Trade subcategories imported.");
+        $this->info("✔ Trade subcategories part 1 imported.");
+
+        $this->info("subcategories part 2 importing...");
+
+        $this->importItems($allCategories2, false);
+        $this->info("✔ Trade subcategories part 2 imported.");
 
         $this->info("✔ Category import complete!");
         return 0;
@@ -66,9 +73,11 @@ class ImportCategories extends Command
      */
     private function importItems($items, $isMain = false)
     {
-        foreach ($items as $cat) {
+        $total = count($items);
+        $this->info("Total items to process: " . $total);
 
-            $category = Category::updateOrCreate(
+        foreach ($items as $index => $cat) {
+            Category::updateOrCreate(
                 $isMain ? ['id' => $cat['id']] : ['slug' => $cat['slug']],
                 [
                     'name'      => $cat['name'],
@@ -78,9 +87,11 @@ class ImportCategories extends Command
                     'status'    => $cat['status'] ?? 'active',
                 ]
             );
-    
-            // ✅ This is where ancestor_slugs is updated
-            $category->updateAncestorSlugs();
+
+            // Show progress every 50 items
+            if ($index % 50 === 0) {
+                $this->info("Processed $index / $total...");
+            }
         }
     }
 }

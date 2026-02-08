@@ -17,10 +17,7 @@
             Results found for "{{ keyword }} in
             {{ this.$store.getters.selectedLocation || "All Bangladesh" }}"
           </h1>
-          <h1 v-else-if="formattedCategorySlugs">
-            Results found for "{{ formattedCategorySlugs }} in
-            {{ this.$store.getters.selectedLocation || "All Bangladesh" }}"
-          </h1>
+
           <div class="text-sm font-semibold text-gray-600">
             {{ totalProducts }}
             {{ isSuppliersView ? "suppliers" : "products" }} found
@@ -313,7 +310,6 @@ export default {
   data() {
     return {
       observer: null,
-      categorySlugs: "",
     };
   },
   props: {
@@ -354,23 +350,7 @@ export default {
         return unit.short_form || unit.full_form || "Unit";
       };
     },
-    //format slug to show in search result
-    formattedCategorySlugs() {
-      if (this.categorySlugs && this.categorySlugs.length > 0) {
-        // Split the category slugs by commas, trim spaces, and handle the "and" before the last element
-        const categories = this.categorySlugs
-          .split(",")
-          .map((item) => item.trim());
 
-        if (categories.length === 1) {
-          return categories[0]; // No need for "and" if there's only one item
-        }
-
-        // Add "and" before the last item and join with commas
-        const lastCategory = categories.pop(); // Remove last item
-        return categories.join(", ") + " and " + lastCategory; // Add "and" before last category
-      }
-    },
   },
   methods: {
     callBusiness(number) {
@@ -470,7 +450,6 @@ export default {
     this.$nextTick(() => {
       this.setupInfiniteScroll();
     });
-    this.categorySlugs = this.$route.query.category_slugs;
   },
   watch: {
     loading(newVal) {

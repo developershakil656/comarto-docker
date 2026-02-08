@@ -60,7 +60,7 @@ class SitemapController extends Controller
         $staticPages = [
             '/' => ['priority' => '1.0', 'changefreq' => 'daily'],
             '/categories' => ['priority' => '0.9', 'changefreq' => 'weekly'],
-            '/random/products' => ['priority' => '0.3', 'changefreq' => 'daily'],
+            '/random/products' => ['priority' => '0.1', 'changefreq' => 'daily'],
             '/free/listing' => ['priority' => '0.3', 'changefreq' => 'yearly'],
             '/privacy-policy' => ['priority' => '0.3', 'changefreq' => 'yearly'],
             '/terms-conditions' => ['priority' => '0.3', 'changefreq' => 'yearly'],

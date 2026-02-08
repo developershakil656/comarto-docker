@@ -16,7 +16,7 @@
     @click.stop
   >
     <div v-if="isOpen" class="flex justify-between font-semibold text-gray-500 md:hidden items-center">
-      <h2>Filter Search</h2>
+      <h2>Filters</h2>
       <button @click="closeSidebar" class="top-1 right-2 p-2">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
     </button>
@@ -63,102 +63,7 @@
 
     </div>
 
-    <!-- Categories Filter -->
-    <div class="border p-4 rounded-md">
-      <div class="flex items-center justify-between cursor-pointer select-none"
-        @click="categoriesOpen = !categoriesOpen">
-        <span class="font-semibold md:text-lg">Categories</span>
-        <span class="transition-transform duration-300" :class="{ 'rotate-180': categoriesOpen }">
-          <ChevronUpIcon class="h-5" />
-        </span>
-      </div>
 
-      <div v-if="categoriesOpen" class="mt-2 space-y-4 transition-all">
-        <!-- Category Search Input -->
-        <div>
-          <!-- <label class="block text-sm font-semibold text-gray-700 mb-2">Search Categories</label> -->
-          <div class="relative">
-            <input @focus="handleCategoryFocus" :value="categoryDropdown.search" @input="categoryDropdown.search = $event.target.value; debouncedCategorySearch()"
-              type="text"
-              class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 hover:border-primary-200"
-              placeholder="Type to search categories..." />
-            <div v-if="categoryDropdown.isOpen"
-              class="absolute z-10 w-full mt-1 bg-white border-2 border-primary-200 rounded-xl shadow-xl ">
-              <div class="max-h-60 overflow-y-auto">
-                <div v-if="categoriesLoading" class="px-4 py-3 text-gray-500 text-center">
-                  Loading categories...
-                </div>
-                <div v-if="availableCategories.length === 0 && tempSelectedCategories.length === 0"
-                  class="px-4 py-3 text-gray-500 text-center">
-                  <div v-if="selectedCategoriesLocal.length > 0">All available categories are already selected</div>
-                  <div v-else>No categories found</div>
-                </div>
-                <!-- Temporary Selected Categories -->
-                <div v-if="tempSelectedCategories.length > 0" class="border-b border-gray-200 p-3">
-                  <div class="text-xs text-gray-600 mb-2">Selected for application:</div>
-                  <div class="flex flex-wrap gap-1">
-                     <div v-for="category in tempSelectedCategories" :key="category.slug"
-                       class="flex items-center space-x-1 px-2 py-1 bg-primary-100 text-primary-800 rounded text-xs">
-                       <span>{{ category.name }}</span>
-                       <button @click.stop="removeTempCategory(category.slug)"
-                         class="text-primary-600 hover:text-primary-800 ml-1">
-                         ✕
-                       </button>
-                     </div>
-                  </div>
-                </div>
-
-                 <div v-for="category in availableCategories" :key="category.slug"
-                   @click.stop="isCategorySelected(category.slug) ? null : selectCategory(category)"
-                   class="px-4 py-3 transition-colors duration-200 flex items-center justify-between" :class="{
-                     'bg-gray-100 cursor-not-allowed opacity-60': isCategorySelected(category.slug),
-                     'hover:bg-primary-50 cursor-pointer': !isCategorySelected(category.slug)
-                   }">
-                   <span>{{ category.name }}</span>
-                   <span v-if="isCategorySelected(category.slug)"
-                     class="text-xs text-gray-500 bg-gray-200 px-2 py-1 rounded">
-                     Selected
-                   </span>
-                 </div>
-              </div>
-              <!-- Apply Button - Always Visible -->
-              <div v-if="tempSelectedCategories.length > 0" class="m-2">
-                <button @click="applyCategoryFilter"
-                  class="w-full bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary/85 transition-colors duration-200 text-sm font-medium">
-                  Apply {{ tempSelectedCategories.length }} Categor{{ tempSelectedCategories.length === 1 ? 'y' : 'ies'
-                  }}
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Selected Categories Display -->
-        <div v-if="selectedCategoriesLocal.length > 0">
-          <div class="flex items-center justify-between mb-2">
-            <label class="text-sm font-semibold text-gray-700">Selected Categories</label>
-            <button @click="clearAllCategories"
-              class="text-xs text-red-600 hover:text-red-800 hover:bg-red-50 px-2 py-1 rounded transition-colors duration-200">
-              Clear All
-            </button>
-          </div>
-          <div class="flex flex-wrap gap-2">
-             <div v-for="category in selectedCategoriesLocal" :key="category.slug"
-               class="flex items-center space-x-2 px-3 py-2 bg-primary-100 text-primary-800 rounded-lg text-sm md:text-base line-clamp-1">
-               <span>{{ category.name }}</span>
-               <button @click="removeCategory(category.slug)" class="text-primary-600 hover:text-primary-800">
-                 ✕
-               </button>
-             </div>
-          </div>
-        </div>
-
-        <div v-if="selectedCategoriesLocal.length === 0" class="text-center py-4 text-gray-500 text-sm">
-          Showing all categories. Search and select categories for more specific results.
-        </div>
-
-      </div>
-    </div>
 
     <!-- Register Business Promo Box -->
     <div class="w-full flex justify-center">
@@ -239,10 +144,6 @@ export default {
     suppliers: {
       type: Boolean,
       default: false
-    },
-    selectedCategories: {
-      type: Array,
-      default: () => []
     }
   },
   data() {
@@ -252,15 +153,7 @@ export default {
       loadingBusinessTypes: false,
       businessTypesError: null,
       suppliersLocal: this.suppliers,
-      selectedCategoriesLocal: [],
-      tempSelectedCategories: [], // Temporary selection before applying
-      categoriesOpen: true,
-             categoryDropdown: {
-         isOpen: false,
-         search: ''
-       },
-       categorySearchTimeout: null,
-       isSearching: false, // Flag to prevent unnecessary emissions during search
+
        showInquiryModal: false,
        isVisible: this.isOpen,
        isClosing: false
@@ -269,24 +162,6 @@ export default {
   computed: {
     businessTypes() {
       return this.$store.getters.businessTypes;
-    },
-    filteredCategories() {
-      return this.safeProductCategories;
-    },
-     availableCategories() {
-       // Filter out already selected categories and temporarily selected ones
-       const selectedSlugs = this.selectedCategoriesLocal.map(cat => cat.slug);
-       const tempSelectedSlugs = this.tempSelectedCategories.map(cat => cat.slug);
-       return this.safeProductCategories.filter(category =>
-         !selectedSlugs.includes(category.slug) && !tempSelectedSlugs.includes(category.slug)
-       );
-     },
-    categoriesLoading() {
-      return this.$store.getters.categoriesLoading;
-    },
-    // Safe data getters with fallbacks
-    safeProductCategories() {
-      return Array.isArray(this.$store.getters.productCategories) ? this.$store.getters.productCategories : [];
     }
   },
   watch: {
@@ -302,18 +177,11 @@ export default {
         this.suppliersLocal = newVal;
       }
     },
-    selectedCategories: {
-      immediate: true,
-      handler(newVal) {
-        this.selectedCategoriesLocal = [...newVal];
-      }
-    },
-     selectedBusinessTypesLocal: {
+    selectedBusinessTypesLocal: {
        handler(newVal) {
          this.$emit('filter-change', {
            businessTypes: newVal,
-           suppliers: this.suppliersLocal,
-           categorySlugs: this.selectedCategoriesLocal.map(cat => cat.slug)
+           suppliers: this.suppliersLocal
          });
        },
        deep: true
@@ -321,27 +189,8 @@ export default {
      suppliersLocal(newVal) {
        this.$emit('filter-change', {
          businessTypes: this.selectedBusinessTypesLocal,
-         suppliers: newVal,
-         categorySlugs: this.selectedCategoriesLocal.map(cat => cat.slug)
+         suppliers: newVal
        });
-     },
-         selectedCategoriesLocal: {
-       handler(newVal, oldVal) {
-         // Don't emit during search operations
-         if (this.isSearching) return;
-         
-         // Only emit if the actual category slugs have changed, not just the array reference
-         const newSlugs = newVal.map(cat => cat.slug).sort();
-         const oldSlugs = (oldVal || []).map(cat => cat.slug).sort();
-         if (JSON.stringify(newSlugs) !== JSON.stringify(oldSlugs)) {
-           this.$emit('filter-change', {
-             businessTypes: this.selectedBusinessTypesLocal,
-             suppliers: this.suppliersLocal,
-             categorySlugs: newVal.map(cat => cat.slug)
-           });
-         }
-       },
-       deep: true
      },
     isOpen(newVal) {
       this.isVisible = newVal; // This line is correct
@@ -361,75 +210,11 @@ export default {
     setSuppliers(val) {
       this.suppliersLocal = val;
     },
-     selectCategory(category) {
-       // Add to temporary selection instead of immediately applying
-       if (!this.tempSelectedCategories.find(c => c.slug === category.slug)) {
-         this.tempSelectedCategories.push(category);
-       }
-       this.categoryDropdown.search = '';
-       // Keep dropdown open to show Apply button and allow more selections
-     },
-     removeCategory(categorySlug) {
-       this.selectedCategoriesLocal = this.selectedCategoriesLocal.filter(c => c.slug !== categorySlug);
-     },
-    applyCategoryFilter() {
-      // Apply temporary selections to actual selection
-      this.selectedCategoriesLocal = [...this.selectedCategoriesLocal, ...this.tempSelectedCategories];
-      this.tempSelectedCategories = [];
-      this.categoryDropdown.isOpen = false;
-    },
-     removeTempCategory(categorySlug) {
-       this.tempSelectedCategories = this.tempSelectedCategories.filter(c => c.slug !== categorySlug);
-     },
-     isCategorySelected(categorySlug) {
-       return this.selectedCategoriesLocal.some(cat => cat.slug === categorySlug);
-     },
-    clearAllCategories() {
-      this.selectedCategoriesLocal = [];
-    },
-         // Debounced search for categories
-     debouncedCategorySearch() {
-       // Keep dropdown open while typing
-       this.categoryDropdown.isOpen = true;
-       this.isSearching = true;
-       clearTimeout(this.categorySearchTimeout);
-       this.categorySearchTimeout = setTimeout(() => {
-         this.searchCategories();
-       }, 300);
-     },
-     async searchCategories() {
-       try {
-         this.isSearching = true;
-         await this.$store.dispatch('searchProductCategories', this.categoryDropdown.search || '');
-       } catch (error) {
-         console.error('Error searching categories:', error);
-       } finally {
-         this.isSearching = false;
-       }
-     },
-         handleCategoryFocus() {
-       // Always open dropdown on focus to allow searching
-       this.categoryDropdown.isOpen = true;
-       // If no categories loaded yet, trigger initial search
-       if (this.safeProductCategories.length === 0) {
-         this.isSearching = true;
-         this.searchCategories();
-       }
-     },
     addClickOutsideListeners() {
       document.addEventListener('click', this.handleClickOutside);
     },
     removeClickOutsideListeners() {
       document.removeEventListener('click', this.handleClickOutside);
-    },
-    handleClickOutside(event) {
-      // Check if click is outside the category dropdown
-      const categoryDropdown = event.target.closest('.relative');
-      if (!categoryDropdown) {
-        this.categoryDropdown.isOpen = false;
-        // Clear temporary selections when clicking outside
-        this.tempSelectedCategories = [];
-      }
     },
     closeSidebar() {
       this.isClosing = true;
@@ -476,18 +261,12 @@ export default {
       this.loadingBusinessTypes = false;
     }
 
-    // Initialize categories search
-    this.searchCategories();
     this.addClickOutsideListeners();
     
     // Add resize listener
     window.addEventListener('resize', this.handleResize);
   },
   beforeUnmount() {
-    // Clear timeout
-    if (this.categorySearchTimeout) {
-      clearTimeout(this.categorySearchTimeout);
-    }
     this.removeClickOutsideListeners();
     if (this.isOpen) {
       this.closeModal('search-sidebar');
