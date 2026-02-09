@@ -2,9 +2,11 @@
   <div class="min-h-screen bg-gray-50 pb-16 sm:pb-0">
     <!-- Main Header -->
     <BottomHeader />
-
+    
+    <Breadcrumb :category-path="[]" />
+    
     <!-- Main Content -->
-    <div class="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 lg:py-8 capitalize">
+    <div class="max-w-8xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 capitalize">
       <div class="bg-white rounded-lg sm:rounded-xl shadow-sm border border-gray-200 p-4 sm:p-6">
         <!-- Page Header -->
             <!-- <button @click="goBack"
@@ -60,6 +62,7 @@ import { ArrowLeftIcon } from '@heroicons/vue/24/outline'
 import BottomHeader from '@/components/header/BottomHeader.vue'
 import SkeletonLoader from '@/components/SkeletonLoader.vue'
 import MobileBottomNavigation from '@/components/common/MobileBottomNavigation.vue'
+import Breadcrumb from '@/components/common/Breadcrumb.vue'
 
 export default {
   name: 'AllCategoriesView',
@@ -67,7 +70,8 @@ export default {
     ArrowLeftIcon,
     BottomHeader,
     SkeletonLoader,
-    MobileBottomNavigation
+    MobileBottomNavigation,
+    Breadcrumb
   },
   data() {
     return {

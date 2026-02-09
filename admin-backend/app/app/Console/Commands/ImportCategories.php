@@ -3,45 +3,50 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 use App\Models\Category;
-
+use Illuminate\Support\Str;
 
 class ImportCategories extends Command
 {
     protected $signature = 'import:categories';
-    protected $description = 'Import categories from JSON files into the database';
+    protected $description = 'Import categories from JSON files and rebuild ancestor slugs';
 
     public function handle()
     {
+        // Prevent script timeout for large datasets
         set_time_limit(0);
-        $this->info("Starting import...");
+        $this->info("🚀 Starting import process...");
 
-        // Load both files using helper
+        // 1. Load JSON Files
         $mainCategories  = $this->loadJson('categories/main_categories.json');
-        $allCategories = $this->loadJson('categories/all_categories.json');
-        $allCategories2 = $this->loadJson('categories/all_categories_2.json');
+        $allCategories   = $this->loadJson('categories/all_categories.json');
+        $allCategories2  = $this->loadJson('categories/all_categories_2.json');
 
         if (!$mainCategories || !$allCategories || !$allCategories2) {
+            $this->error("❌ Import failed: Missing or invalid JSON files.");
             return 1;
         }
 
-        // Import main categories
+        // 2. Pass One: Import/Create Records
+        $this->info("📦 Step 1: Importing category records...");
         $this->importItems($mainCategories, true);
-        $this->info("✔ Main categories imported.");
-
-        // Import subcategories
         $this->importItems($allCategories, false);
-        $this->info("✔ Trade subcategories part 1 imported.");
-
-        $this->info("subcategories part 2 importing...");
-
         $this->importItems($allCategories2, false);
-        $this->info("✔ Trade subcategories part 2 imported.");
 
-        $this->info("✔ Category import complete!");
+        // 3. Pass Two: Rebuild Ancestor Slugs
+        $this->info("\n🔗 Step 2: Rebuilding ancestor slugs (hierarchy)...");
+        
+        $categories = Category::all();
+        $bar = $this->output->createProgressBar($categories->count());
+
+        $bar->start();
+        foreach ($categories as $category) {
+            $category->updateAncestorSlugs();
+            $bar->advance();
+        }
+        $bar->finish();
+
+        $this->info("\n\n✅ Category import and hierarchy generation complete!");
         return 0;
     }
 
@@ -73,10 +78,7 @@ class ImportCategories extends Command
      */
     private function importItems($items, $isMain = false)
     {
-        $total = count($items);
-        $this->info("Total items to process: " . $total);
-
-        foreach ($items as $index => $cat) {
+        foreach ($items as $cat) {
             Category::updateOrCreate(
                 $isMain ? ['id' => $cat['id']] : ['slug' => $cat['slug']],
                 [
@@ -87,11 +89,6 @@ class ImportCategories extends Command
                     'status'    => $cat['status'] ?? 'active',
                 ]
             );
-
-            // Show progress every 50 items
-            if ($index % 50 === 0) {
-                $this->info("Processed $index / $total...");
-            }
         }
     }
 }

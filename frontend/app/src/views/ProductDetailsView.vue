@@ -2,6 +2,7 @@
   <div>
     <BottomHeader />
 
+    <Breadcrumb :category-path="productDetails?.product?.ancestor_slugs" />
     <!-- Loading State -->
     <div v-if="isLoading">
       <SkeletonLoader type="product-details" />
@@ -67,6 +68,7 @@ import RelatedCategory from "@/components/product_details/RelatedCategory.vue";
 import ProductFullDetails from "@/components/product_details/ProductFullDetails.vue";
 import BusinessReviews from "@/components/BusinessReviews.vue";
 import SkeletonLoader from "@/components/SkeletonLoader.vue";
+import Breadcrumb from "@/components/common/Breadcrumb.vue";
 
 export default {
   components: {
@@ -77,6 +79,7 @@ export default {
     ProductFullDetails,
     BusinessReviews,
     SkeletonLoader,
+    Breadcrumb,
   },
   computed: {
     ...mapGetters(["productDetails"]),

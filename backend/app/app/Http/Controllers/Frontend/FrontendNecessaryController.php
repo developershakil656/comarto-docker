@@ -60,14 +60,26 @@ class FrontendNecessaryController extends Controller
     }
 
     #search active children categories for business
-    public function category_children($slug)
+    public function category_children($path)
     {
-        $data = Category::where('slug', $slug)
+        // 1. Clean and split the path
+        $slugArray = explode('/', rtrim($path, '/'));
+        $targetSlug = end($slugArray);
+
+        // 2. Query using whereJsonContains (The most reliable way for JSON columns)
+        $category = Category::where('slug', $targetSlug)
             ->where('status', 'active')
-            ->with('children')
+            ->whereJsonContains('ancestor_slugs', $slugArray)
+            ->with(['children' => fn($q) => $q->where('status', 'active')])
             ->first();
-        if ($data)
-            return success_response('categories fetched', new ChildrenCategoryResource($data));
+
+        // 3. Final Verification: Ensure the URL path length matches the DB depth
+        // This prevents "agriculture/rice" from matching "agriculture"
+        if (!$category || count($category->ancestor_slugs) !== count($slugArray)) {
+            return response()->json(['message' => 'Invalid category path'], 404);
+        }
+
+        return success_response('Fetched', new ChildrenCategoryResource($category));
     }
 
     #search active products

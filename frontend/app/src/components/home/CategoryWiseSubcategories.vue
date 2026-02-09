@@ -31,12 +31,7 @@
             class="rounded-xl border border-gray-200 overflow-hidden bg-white hover:shadow-sm transition"
           >
             <router-link
-              :to="
-                item.children
-                  ? `/category/${item.slug}`
-                  : `/search/${selectedLocationSlug}?category_slugs=${item.slug}`
-              "
-              class="block"
+              :to="`/category/${categorySlug}/${item.slug}`" class="block"
             >
               <div
                 class="aspect-[4/3] bg-gray-50 flex items-center justify-center p-3"

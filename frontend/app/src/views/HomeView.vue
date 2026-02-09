@@ -29,7 +29,7 @@
       :items="group.categories"
       :viewAllLink="{
         name: 'category-detail',
-        params: { categorySlug: group.category.slug },
+        params: { categoryPath: group.category.slug },
       }"
       :odd="(categoryGroups.length + idx) % 2 === 0"
     />
@@ -43,7 +43,7 @@
       :items="group.categories"
       :viewAllLink="{
         name: 'category-detail',
-        params: { categorySlug: group.category.slug },
+        params: { categoryPath: group.category.slug },
       }"
       :odd="idx % 2 === 0"
     />

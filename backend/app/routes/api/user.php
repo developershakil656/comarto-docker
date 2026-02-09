@@ -43,7 +43,7 @@ Route::prefix('/v1')->group(function () {
         Route::get('all/business/types', [FrontendNecessaryController::class, 'business_types'])->name('business.types');
         Route::post('locations', [FrontendNecessaryController::class, 'locations'])->name('locations');
         Route::get('categories', [FrontendNecessaryController::class, 'categories'])->name('categories');
-        Route::get('category/children/{slug}', [FrontendNecessaryController::class, 'category_children'])->name('category.children');
+        Route::get('category/children/{path}', [FrontendNecessaryController::class, 'category_children'])->where('path', '.*')->name('category.children');
         
     });
 

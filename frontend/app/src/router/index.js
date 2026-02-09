@@ -56,7 +56,7 @@ const routes = [
         props: true
       },
       { path: 'categories', name: 'all-categories', component: AllCategoriesView },
-      { path: 'category/:categorySlug', name: 'category-detail', component: CategoryDetailView },
+      { path: 'category/:categoryPath+', name: 'category-detail', component: CategoryDetailView, props: true },
       { path: 'product/:slug', name: 'product-detail', component: ProductDetailsView, props: true },
       { path: 'random/products', name: 'random-products', component: RandomProductsView },
       { 
