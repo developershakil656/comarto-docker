@@ -19,6 +19,7 @@ class CategoryResource extends JsonResource
         return [
             "id" => Hashids::encode($this->id),
             "name" => $this->name,
+            "parent" => $this->parent?->name,
             "slug" => $this->slug,
             "icon" => $this->icon?(config('app.admin_backend_url').'/'.$this->icon):'',
             // "children" => $this->children?->isNotEmpty(),

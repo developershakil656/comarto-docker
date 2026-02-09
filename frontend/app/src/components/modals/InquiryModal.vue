@@ -126,7 +126,7 @@
                       @click="selectCategory(category)"
                       class="px-4 py-3 hover:bg-primary-50 cursor-pointer transition-colors duration-200 border-b border-gray-100 last:border-b-0"
                     >
-                      {{ category.name }}
+                      {{ category.parent }} > {{ category.name }}
                     </div>
                   </div>
                 </div>

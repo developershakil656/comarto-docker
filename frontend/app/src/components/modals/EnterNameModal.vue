@@ -18,9 +18,9 @@
         <!-- Content -->
         <div class="bg-white px-4 pt-5 pb-4 md:p-6 md:pb-4">
           <!-- Desktop Header -->
-          <div class="hidden md:flex items-center justify-between mb-4">
+          <div class="hidden md:flex items-center justify-between mb-6">
             <div>
-              <span class="text-2xl font-bold text-blue-600">Just</span><span class="text-2xl font-bold text-orange-500">dial</span>
+              <OptimizedImage src="/logo.svg" class="h-6" alt="Logo" />
             </div>
             <button @click="$emit('close')" class="text-gray-400 hover:text-gray-600">
               <XMarkIcon class="w-6 h-6" />
@@ -92,13 +92,15 @@ import {
 } from '@heroicons/vue/24/outline'
 import { useModalScroll } from '@/composables/useModalScroll'
 import MobileModalHeader from '@/components/common/MobileModalHeader.vue'
+import OptimizedImage from '@/components/common/OptimizedImage.vue'
 
 export default {
     components: {
         Form,
         Field,
         XMarkIcon,
-        MobileModalHeader
+        MobileModalHeader,
+        OptimizedImage
     },
     setup() {
         const { openModal, closeModal } = useModalScroll()
@@ -111,7 +113,7 @@ export default {
         },
         message: {
             type: String,
-            default: 'You are B2BD First time user!'
+            default: 'You are Comarto First time user!'
         },
         oldName: {
             type: String,

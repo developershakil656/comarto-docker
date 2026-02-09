@@ -181,7 +181,7 @@
                               <label class="flex items-center hover:bg-gray-50 rounded cursor-pointer">
                                 <input type="checkbox" :value="category.id" v-model="selectedCategories"
                                   class="mr-3 rounded" />
-                                <span class="text-sm">{{ category.name }}</span>
+                                <span class="text-sm">{{ category.parent }} > {{ category.name }}</span>
                               </label>
                             </div>
                           </div>
@@ -197,7 +197,7 @@
                                   class="mr-3 rounded" />
                                 <span class="text-sm"
                                   :class="businessCategories.find(bc => bc.id === category.id) ? 'font-medium text-blue-700' : ''">
-                                  {{ category.name }}
+                                  {{ category.parent }} > {{ category.name }}
                                 </span>
                               </label>
                             </div>

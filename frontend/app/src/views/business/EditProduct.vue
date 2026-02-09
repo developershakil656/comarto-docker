@@ -370,7 +370,7 @@
                          'hover:bg-primary-50': selectedCategories.length < maxCategories
                        }"
                      >
-                       {{ category.name }}
+                       {{ category.parent }} > {{ category.name }}
                        <span v-if="isCategorySelected(category.id)" class="ml-2 text-xs text-green-600 bg-green-100 px-2 py-1 rounded-full">Selected</span>
                      </div>
                    </div>
