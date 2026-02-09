@@ -60,6 +60,7 @@
           <SkeletonLoader type="category-items" :count="12" />
         </div>
 
+        <div v-if="!loading">
         <!-- Subcategories Grid -->
         <div
           v-if="subcategories.length > 0"
@@ -98,6 +99,7 @@
             :category-slug="categoryData.slug"
             :category-name="categoryData.name"
           />
+        </div>
         </div>
       </div>
       <!-- No Categories State - Show Products -->
@@ -145,7 +147,7 @@ export default {
     return {
       categoryData: {},
       subcategories: [],
-      loading: false,
+      loading: true,
     };
   },
   computed: {
