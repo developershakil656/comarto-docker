@@ -565,9 +565,9 @@ export default createStore({
             );
           if (payload.suppliers === true || payload.suppliers === "true")
             params.push("suppliers=true");
-          if (payload.category_slugs && payload.category_slugs.length)
+          if (payload.category_slug)
             params.push(
-              `category_slugs=${encodeURIComponent(payload.category_slugs)}`
+              `category_slug=${encodeURIComponent(payload.category_slug)}`
             );
         } else {
           params.push(`keyword=${encodeURIComponent(payload)}`);

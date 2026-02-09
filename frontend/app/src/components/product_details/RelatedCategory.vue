@@ -129,8 +129,9 @@ export default {
                 name: 'search', 
                 params: { 
                     location: locationSlug,
-                    keyword: slug 
-                } 
+                    keyword: slug,
+                },
+                query: { category_slug: categoryData.slug },
             });
         }
     }

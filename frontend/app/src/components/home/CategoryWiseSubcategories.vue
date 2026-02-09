@@ -31,7 +31,15 @@
             class="rounded-xl border border-gray-200 overflow-hidden bg-white hover:shadow-sm transition"
           >
             <router-link
-              :to="`/category/${categorySlug}/${item.slug}`" class="block"
+                :to="{
+                  name: 'search',
+                  params: {
+                    location: selectedLocationSlug,
+                    keyword: item.slug
+                  },
+                  query: { category_slug: item.slug},
+                }"
+                 class="block"
             >
               <div
                 class="aspect-[4/3] bg-gray-50 flex items-center justify-center p-3"

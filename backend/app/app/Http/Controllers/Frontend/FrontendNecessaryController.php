@@ -111,16 +111,9 @@ class FrontendNecessaryController extends Controller
         }
 
         // 🔹 Category filter (decode Hashids here)
-        $category_slugs = $request->category_slugs;
-        if (!empty($category_slugs)) {
-            $categorySlugs = explode(',', $category_slugs);
-
-            if (!empty($categorySlugs)) {
-                $categoryFilters = collect($categorySlugs)
-                    ->map(fn($slug) => 'related_categories = "' . $slug . '"')
-                    ->implode(' OR ');
-                $filters[] = '(' . $categoryFilters . ')';
-            }
+        $category_slug = $request->category_slug;
+        if ($category_slug) {
+            $filters[] = '(related_categories = "' . $category_slug . '")';
         }
 
         // Default pagination values

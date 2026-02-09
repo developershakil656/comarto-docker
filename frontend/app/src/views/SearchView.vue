@@ -82,6 +82,7 @@ export default {
                     
                     // Get route parameters for search
                     const keyword = (newRoute.params && newRoute.params.keyword) || '';
+                    const category_slug = (newRoute.query && newRoute.query.category_slug) || '';
                     const location = (newRoute.params && newRoute.params.location) || 'all-bangladesh';
                     const businessTypes = (newRoute.query && newRoute.query.business_type)
                         ? newRoute.query.business_type.split(',').filter(Boolean)
@@ -90,7 +91,7 @@ export default {
 
                     
                     // Perform search with updated parameters
-                    this.doSearch(keyword, businessTypes, suppliers, location);
+                    this.doSearch(keyword, businessTypes, suppliers, location, category_slug);
                 }
             },
             immediate: true // Trigger on initial route as well
@@ -186,7 +187,7 @@ export default {
                 query
             });
         },
-        async doSearch(keyword, businessTypes, suppliers, location = 'all-bangladesh') {
+        async doSearch(keyword, businessTypes, suppliers, location = 'all-bangladesh', category_slug = '') {
             // Update meta tags for the search
             this.updateSearchMetaTags(keyword, location);
             
@@ -204,6 +205,9 @@ export default {
             // Debounce the search call to prevent rapid successive API calls
             this.searchTimeout = setTimeout(() => {
                 const params = { keyword: keyword || '' };
+                if (category_slug) {
+                    params.category_slug = category_slug;
+                }
                 if (businessTypes && businessTypes.length) {
                     params.business_types = businessTypes.join(',');
                 }
@@ -220,7 +224,6 @@ export default {
                 if (keyword && keyword.trim()) {
                     this.$store.dispatch('trackSearchKeyword', keyword.trim());
                 }
-        
                 this.$store.dispatch('search', params);
             }, 300);
         },
@@ -244,12 +247,12 @@ export default {
     async mounted() {
         // Get route parameters for initial search
         const keyword = this.$route.params.keyword || '';
+        const category_slug = this.$route.query.category_slug || '';
         const location = this.$route.params.location || 'all-bangladesh';
         const businessTypes = this.$route.query.business_type
             ? this.$route.query.business_type.split(',').filter(Boolean)
             : [];
         const suppliers = this.$route.query.suppliers === 'true';
-
         
         // Verify and set location on component mount
         if (location !== 'all-bangladesh') {
@@ -277,7 +280,7 @@ export default {
         window.addEventListener('resize', this.setSidebarState);
         
         // Perform initial search with all parameters
-        this.doSearch(keyword, businessTypes, suppliers, location);
+        this.doSearch(keyword, businessTypes, suppliers, location, category_slug);
     },
     beforeUnmount() {
         // Clean up timeout

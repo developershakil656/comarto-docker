@@ -123,7 +123,7 @@ export default {
       // Debounce the search call
       this.searchTimeout = setTimeout(() => {
         const params = { 
-          category_slugs: this.categorySlug
+          category_slug: this.categorySlug
         };
         
         if (businessTypes && businessTypes.length) {

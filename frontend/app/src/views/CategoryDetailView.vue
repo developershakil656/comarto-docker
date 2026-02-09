@@ -36,9 +36,9 @@
                   name: 'search',
                   params: {
                     location: selectedLocationSlug,
-                    keyword: '',
+                    keyword: categoryData.slug
                   },
-                  query: { category_slugs: categoryData.slug },
+                  query: { category_slug: categoryData.slug },
                 }"
                 class="text-xs sm:text-sm font-medium text-gray-900 hover:text-primary transition-colors duration-200"
                 >See All
@@ -224,9 +224,6 @@ export default {
             params: {
               location: this.selectedLocationSlug,
               keyword: lastCategoryPart
-            },
-            query: {
-              category_slugs: this.pathString
             }
           });
         }
