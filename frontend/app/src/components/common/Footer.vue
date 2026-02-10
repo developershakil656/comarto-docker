@@ -13,7 +13,7 @@
             <a href="https://facebook.com/comartobd" target="_blank" rel="noopener noreferrer" class="text-gray-600 hover:text-primary transition-colors">
               <img src="@/assets/icons/svgs/FacebookIcon.svg" alt="Facebook" class="w-6 h-6" />
             </a>
-            <a href="https://wa.me/8801919215182" target="_blank" rel="noopener noreferrer" class="text-gray-600 hover:text-primary transition-colors">
+            <a href="https://wa.me/8801569123838" target="_blank" rel="noopener noreferrer" class="text-gray-600 hover:text-primary transition-colors">
               <img src="@/assets/icons/svgs/WhatsappIcon.svg" alt="WhatsApp" class="w-6 h-6" />
             </a>
             <!-- <a href="https://twitter.com/comarto" target="_blank" rel="noopener noreferrer" class="text-gray-600 hover:text-primary transition-colors">
@@ -59,7 +59,7 @@
             </li>
             <li class="flex items-start">
               <PhoneIcon class="w-5 h-5 mr-2 mt-0.5 flex-shrink-0" />
-              <span>+8801919215182</span>
+              <span>+8801569123838</span>
             </li>
             <li class="flex items-start">
               <MapPinIcon class="w-5 h-5 mr-2 mt-0.5 flex-shrink-0" />
