@@ -2,9 +2,25 @@ FROM php:8.4-fpm
 
 # 1. Install system dependencies
 RUN apt-get update && apt-get install -y \
-    zip unzip curl git libpng-dev libgmp-dev libzip-dev \
-    && docker-php-ext-install pdo_mysql gd bcmath gmp zip \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
+    zip unzip curl git \
+    libpng-dev \
+    libjpeg-dev \
+    libwebp-dev \
+    libfreetype6-dev \
+    libgmp-dev \
+    libzip-dev \
+    && docker-php-ext-configure gd \
+        --with-freetype \
+        --with-jpeg \
+        --with-webp \
+    && docker-php-ext-install \
+        pdo_mysql \
+        gd \
+        bcmath \
+        gmp \
+        zip \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /var/www/admin-backend
 

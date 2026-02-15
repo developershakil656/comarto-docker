@@ -2,6 +2,14 @@
   <div class="space-y-6">
     <div class="flex justify-between items-center admin-header">
       <h1 class="text-2xl font-bold text-gray-900">Businesses</h1>
+      <router-link 
+        :to="{ name: 'AddBusiness' }" 
+        class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center"
+      ><svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+        </svg>
+        Add Business
+      </router-link>
     </div>
 
     <!-- Filters -->
@@ -12,7 +20,7 @@
           <input
             v-model="filters.keyword"
             type="text"
-            class="admin-input"
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
             placeholder="Search by name, phone, email..."
           >
         </div>
@@ -20,7 +28,7 @@
           <label class="block text-sm font-medium text-gray-700 mb-1">Status</label>
           <select 
             v-model="filters.status"
-            class="admin-select"
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 appearance-none"
           >
             <option value="">All</option>
             <option value="active">Active</option>
@@ -33,7 +41,7 @@
           <input
             v-model="filters.start_date"
             type="date"
-            class="admin-input"
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
           >
         </div>
         <div>
@@ -41,7 +49,7 @@
           <input
             v-model="filters.end_date"
             type="date"
-            class="admin-input"
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
           >
         </div>
         <div>
@@ -49,31 +57,29 @@
           <input
             v-model="filters.location_id"
             type="number"
-            class="admin-input"
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
             placeholder="Enter location ID"
           >
         </div>
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-1">Business Type</label>
-          <select 
-            v-model="filters.business_type"
-            class="admin-select"
-            multiple
-          >
-            <option 
-              v-for="type in businessTypes" 
-              :key="type.id" 
-              :value="type.type"
-            >
-              {{ type.type }}
-            </option>
-          </select>
+          <!-- open modal to pick types -->
+          <div>
+            <input
+              readonly
+              type="text"
+              :value="filters.business_type.join(', ')"
+              @click="showBusinessTypeModal = true"
+              placeholder="Select business types"
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary-500"
+            />
+          </div>
         </div>
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-1">Per Page</label>
           <select 
             v-model="filters.per_page"
-            class="admin-select"
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 appearance-none"
           >
             <option value="10">10</option>
             <option value="20">20</option>
@@ -84,13 +90,13 @@
         <div class="flex items-end space-x-2">
           <button 
             @click="applyFilters"
-            class="admin-button-primary"
+            class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
           >
             Apply Filters
           </button>
           <button 
             @click="resetFilters"
-            class="admin-button-secondary"
+            class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors"
           >
             Reset
           </button>
@@ -100,8 +106,8 @@
 
     <!-- Businesses Table -->
     <div class="bg-white rounded-2xl shadow-sm overflow-hidden admin-card">
-      <div class="responsive-table-container">
-        <table class="min-w-full divide-y divide-gray-200 responsive-table">
+      <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200 table-auto responsive-table">
           <thead class="bg-gray-50">
             <tr>
               <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
@@ -109,6 +115,7 @@
               <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
               <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contact</th>
               <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Location</th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Add Product</th>
               <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
               <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created</th>
               <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
@@ -143,6 +150,18 @@
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" data-label="Location">
                 {{ business.location || 'N/A' }}
               </td>
+              
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium" data-label="Add Product">
+                <router-link
+                  :to="`/products/create?business_id=${business.id}`"
+                  class="text-green-600 flex hover:text-green-900 transition-colors"
+                  title="Add Product"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
+                  </svg> Add Product
+                </router-link>
+              </td>
               <td class="px-6 py-4 whitespace-nowrap" data-label="Status">
                 <select
                   v-model="business.status"
@@ -164,12 +183,36 @@
                 {{ formatDate(business.created_at) }}
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm font-medium" data-label="Actions">
-                <router-link 
-                  :to="{ name: 'Products', query: { business_id: business.id } }"
-                  class="text-indigo-600 hover:text-indigo-900 mr-3"
-                >
-                  View Products
-                </router-link>
+                <div class="flex items-center space-x-3">
+                  <router-link 
+                    :to="{ name: 'Products', query: { business_id: business.id } }"
+                    class="text-indigo-600 hover:text-indigo-900 transition-colors"
+                    title="View Products"
+                  >
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                    </svg>
+                  </router-link>
+                  <router-link 
+                    :to="{ name: 'EditBusiness', params: { id: business.id } }"
+                    class="text-blue-600 hover:text-blue-900 transition-colors"
+                    title="Edit Business"
+                  >
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                    </svg>
+                  </router-link>
+                  <button 
+                    @click="deleteBusiness(business.id)"
+                    class="text-red-600 hover:text-red-900 transition-colors"
+                    title="Delete Business"
+                  >
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                    </svg>
+                  </button>
+                </div>
               </td>
             </tr>
           </tbody>
@@ -251,6 +294,15 @@
     <div v-if="loading" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-white"></div>
     </div>
+
+    <!-- Business Type Modal -->
+    <BusinessTypeModal
+      :open="showBusinessTypeModal"
+      :selected-business-types="filters.business_type"
+      mode="registration"
+      @close="showBusinessTypeModal = false"
+      @business-types-selected="handleBusinessTypesSelected"
+    />
   </div>
 </template>
 
@@ -260,6 +312,7 @@ import { useRouter } from 'vue-router'
 import { useBusinessStore } from '../stores/business'
 import { useBusinessTypeStore } from '../stores/businessType'
 import { useToast } from '../composables/useToast'
+import BusinessTypeModal from './modals/BusinessTypeModal.vue'
 
 const businessStore = useBusinessStore()
 const businessTypeStore = useBusinessTypeStore()
@@ -271,6 +324,13 @@ const loading = computed(() => businessStore.loading)
 const pagination = computed(() => businessStore.pagination)
 const error = computed(() => businessStore.error)
 const businessTypes = computed(() => businessTypeStore.businessTypes)
+
+// business type modal state
+const showBusinessTypeModal = ref(false)
+
+const handleBusinessTypesSelected = (types) => {
+  filters.value.business_type = types
+}
 
 // Modals and data (removed - using router-link instead)
 // const showProductsModal = ref(false)
@@ -326,6 +386,19 @@ const updateBusinessStatus = async (id, status) => {
     showToast('Business status updated successfully', 'success')
   } catch (err) {
     showToast(error.value || 'Failed to update business status', 'error')
+  }
+}
+
+const deleteBusiness = async (id) => {
+  if (confirm('Are you sure you want to delete this business? This action cannot be undone.')) {
+    try {
+      await businessStore.remove(id)
+      showToast('Business deleted successfully', 'success')
+      // Refresh the list
+      await fetchBusinesses()
+    } catch (err) {
+      showToast(error.value || 'Failed to delete business', 'error')
+    }
   }
 }
 
@@ -386,4 +459,28 @@ onMounted(async () => {
     businessTypeStore.fetchAll()
   ])
 })
+
 </script>
+
+<style scoped>
+/* responsive table: convert to cards on small screens */
+@media (max-width: 640px) {
+  .responsive-table thead {
+    display: none;
+  }
+  .responsive-table tr {
+    display: block;
+    margin-bottom: 0.75rem;
+  }
+  .responsive-table td {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+  .responsive-table td::before {
+    content: attr(data-label);
+    font-weight: 600;
+  }
+}
+</style>

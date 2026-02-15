@@ -67,13 +67,99 @@ export const useBusinessStore = defineStore('business', () => {
     }
   }
 
+  const getById = async (id) => {
+    loading.value = true
+    error.value = null
+    try {
+      const response = await businessAPI.getById(id)
+      return response
+    } catch (err) {
+      error.value = err.response?.data?.message || 'Failed to fetch business'
+      throw err
+    } finally {
+      loading.value = false
+    }
+  }
+
+  const create = async (data) => {
+    loading.value = true
+    error.value = null
+    try {
+      let config = {};
+      
+      if (data instanceof FormData) {
+        config.headers = {
+          'Content-Type': 'multipart/form-data'
+        };
+      }
+      const response = await businessAPI.create(data, config)
+      // Refresh the businesses list
+      await fetchAll()
+      return response
+    } catch (err) {
+      error.value = err.response?.data?.message || 'Failed to create business'
+      throw err
+    } finally {
+      loading.value = false
+    }
+  }
+
+  const update = async (id, data) => {
+    loading.value = true
+    error.value = null
+    try {
+      // Check if data is FormData (for file uploads) or regular object
+      let requestData = data;
+      let config = {};
+      
+      if (data instanceof FormData) {
+        config.headers = {
+          'Content-Type': 'multipart/form-data'
+        };
+      }
+      
+      const response = await businessAPI.update(id, requestData, config)
+      // Update the business in the list
+      const index = businesses.value.findIndex(business => business.id === id)
+      if (index !== -1) {
+        businesses.value[index] = { ...businesses.value[index], ...response.data.data }
+      }
+      return response
+    } catch (err) {
+      error.value = err.response?.data?.message || 'Failed to update business'
+      throw err
+    } finally {
+      loading.value = false
+    }
+  }
+
+  const remove = async (id) => {
+    loading.value = true
+    error.value = null
+    try {
+      const response = await businessAPI.delete(id)
+      // Remove the business from the list
+      businesses.value = businesses.value.filter(business => business.id !== id)
+      return response
+    } catch (err) {
+      error.value = err.response?.data?.message || 'Failed to delete business'
+      throw err
+    } finally {
+      loading.value = false
+    }
+  }
+
   return {
     businesses,
     loading,
     error,
     pagination,
     fetchAll,
+    getById,
     updateStatus,
-    getBusinessProducts
+    getBusinessProducts,
+    create,
+    update,
+    remove
   }
 })

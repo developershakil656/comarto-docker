@@ -2,6 +2,15 @@
   <div class="space-y-6">
     <div class="flex justify-between items-center admin-header">
       <h1 class="text-2xl font-bold text-gray-900">Products</h1>
+      <router-link 
+        to="/products/create"
+        class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+      >
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+        </svg>
+        Add Product
+      </router-link>
     </div>
 
     <!-- Filters -->
@@ -12,7 +21,7 @@
           <input
             v-model="filters.keyword"
             type="text"
-            class="admin-input"
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
             placeholder="Search by name, slug..."
           >
         </div>
@@ -20,7 +29,7 @@
           <label class="block text-sm font-medium text-gray-700 mb-1">Status</label>
           <select 
             v-model="filters.status"
-            class="admin-select"
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 appearance-none"
           >
             <option value="">All</option>
             <option value="active">Active</option>
@@ -33,7 +42,7 @@
           <input
             v-model="filters.start_date"
             type="date"
-            class="admin-input"
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
           >
         </div>
         <div>
@@ -41,7 +50,7 @@
           <input
             v-model="filters.end_date"
             type="date"
-            class="admin-input"
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
           >
         </div>
         <div>
@@ -49,7 +58,7 @@
           <input
             v-model="filters.location_id"
             type="number"
-            class="admin-input"
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
             placeholder="Enter location ID"
           >
         </div>
@@ -58,7 +67,7 @@
           <input
             v-model="filters.category_id"
             type="number"
-            class="admin-input"
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
             placeholder="Enter category ID"
           >
         </div>
@@ -67,7 +76,7 @@
           <input
             v-model="filters.business_id"
             type="number"
-            class="admin-input"
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
             placeholder="Enter business ID"
           >
         </div>
@@ -75,7 +84,7 @@
           <label class="block text-sm font-medium text-gray-700 mb-1">Per Page</label>
           <select 
             v-model="filters.per_page"
-            class="admin-select"
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 appearance-none"
           >
             <option value="10">10</option>
             <option value="20">20</option>
@@ -86,13 +95,13 @@
         <div class="flex items-end space-x-2">
           <button 
             @click="applyFilters"
-            class="admin-button-primary"
+            class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
           >
             Apply Filters
           </button>
           <button 
             @click="resetFilters"
-            class="admin-button-secondary"
+            class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors"
           >
             Reset
           </button>
@@ -102,8 +111,8 @@
 
     <!-- Products Table -->
     <div class="bg-white rounded-2xl shadow-sm overflow-hidden admin-card">
-      <div class="responsive-table-container">
-        <table class="min-w-full divide-y divide-gray-200 responsive-table">
+      <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200 table-auto responsive-table">
           <thead class="bg-gray-50">
             <tr>
               <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
@@ -112,8 +121,8 @@
               <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
               <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Stock</th>
               <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">MOQ</th>
-              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Unit</th>
               <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
             </tr>
           </thead>
           <tbody class="bg-white divide-y divide-gray-200">
@@ -138,17 +147,13 @@
                 <div v-else>N/A</div>
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" data-label="Price">
-                {{ product.currency }} {{ product.price || 'N/A' }}
+                {{ product.currency }} {{ product.price || 'N/A' }} / {{ product.product_unit?.short_form }}
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" data-label="Stock">
                 {{ product.stock || 'N/A' }}
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" data-label="MOQ">
                 {{ product.moq || 'N/A' }}
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" data-label="Unit">
-                <div v-if="product.product_unit">{{ product.product_unit.name }}</div>
-                <div v-else>N/A</div>
               </td>
               <td class="px-6 py-4 whitespace-nowrap" data-label="Status">
                 <select
@@ -166,6 +171,28 @@
                   <option value="inactive">Inactive</option>
                   <option value="blocked">Blocked</option>
                 </select>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium" data-label="Actions">
+                <div class="flex items-center space-x-3">
+                  <router-link
+                    :to="`/products/${product.id}/edit`"
+                    class="text-blue-600 hover:text-blue-900 transition-colors"
+                    title="Edit Product"
+                  >
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                    </svg>
+                  </router-link>
+                  <button
+                    @click="deleteProduct(product.id)"
+                    class="text-red-600 hover:text-red-900 transition-colors"
+                    title="Delete Product"
+                  >
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                    </svg>
+                  </button>
+                </div>
               </td>
             </tr>
           </tbody>
@@ -248,15 +275,39 @@
   </div>
 </template>
 
+<style scoped>
+/* responsive table helper, turns rows into pseudo-cards on small devices */
+@media (max-width: 640px) {
+  .responsive-table thead {
+    display: none;
+  }
+  .responsive-table tr {
+    display: block;
+    margin-bottom: 0.75rem;
+  }
+  .responsive-table td {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+  .responsive-table td::before {
+    content: attr(data-label);
+    font-weight: 600;
+  }
+}
+</style>
+
 <script setup>
 import { ref, onMounted, computed } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { useProductStore } from '../stores/product'
 import { useToast } from '../composables/useToast'
 
 const productStore = useProductStore()
 const { showToast } = useToast()
 const route = useRoute()
+const router = useRouter()
 
 const products = computed(() => productStore.products)
 const loading = computed(() => productStore.loading)
@@ -313,6 +364,18 @@ const updateProductStatus = async (id, status) => {
     showToast('Product status updated successfully', 'success')
   } catch (err) {
     showToast(error.value || 'Failed to update product status', 'error')
+  }
+}
+
+const deleteProduct = async (id) => {
+  if (confirm('Are you sure you want to delete this product? This action cannot be undone.')) {
+    try {
+      await productStore.delete(id)
+      showToast('Product deleted successfully', 'success')
+      fetchProducts()
+    } catch (err) {
+      showToast(error.value || 'Failed to delete product', 'error')
+    }
   }
 }
 

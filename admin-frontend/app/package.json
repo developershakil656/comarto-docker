@@ -6,24 +6,31 @@
   "scripts": {
     "dev": "vite --host 0.0.0.0",
     "build": "vite build",
-    "preview": "vite preview"
+    "build:analyze": "vite build --mode analyze",
+    "preview": "vite preview",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
   },
   "dependencies": {
-    "@tailwindcss/vite": "^4.1.17",
+    "@heroicons/vue": "^2.2.0",
     "@vee-validate/rules": "^4.15.1",
     "axios": "^1.13.2",
+    "notivue": "^2.4.5",
     "chart.js": "^4.5.1",
     "pinia": "^3.0.4",
     "sweetalert2": "^11.26.10",
-    "tailwindcss": "^4.1.17",
     "vee-validate": "^4.15.1",
     "vue": "^3.5.13",
     "vue-chartjs": "^5.3.3",
     "vue-router": "^4.6.3",
+    "vuedraggable": "^4.1.0",
     "yup": "^1.7.1"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^5.2.2",
-    "vite": "^6.3.1"
+    "@vitejs/plugin-vue": "^5.2.3",
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.17",
+    "vite": "^6.3.5",
+    "terser": "^5.31.6"
   }
 }

@@ -18,6 +18,12 @@ import LeadCreditPurchases from '../views/LeadCreditPurchases.vue'
 import AccountVerifications from '../views/AccountVerifications.vue'
 // Home Top Categories
 import HomeTopCategories from '../views/HomeTopCategories.vue'
+// Business Management
+import AddBusiness from '../views/AddBusiness.vue'
+import EditBusiness from '../views/EditBusiness.vue'
+// Product Management
+import AddProduct from '../views/AddProduct.vue'
+import EditProduct from '../views/EditProduct.vue'
 
 const routes = [
   {
@@ -87,6 +93,17 @@ const routes = [
         component: Products
       },
       {
+        path: 'products/create',
+        name: 'AddProduct',
+        component: AddProduct
+      },
+      {
+        path: 'products/:id/edit',
+        name: 'EditProduct',
+        component: EditProduct,
+        props: true
+      },
+      {
         path: 'leads',
         name: 'Leads',
         component: Leads
@@ -100,6 +117,17 @@ const routes = [
         path: 'home-top-categories',
         name: 'HomeTopCategories',
         component: HomeTopCategories
+      },
+      {
+        path: 'businesses/create',
+        name: 'AddBusiness',
+        component: AddBusiness
+      },
+      {
+        path: 'businesses/:id/edit',
+        name: 'EditBusiness',
+        component: EditBusiness,
+        props: true
       }
     ]
   }

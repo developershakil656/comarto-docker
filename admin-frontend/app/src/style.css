@@ -1,136 +1,78 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-/* Scrollbar hide utility */
+body {
+    font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1552px;
+    padding-left: 4rem;
+    padding-right: 4rem
+}
+
+@media (min-width: 768px) {
+    .container {
+        padding-left: 2rem;
+        padding-right: 2rem
+    }
+}
+
+@media (max-width: 767px) {
+    .container {
+        padding-left: .75rem;
+        padding-right: .75rem
+    }
+}
+
+/* Prevent copying and right-clicking on protected content */
+.no-copy {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
+    pointer-events: auto;
+}
+
+.no-copy img {
+    pointer-events: none;
+}
+
+/* Disable text selection globally for protected areas */
+.protected-content {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Fallback for text-sm in case Tailwind utility is not picked/applied.
+   Put in base layer so responsive utilities (e.g., md:text-*) can override. */
+/* @layer base {
+    .text-sm {
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+    }
+} */
+
+/* Hide scrollbar for Chrome, Safari and Opera */
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
 
+/* Hide scrollbar for IE, Edge and Firefox */
 .scrollbar-hide {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-/* Enhanced input styles */
-.admin-input {
-  @apply w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all duration-200;
-  @apply bg-white shadow-sm hover:border-gray-400 focus:shadow-md;
-}
-
-.admin-select {
-  @apply w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all duration-200;
-  @apply bg-white shadow-sm hover:border-gray-400 focus:shadow-md appearance-none;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-  background-position: right 0.5rem center;
-  background-repeat: no-repeat;
-  background-size: 1.5em 1.5em;
-  padding-right: 2.5rem;
-}
-
-.admin-button-primary {
-  @apply px-4 py-2.5 rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 cursor-pointer bg-indigo-600 text-white hover:bg-indigo-700 focus:ring-indigo-500 shadow-sm;
-}
-
-.admin-button-secondary {
-  @apply px-4 py-2.5 rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 cursor-pointer bg-gray-200 text-gray-700 hover:bg-gray-300 focus:ring-gray-500 shadow-sm;
-}
-
-.admin-button-danger {
-  @apply px-4 py-2.5 rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 cursor-pointer bg-red-600 text-white hover:bg-red-700 focus:ring-red-500 shadow-sm;
-}
-
-/* Responsive table improvements */
-@media (max-width: 768px) {
-  .responsive-table-container {
-    @apply overflow-x-auto;
-  }
-  
-  .responsive-table {
-    @apply min-w-full block;
-  }
-  
-  .responsive-table thead {
-    @apply hidden;
-  }
-  
-  .responsive-table tbody,
-  .responsive-table tr {
-    @apply block w-full;
-  }
-  
-  .responsive-table tr {
-    @apply mb-4 border border-gray-200 rounded-lg shadow-sm;
-  }
-  
-  .responsive-table td {
-    @apply block w-full px-4 py-3 border-b border-gray-100 last:border-b-0;
-  }
-  
-  .responsive-table td:before {
-    content: attr(data-label) ": ";
-    @apply font-medium text-gray-500 uppercase text-xs block mb-1;
-  }
-}
-
-/* Ensure tables are always responsive */
-.responsive-table-container {
-  @apply overflow-x-auto w-full;
-}
-
-.responsive-table {
-  @apply min-w-full;
-}
-
-/* Better spacing and layout for mobile */
-@media (max-width: 640px) {
-  .admin-grid {
-    @apply grid-cols-1 gap-4;
-  }
-  
-  .admin-card {
-    @apply p-4;
-  }
-  
-  .admin-header {
-    @apply flex-col items-start gap-3;
-  }
-  
-  .admin-filters {
-    @apply grid-cols-1 gap-3;
-  }
-  
-  /* Improve table readability on small screens */
-  .responsive-table td {
-    @apply py-4;
-  }
-  
-  .responsive-table td:before {
-    @apply text-sm mb-2;
-  }
-}
-
-/* Desktop improvements */
-@media (min-width: 641px) {
-  .admin-grid {
-    @apply grid-cols-2 gap-4;
-  }
-  
-  .admin-filters {
-    @apply grid-cols-2 gap-4;
-  }
-}
-
-@media (min-width: 1024px) {
-  .admin-grid {
-    @apply grid-cols-3 gap-6;
-  }
-  
-  .admin-filters {
-    @apply grid-cols-3 gap-4;
-  }
-}
-
-@media (min-width: 1280px) {
-  .admin-grid {
-    @apply grid-cols-4 gap-6;
-  }
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;     /* Firefox */
 }

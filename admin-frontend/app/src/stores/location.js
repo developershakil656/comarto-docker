@@ -4,10 +4,11 @@ import { locationAPI } from '../api/services'
 
 export const useLocationStore = defineStore('location', () => {
   const locations = ref([])
+  const businessLocations = ref([])
   const loading = ref(false)
   const error = ref(null)
 
-  const fetchAll = async () => {
+  const fetchAll = async (params = {}) => {
     loading.value = true
     error.value = null
     try {
@@ -16,6 +17,21 @@ export const useLocationStore = defineStore('location', () => {
       return response
     } catch (err) {
       error.value = err.response?.data?.message || 'Failed to fetch locations'
+      throw err
+    } finally {
+      loading.value = false
+    }
+  }
+
+  const searchLocations = async (keyword = '') => {
+    loading.value = true
+    error.value = null
+    try {
+      const response = await locationAPI.search(keyword)
+      businessLocations.value = response.data.data || []
+      return response
+    } catch (err) {
+      error.value = err.response?.data?.message || 'Failed to search locations'
       throw err
     } finally {
       loading.value = false
@@ -69,9 +85,11 @@ export const useLocationStore = defineStore('location', () => {
 
   return {
     locations,
+    businessLocations,
     loading,
     error,
     fetchAll,
+    searchLocations,
     create,
     update,
     remove

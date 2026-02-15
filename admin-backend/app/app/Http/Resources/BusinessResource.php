@@ -17,17 +17,18 @@ class BusinessResource extends JsonResource
     {
         return [
             "id" => $this->id,
-            "slug" => slugify($this->business_name),
+            "slug" => $this->slug,
+            "name" => $this->name,
             "business_name" => $this->business_name,
             "business_profile" => $this->business_profile ? image_url($this->business_profile) : '',
             "rating" => $this->averageRating,
             "business_type" => $this->business_type,
             "number" => $this->number,
             "alternate_number" => $this->alternate_number,
-            "in_business" => $this->details->established
-                ? now()->year - (int) $this->details->established
-                : null,
+            "address" => $this->address,
+            "post_code" => $this->post_code,
             "location" => trim(($this->location->upazila_name ? $this->location->upazila_name . ', ' : '') . $this->location->district_name),
+            "location_id" => $this->location->id,
             "account_verification" => $this->user?->account_verification?->status == 'confirmed',
             "status" => $this->status,
             "created_at" => $this->created_at?->toDateTimeString(),

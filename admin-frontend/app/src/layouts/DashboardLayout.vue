@@ -89,7 +89,7 @@ import { useAuthStore } from '../stores/auth'
 
 const route = useRoute()
 const authStore = useAuthStore()
-const sidebarOpen = ref(true)
+const sidebarOpen = ref(false)
 
 const adminName = computed(() => authStore.user?.name || 'Admin User')
 const adminInitial = computed(() => (adminName.value || '?').charAt(0).toUpperCase())
@@ -150,6 +150,13 @@ const menuItems = [
       h('path', { 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'stroke-width': '2', d: 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4' })
     ])
   },
+  { 
+    path: '/products', 
+    name: 'Products',
+    icon: () => h('svg', { fill: 'none', stroke: 'currentColor', viewBox: '0 0 24 24' }, [
+      h('path', { 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'stroke-width': '2', d: 'M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4' })
+    ])
+  },
   // System Management
   { 
     path: '/account-verifications', 
@@ -163,13 +170,6 @@ const menuItems = [
     name: 'Users',
     icon: () => h('svg', { fill: 'none', stroke: 'currentColor', viewBox: '0 0 24 24' }, [
       h('path', { 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'stroke-width': '2', d: 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z' })
-    ])
-  },
-  { 
-    path: '/products', 
-    name: 'Products',
-    icon: () => h('svg', { fill: 'none', stroke: 'currentColor', viewBox: '0 0 24 24' }, [
-      h('path', { 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'stroke-width': '2', d: 'M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4' })
     ])
   },
   

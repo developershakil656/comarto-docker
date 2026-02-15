@@ -59,13 +59,75 @@ function slugify($text)
 }
 
 # image link generator
+// function image_link_generator($image_file, $thumbnail_path = 'products/', $any_unique_info = '', $size = 820, $crop = true)
+// {
+//     // 1. Sanitize Path
+//     $thumbnail_path = rtrim($thumbnail_path, '/') . '/';
+
+//     // 2. SEO Friendly Filename
+//     $slug = Str::slug($any_unique_info) ?: 'business-file';
+//     $uniqueId = Str::random(6);
+//     $timestamp = now()->format('YmdHis');
+//     $full_name = "{$slug}-{$uniqueId}-{$timestamp}.webp";
+
+//     // 3. Read Image
+//     $img = Image::read($image_file);
+
+//     if ($crop) {
+//         // --- PRODUCT MODE (Square) ---
+//         // 'cover' crops the image to fill the $size x $size area.
+//         // We use the original dimension if it's smaller than $size to prevent upscaling blur.
+//         $originalMinSide = min($img->width(), $img->height());
+//         $targetSize = ($originalMinSide < $size) ? $originalMinSide : $size;
+
+//         $img->cover($targetSize, $targetSize, 'center');
+        
+//         // Light sharpening makes product edges "pop" after resizing
+//         $img->sharpen(10);
+//     } else {
+//         // --- DOCUMENT/NID MODE (Natural Ratio) ---
+//         // We only scale down if it's huge (1600px+). 
+//         // scaleDown ensures we NEVER stretch a small image upward (which causes blur).
+//         $img->scaleDown(width: 1200);
+        
+//         // Documents need more detail preserved
+//         $img->sharpen(5);
+//     }
+
+//     // 4. Encode to WebP with High Quality
+//     // 92 quality provides near-lossless clarity while still being much smaller than PNG/JPG
+//     $processedImage = $img->toWebp(92);
+
+//     // 5. Save to Storage
+//     $savePath = $thumbnail_path . $full_name;
+//     Storage::disk('public')->put($savePath, (string) $processedImage);
+
+//     // 6. Return the relative URL for database storage
+//     return 'storage/' . $savePath;
+// }
+
+
+// function delete_image($path)
+// {
+//     $image = str_replace('storage/', '', $path);
+//     if (Storage::disk('public')->exists($image)) {
+//         Storage::disk('public')->delete($image);
+//         return true;
+//     }
+//     return false;
+// }
+
+// function image_url($image){
+//     return $image?asset($image):'';
+// }
+
 function image_link_generator($image_file, $thumbnail_path = 'products/', $any_unique_info = '', $size = 820, $crop = true)
 {
     // 1. Sanitize Path
     $thumbnail_path = rtrim($thumbnail_path, '/') . '/';
 
     // 2. SEO Friendly Filename
-    $slug = Str::slug($any_unique_info) ?: 'business-file';
+    $slug = Str::slug($any_unique_info) ?: 'shared-file';
     $uniqueId = Str::random(6);
     $timestamp = now()->format('YmdHis');
     $full_name = "{$slug}-{$uniqueId}-{$timestamp}.webp";
@@ -74,7 +136,7 @@ function image_link_generator($image_file, $thumbnail_path = 'products/', $any_u
     $img = Image::read($image_file);
 
     if ($crop) {
-        // --- PRODUCT MODE (Square) ---
+        // --- SHARED IMAGE MODE (Square) ---
         // 'cover' crops the image to fill the $size x $size area.
         // We use the original dimension if it's smaller than $size to prevent upscaling blur.
         $originalMinSide = min($img->width(), $img->height());
@@ -82,10 +144,10 @@ function image_link_generator($image_file, $thumbnail_path = 'products/', $any_u
 
         $img->cover($targetSize, $targetSize, 'center');
         
-        // Light sharpening makes product edges "pop" after resizing
+        // Light sharpening makes image edges "pop" after resizing
         $img->sharpen(10);
     } else {
-        // --- DOCUMENT/NID MODE (Natural Ratio) ---
+        // --- DOCUMENT MODE (Natural Ratio) ---
         // We only scale down if it's huge (1600px+). 
         // scaleDown ensures we NEVER stretch a small image upward (which causes blur).
         $img->scaleDown(width: 1200);
@@ -98,14 +160,13 @@ function image_link_generator($image_file, $thumbnail_path = 'products/', $any_u
     // 92 quality provides near-lossless clarity while still being much smaller than PNG/JPG
     $processedImage = $img->toWebp(92);
 
-    // 5. Save to Storage
+    // 5. Save to Public Storage (now shared)
     $savePath = $thumbnail_path . $full_name;
     Storage::disk('public')->put($savePath, (string) $processedImage);
 
     // 6. Return the relative URL for database storage
     return 'storage/' . $savePath;
 }
-
 
 function delete_image($path)
 {

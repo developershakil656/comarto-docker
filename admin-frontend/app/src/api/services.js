@@ -31,12 +31,14 @@ export const categoryAPI = {
   getById: (id) => apiClient.get(`/categories/${id}`),
   create: (data) => apiClient.post('/categories', data),
   update: (id, data) => apiClient.post(`/categories/update/${id}`, data),
-  delete: (id) => apiClient.delete(`/categories/${id}`)
+  delete: (id) => apiClient.delete(`/categories/${id}`),
+  productCategories: (data) => apiClient.post('/product/categories', data)
 }
 
 // Locations
 export const locationAPI = {
   getAll: () => apiClient.get('/locations'),
+  search: (keyword) => apiClient.post('/business/locations/search', { keyword }),
   getById: (id) => apiClient.get(`/locations/${id}`),
   create: (data) => apiClient.post('/locations', data),
   update: (id, data) => apiClient.put(`/locations/${id}`, data),
@@ -70,7 +72,11 @@ export const leadCreditPurchaseAPI = {
 // Businesses
 export const businessAPI = {
   getAll: (params) => apiClient.get('/businesses', { params }),
+  getById: (id) => apiClient.get(`/businesses/${id}`),
+  create: (data) => apiClient.post('/businesses', data, config),
+  update: (id, data, config = {}) => apiClient.post(`/businesses/${id}`, data, config),
   updateStatus: (id, data) => apiClient.put(`/businesses/${id}/status`, data),
+  delete: (id) => apiClient.delete(`/businesses/${id}`),
   getBusinessProducts: (id, params) => apiClient.get(`/businesses/${id}/products`, { params })
 }
 
@@ -83,6 +89,15 @@ export const userAPI = {
 // Products
 export const productAPI = {
   getAll: (params) => apiClient.get('/products', { params }),
+  getById: (id) => apiClient.get(`/products/${id}`),
+  create: (data) => apiClient.post('/products', data),
+  update: (id, data) => apiClient.put(`/products/${id}`, data),
+  delete: (id) => apiClient.delete(`/products/${id}`),
+  uploadImages: (id, formData) => apiClient.post(`/products/${id}/images`, formData, {
+    headers: { 'Content-Type': 'multipart/form-data' }
+  }),
+  deleteImage: (imageId) => apiClient.delete(`/products/images/${imageId}`),
+  reorderImages: (id, payload) => apiClient.put(`/products/${id}/images/positions`, payload),
   updateStatus: (id, data) => apiClient.put(`/products/${id}/status`, data)
 }
 
@@ -104,4 +119,9 @@ export const homeTopCategoryAPI = {
   create: (data) => apiClient.post('/home/top/categories', data),
   update: (id, data) => apiClient.put(`/home/top/categories/${id}`, data),
   delete: (id) => apiClient.delete(`/home/top/categories/${id}`)
+}
+
+// Business Utilities
+export const businessUtilityAPI = {
+  checkSlugAvailability: (slug) => apiClient.post('/business/slug/check', { slug })
 }

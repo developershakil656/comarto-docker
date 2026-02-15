@@ -12,10 +12,12 @@ server {
 
     disable_symlinks off;
 
-    # Handle Laravel Storage
+    # Handle Public Storage (now shared)
     location /storage/ {
-        root /var/www/backend/public;
+        alias /shared-storage/;
         try_files $uri $uri/ =404;
+        expires 1y;
+        add_header Cache-Control "public, immutable";
     }
 
     location / {

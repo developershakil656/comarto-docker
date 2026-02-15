@@ -136,4 +136,15 @@ class CategoryController extends Controller
             return error_response('first delete all child categories!');
         }
     }
+
+    public function productCategories(Request $request)
+    {
+        $data = Category::search($request->keyword)
+        ->options([
+            'limit' => 15,
+            'offset' => 0,
+            'filter' => ['(status = "active")']
+        ])->get();
+        return success_response('categories fetched',CategoryResource::collection($data));
+    }
 }

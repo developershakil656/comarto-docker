@@ -1,6 +1,10 @@
 <?php
 
+use App\Models\Category;
+use App\Models\Lead;
+use App\Models\Location;
 use App\Models\Product;
+use App\Models\ProductUnit;
 
 return [
 
@@ -145,6 +149,19 @@ return [
             Product::class => [
                 'filterableAttributes' => ['upazila_name','district_name','business_type','related_categories', 'status', 'stock'],
                 'sortableAttributes' => ['random_sort_key'],
+            ],
+            Location::class => [
+                'filterableAttributes' => ['upazila_name', 'status'],
+            ],
+            Lead::class => [
+                'filterableAttributes' => ['user_id','upazila_name','district_name','category', 'status'],
+                'sortableAttributes' => ['updated_at'],
+            ],
+            Category::class => [
+                'filterableAttributes' => ['status']
+            ],
+            ProductUnit::class => [
+                'filterableAttributes' => ['status']
             ],
         ],
     ],

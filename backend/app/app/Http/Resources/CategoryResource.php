@@ -21,7 +21,7 @@ class CategoryResource extends JsonResource
             "name" => $this->name,
             "parent" => $this->parent?->name,
             "slug" => $this->slug,
-            "icon" => $this->icon?(config('app.admin_backend_url').'/'.$this->icon):'',
+            "icon" => $this->icon?image_url($this->icon):'',
             // "children" => $this->children?->isNotEmpty(),
             "title" => $this->title,
             "description" => $this->description

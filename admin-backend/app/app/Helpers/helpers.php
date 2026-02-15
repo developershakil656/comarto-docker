@@ -1,5 +1,6 @@
 <?php
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Laravel\Facades\Image;
 use Illuminate\Support\Str;
 
 // api success response
@@ -57,45 +58,89 @@ function slugify($text)
     return $text;
 }
 
+
 # image link generator
-// function image_link_genterator($image_file, $any_unique_info, $add_to_end = 0, $thumbnail_path = 'gallery/products/')
+// function image_link_generator($image_file, $thumbnail_path = '/products/', $any_unique_info = '',$size = [400,400])
 // {
-//     $image_file = explode(';base64,', $image_file);
+//     // Get extension safely
+//     $ext = $image_file->getClientOriginalExtension();
 
-//     #file extention like jpg/png
-//     $file_ext = explode('/', array_shift($image_file));
-//     $ext = end($file_ext);
+//     $slug = slugify($any_unique_info);
+//     $uniqueId = Str::random(6);
+//     $timestamp = now()->format('YmdHis');
+//     $full_name = "{$slug}-{$uniqueId}-{$timestamp}.{$ext}";
 
-//     $full_name = (slugify($any_unique_info) . date('-sihdmy-') . $add_to_end) . '.' . $ext;
-//     $file_url = $thumbnail_path . $full_name;
-//     $image = end($image_file);
+//     $path = $thumbnail_path . $full_name;
 
-//     #setting resposne
-//     $response = [];
-//     $response['file_url'] = $file_url;
-//     $response['image'] = $image;
+//     // Store file in storage/app/public/gallery/products/
+//     Storage::disk('public')->putFileAs($thumbnail_path, $image_file, $full_name);
 
-//     return $response;
+//     // Return the path relative to storage
+//     return 'storage' . $path;
 // }
 
-# image link generator
-function image_link_generator($image_file, $thumbnail_path = '/products/', $any_unique_info = '',$size = [400,400])
-{
-    // Get extension safely
-    $ext = $image_file->getClientOriginalExtension();
+// function delete_image($path)
+// {
+//     $image = str_replace('storage/', '', $path);
+//     if (Storage::disk('public')->exists($image)) {
+//         Storage::disk('public')->delete($image);
+//         return true;
+//     }
+//     return false;
+// }
 
-    $slug = slugify($any_unique_info);
+// function image_url($image){
+//     $baseUrl = config('app.user_backend_url', config('app.url', 'http://api.mydomain.com'));
+//     // Remove trailing slash if present
+//     $baseUrl = rtrim($baseUrl, '/');
+//     return $image?($baseUrl . '/' . $image):'';
+// }
+
+function image_link_generator($image_file, $thumbnail_path = 'products/', $any_unique_info = '', $size = 820, $crop = true)
+{
+    // 1. Sanitize Path
+    $thumbnail_path = rtrim($thumbnail_path, '/') . '/';
+
+    // 2. SEO Friendly Filename
+    $slug = Str::slug($any_unique_info) ?: 'shared-file';
     $uniqueId = Str::random(6);
     $timestamp = now()->format('YmdHis');
-    $full_name = "{$slug}-{$uniqueId}-{$timestamp}.{$ext}";
+    $full_name = "{$slug}-{$uniqueId}-{$timestamp}.webp";
 
-    $path = $thumbnail_path . $full_name;
+    // 3. Read Image
+    $img = Image::read($image_file);
 
-    // Store file in storage/app/public/gallery/products/
-    Storage::disk('public')->putFileAs($thumbnail_path, $image_file, $full_name);
+    if ($crop) {
+        // --- SHARED IMAGE MODE (Square) ---
+        // 'cover' crops the image to fill the $size x $size area.
+        // We use the original dimension if it's smaller than $size to prevent upscaling blur.
+        $originalMinSide = min($img->width(), $img->height());
+        $targetSize = ($originalMinSide < $size) ? $originalMinSide : $size;
 
-    // Return the path relative to storage
-    return 'storage' . $path;
+        $img->cover($targetSize, $targetSize, 'center');
+        
+        // Light sharpening makes image edges "pop" after resizing
+        $img->sharpen(10);
+    } else {
+        // --- DOCUMENT MODE (Natural Ratio) ---
+        // We only scale down if it's huge (1600px+). 
+        // scaleDown ensures we NEVER stretch a small image upward (which causes blur).
+        $img->scaleDown(width: 1200);
+        
+        // Documents need more detail preserved
+        $img->sharpen(5);
+    }
+
+    // 4. Encode to WebP with High Quality
+    // 92 quality provides near-lossless clarity while still being much smaller than PNG/JPG
+    $processedImage = $img->toWebp(92);
+
+    // 5. Save to Public Storage (now shared)
+    $savePath = $thumbnail_path . $full_name;
+    Storage::disk('public')->put($savePath, (string) $processedImage);
+
+    // 6. Return the relative URL for database storage
+    return 'storage/' . $savePath;
 }
 
 function delete_image($path)
@@ -109,8 +154,5 @@ function delete_image($path)
 }
 
 function image_url($image){
-    $baseUrl = config('app.user_backend_url', config('app.url', 'http://api.mydomain.com'));
-    // Remove trailing slash if present
-    $baseUrl = rtrim($baseUrl, '/');
-    return $image?($baseUrl . '/' . $image):'';
+    return $image?asset($image):'';
 }

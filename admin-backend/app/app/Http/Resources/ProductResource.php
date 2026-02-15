@@ -13,6 +13,8 @@ class ProductResource extends JsonResource
             "id" => $this->id,
             "name" => $this->name,
             "slug" => $this->slug,
+            "details" => $this->details,
+            "specification" => $this->specification,
             "business" => new BusinessResource($this->business),
             "price" => $this->price,
             "moq" => $this->moq,
@@ -21,6 +23,8 @@ class ProductResource extends JsonResource
             "unit_quantity" => $this->unit_quantity,
             "product_unit" => new ProductUnitResource($this->product_unit),
             "feature_image" => $this->featureImage?image_url($this->featureImage->url) : '',
+            "gallery" => ProductGalleryResource::collection($this->gallery),
+            "categories" => CategoryResource::collection($this->categories),
         ];
     }
 }

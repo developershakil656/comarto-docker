@@ -8,6 +8,8 @@ env/*.env
 # Local-only Docker overrides (Keep this private to your machine)
 docker-compose.override.yml
 
+shared-storage/*
+
 # Ignore Database and Search Engine data
 mysql/data/*
 meilisearch/data/*

@@ -20,7 +20,7 @@ class HomeTopCategoryResource extends JsonResource
                 'id' => $this->category->id,
                 'name' => $this->category->name,
                 'slug' => $this->category->slug,
-                "icon" => $this->category->icon ? asset($this->category->icon) : '',
+                "icon" => $this->category->icon ? image_url($this->category->icon) : '',
             ],
             'recommended' => $this->recommended,
             'serial' => $this->serial,
