@@ -125,7 +125,7 @@ class AuthController extends Controller
         }
 
         // Store the new image using the image_link_generator function
-        $image = image_link_generator($request->file('profile'), '/admin/profile/', $user->name);
+        $image = image_link_generator($request->file('profile'), '/admin/profile/', $user->name,400);
 
         // Update the user's profile with the new image URL
         $user->profile = $image;

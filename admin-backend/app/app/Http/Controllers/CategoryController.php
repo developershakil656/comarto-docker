@@ -48,8 +48,8 @@ class CategoryController extends Controller
         if ($request->hasFile('icon')) {
             $data['icon'] = image_link_generator(
                 $request->file('icon'),
-                '/all-categories/',
-                $data['slug']
+                'all-categories/',
+                $data['slug'],256
             );
         }
 
