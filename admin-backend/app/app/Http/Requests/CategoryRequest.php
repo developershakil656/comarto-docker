@@ -31,7 +31,7 @@ class CategoryRequest extends FormRequest
                 'required',
                 'max:50'
             ],
-            'icon' => 'image|mimes:jpeg,png,jpg,webp|max:2048',
+            'icon' => 'image|max:5048',
             'status' => 'required|in:active,blocked',
             'parent_id' => 'integer|nullable'
         ];

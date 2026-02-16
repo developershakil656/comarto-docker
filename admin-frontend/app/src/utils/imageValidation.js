@@ -30,16 +30,16 @@ export function validateImageFile(file) {
   }
 
   // Check file extension
-  const allowedExtensions = ['jpeg', 'jpg', 'png', 'webp'];
-  const fileExtension = file.name.split('.').pop().toLowerCase();
+  // const allowedExtensions = ['jpeg', 'jpg', 'png', 'webp'];
+  // const fileExtension = file.name.split('.').pop().toLowerCase();
   
-  if (!allowedExtensions.includes(fileExtension)) {
-    push.warning('Only JPEG, JPG, PNG, and WEBP files are allowed');
-    return {
-      isValid: false,
-      error: 'Only JPEG, JPG, PNG, and WEBP files are allowed'
-    };
-  }
+  // if (!allowedExtensions.includes(fileExtension)) {
+  //   push.warning('Only JPEG, JPG, PNG, and WEBP files are allowed');
+  //   return {
+  //     isValid: false,
+  //     error: 'Only JPEG, JPG, PNG, and WEBP files are allowed'
+  //   };
+  // }
 
   // Check file size (5MB = 5 * 1024 * 1024 bytes)
   const maxSize = 5 * 1024 * 1024;

@@ -323,6 +323,7 @@ import { useBusinessStore } from '../stores/business';
 import { useBusinessTypeStore } from '../stores/businessType';
 import { businessUtilityAPI } from '../api/services';
 import BusinessTypeModal from './modals/BusinessTypeModal.vue';
+import { validateImageFile } from '../utils/imageValidation';
 
 const router = useRouter();
 const locationStore = useLocationStore();
@@ -601,21 +602,6 @@ function canContinueTimings() {
   return timeSlot.value.days.some(day => !day.isClosed);
 }
 
-// Image validation helper
-const validateImageFile = (file) => {
-  const maxSize = 5 * 1024 * 1024; // 5MB
-  const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/webp'];
-  
-  if (file.size > maxSize) {
-    return { isValid: false, error: 'File size exceeds 5MB limit' };
-  }
-  
-  if (!allowedTypes.includes(file.type)) {
-    return { isValid: false, error: 'Invalid file type. Only JPEG, PNG, JPG, and WebP are allowed' };
-  }
-  
-  return { isValid: true };
-};
 
 function handlePhotoUpload(event) {
   const file = event.target.files[0];

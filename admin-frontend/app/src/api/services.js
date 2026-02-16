@@ -73,7 +73,8 @@ export const leadCreditPurchaseAPI = {
 export const businessAPI = {
   getAll: (params) => apiClient.get('/businesses', { params }),
   getById: (id) => apiClient.get(`/businesses/${id}`),
-  create: (data) => apiClient.post('/businesses', data, config),
+  // ensure config is provided with a default to avoid ReferenceError
+  create: (data, config = {}) => apiClient.post('/businesses', data, config),
   update: (id, data, config = {}) => apiClient.post(`/businesses/${id}`, data, config),
   updateStatus: (id, data) => apiClient.put(`/businesses/${id}/status`, data),
   delete: (id) => apiClient.delete(`/businesses/${id}`),
