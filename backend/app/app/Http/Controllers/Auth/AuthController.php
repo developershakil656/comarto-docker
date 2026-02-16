@@ -330,7 +330,7 @@ class AuthController extends Controller
     {
         // Validate the request: Ensure the 'nid_front' and 'nid_back' are valid image files
         $validator = Validator::make($request->all(), [
-            'nid_number' => ['required', 'regex:/^\d{13}$|^\d{17}$/'],
+            'nid_number' => ['required', 'regex:/^\d{10}$|^\d{13}$|^\d{17}$/'],
             'nid_front' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',  // Image validation for front side
             'nid_back' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',   // Image validation for back side
         ]);

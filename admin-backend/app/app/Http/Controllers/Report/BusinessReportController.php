@@ -23,7 +23,7 @@ class BusinessReportController extends Controller
                 $q->where('name', 'LIKE', "%$keyword%")
                     ->orWhere('id', $keyword)
                     ->orWhere('user_id', $keyword)
-                    ->orWhere('phone', 'LIKE', "%$keyword%")
+                    ->orWhere('number', 'LIKE', "%$keyword%")
                     ->orWhere('email', 'LIKE', "%$keyword%")
                     ->orWhere('address', 'LIKE', "%$keyword%");
             });

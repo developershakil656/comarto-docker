@@ -89,7 +89,7 @@ export default {
         }
         const location = locationParts.join(', ') || 'Bangladesh';
         const description = this.businessData.details?.description || `Connect with ${businessName}, a verified business in ${location}. Find products, contact information, and business details.`;
-        
+        console.log(this.businessData.business_profile)
         setMetaTags(
           `${businessName} - Business Profile in ${location} | Comarto Bangladesh B2B Marketplace`,
           description,

@@ -185,7 +185,7 @@
               <td class="px-6 py-4 whitespace-nowrap text-sm font-medium" data-label="Actions">
                 <div class="flex items-center space-x-3">
                   <router-link 
-                    :to="{ name: 'Products', query: { business_id: business.id } }"
+                    :to="`https://comarto.com/${business.slug}`"
                     class="text-indigo-600 hover:text-indigo-900 transition-colors"
                     title="View Products"
                   >

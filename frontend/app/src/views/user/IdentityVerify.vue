@@ -58,7 +58,7 @@
                   id="nidNumber" 
                   v-model="nidNumber"
                   type="text" 
-                  placeholder="Enter your NID number (13 or 17 digits)"
+                  placeholder="Enter your NID number (10, 13 or 17 digits)"
                   :class="[
                     'w-full px-4 py-3 border rounded-xl text-gray-700 placeholder-gray-400 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent',
                     nidNumberError ? 'border-red-300 bg-red-50' : 'border-gray-300 hover:border-gray-400'
@@ -86,7 +86,7 @@
                 </svg>
                 {{ nidNumberError }}
               </div>
-              <p class="text-gray-500 text-xs">NID number must be exactly 13 or 17 digits</p>
+              <p class="text-gray-500 text-xs">NID number must be exactly 10, 13 or 17 digits</p>
     </div>
 
             <!-- NID Front Upload -->
@@ -319,8 +319,8 @@ export default {
       }
       
       const cleanNid = this.nidNumber.replace(/\D/g, '');
-      if (cleanNid.length !== 13 && cleanNid.length !== 17) {
-        this.nidNumberError = 'NID number must be exactly 13 or 17 digits';
+      if (![10, 13, 17].includes(cleanNid.length)) {
+        this.nidNumberError = 'NID number must be exactly 10, 13 or 17 digits';
         return false;
       }
       
