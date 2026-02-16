@@ -78,7 +78,7 @@
                     <h2 class="text-sm md:text-base font-semibold text-gray-800">Description</h2>
                     <button @click="scrollToDetails" class="text-primary hover:underline hover:text-primary/85 text-sm">View Details</button>
                 </div>
-                <p class="text-gray-700 leading-relaxed text-[15px] text-justify">
+                <p class="text-gray-700 leading-relaxed text-[15px] whitespace-pre-line">
                     {{ truncatedDescription }}
                 </p>
             </div>
@@ -146,7 +146,7 @@ export default {
         },
         truncatedDescription() {
             const details = this.product.details || '';
-            return details.length > 650 ? details.slice(0, 650) + '...' : details;
+            return details.length > 300 ? details.slice(0, 300) + '...' : details;
         },
         isFavourite() {
             return this.favouriteProducts.some(p => p.id === this.product.id);

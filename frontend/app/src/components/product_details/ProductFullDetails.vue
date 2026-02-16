@@ -5,7 +5,7 @@
         
         <div class="mb-6">
             <h2 class="text-lg md:text-2xl font-semibold mb-4 capitalize">Product details of '{{ product.name }}'</h2>
-            <p class="text-gray-700 leading-relaxed text-[15px] mb-4 text-justify">
+            <p class="text-gray-700 leading-relaxed text-[15px] mb-4 whitespace-pre-line">
                 {{ product.details }}
             </p>
         </div>
