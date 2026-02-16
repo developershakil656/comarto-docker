@@ -62,7 +62,7 @@ class BusinessReportController extends Controller
         $perPage = $request->per_page ?? 15;
         $page = $request->page ?? 1;
 
-        $businesses = $query->paginate($perPage, ['*'], 'page', $page);
+        $businesses = $query->latest()->paginate($perPage, ['*'], 'page', $page);
 
         return success_response('Businesses fetched successfully', [
             "data" => BusinessResource::collection($businesses),
