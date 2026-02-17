@@ -181,6 +181,23 @@
                 <ErrorMessage name="mobile_number" class="text-red-500 text-xs" />
               </div>
 
+              <!-- Alternate Mobile Number -->
+              <div>
+                <label class="block text-sm font-medium">WhatsApp Number</label>
+                <div class="flex gap-2">
+                  <span class="inline-flex items-center px-3 bg-gray-100 border border-gray-200 rounded-l-md text-gray-700">+88</span>
+                  <Field 
+                    name="alternate_number" 
+                    as="input" 
+                    type="text"
+                    class="input rounded-l-none" 
+                    placeholder="Alternate Mobile Number" 
+                    v-model="contactDetails.alternate_number"
+                  />
+                </div>
+                <ErrorMessage name="alternate_number" class="text-red-500 text-xs" />
+              </div>
+
               
 
               <!-- Email -->
@@ -409,6 +426,7 @@ const searchTimeout = ref(null);
 const contactDetails = ref({
   contact_person: '',
   mobile_number: '',
+  alternate_number: '',
   email: '',
 });
 
@@ -701,6 +719,14 @@ const validationSchema = yup.object({
 const contactValidationSchema = yup.object({
   contact_person: yup.string().required('Contact person name is required').min(2, 'Contact person name must be at least 2 characters'),
   mobile_number: yup.string().required('Mobile number is required'),
+  alternate_number: yup.string()
+    .ensure() 
+    .notRequired()
+    // excludeEmptyString is the key here to make it truly optional
+    .matches(/^01[3-9]\d{8}$/, {
+      message: 'WhatsApp number must be a valid 11-digit BD number',
+      excludeEmptyString: true 
+    }),
   email: yup.string().email('Please enter a valid email address').optional(),
 });
 
@@ -733,6 +759,7 @@ const createBusiness = async () => {
       business_name: businessDetails.value.business_name,
       slug: businessDetails.value.slug, // Add the business slug
       number: contactDetails.value.mobile_number,
+      alternate_number: contactDetails.value.alternate_number || null,
       email: contactDetails.value.email,
       address: businessDetails.value.address,
       location_id: businessDetails.value.location_id,

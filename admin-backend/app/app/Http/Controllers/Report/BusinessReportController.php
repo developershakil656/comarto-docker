@@ -20,7 +20,7 @@ class BusinessReportController extends Controller
         if ($request->keyword) {
             $keyword = $request->keyword;
             $query->where(function ($q) use ($keyword) {
-                $q->where('name', 'LIKE', "%$keyword%")
+                $q->where('business_name', 'LIKE', "%$keyword%")
                     ->orWhere('id', $keyword)
                     ->orWhere('user_id', $keyword)
                     ->orWhere('number', 'LIKE', "%$keyword%")
