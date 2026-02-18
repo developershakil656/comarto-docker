@@ -63,6 +63,7 @@ services:
       PMA_HOST: mysql
       PMA_PORT: 3306
       UPLOAD_LIMIT: 64M
+      MAX_EXECUTION_TIME: 600
     depends_on:
       - mysql
 
