@@ -272,6 +272,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import { push } from "notivue";
 import {
   BuildingOfficeIcon,
@@ -284,6 +285,7 @@ import StarRating from "@/components/StarRating.vue";
 import SkeletonLoader from "@/components/SkeletonLoader.vue";
 import VerifiedBadge from "@/components/common/VerifiedBadge.vue";
 import OptimizedImage from '@/components/common/OptimizedImage.vue';
+
 export default {
   components: {
     BuildingOfficeIcon,
@@ -298,6 +300,9 @@ export default {
     OptimizedImage
   },
   emits: ["toggle-sidebar"],
+  // NOTE: For further optimization with shallowRef, use:
+  // import { useVuexSearch } from '@/composables/useVuexShallowRef'
+  // Create a setup() function to access the composable
   styles: {
     ".scrollbar-hide": {
       "-ms-overflow-style": "none",
@@ -319,26 +324,12 @@ export default {
     },
   },
   computed: {
-    searchResults() {
-      return this.$store.getters.searchResults;
-    },
-    loading() {
-      return this.$store.getters.loading;
-    },
-    totalProducts() {
-      return this.$store.getters.searchMeta?.total || 0;
-    },
-    loadingMore() {
-      return this.$store.getters.loadingMore;
-    },
-    canLoadMore() {
-      return this.$store.getters.canLoadMore;
-    },
+    ...mapGetters(["searchResults", "loading", "loadingMore", "canLoadMore", "searchMeta", "favouriteProducts"]),
     isSuppliersView() {
       return this.$route?.query?.suppliers === "true";
     },
-    favouriteProducts() {
-      return this.$store.getters.favouriteProducts;
+    totalProducts() {
+      return this.searchMeta?.total || 0;
     },
     // Standardized unit display format
     getUnitDisplay() {

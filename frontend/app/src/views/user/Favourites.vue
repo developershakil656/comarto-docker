@@ -242,6 +242,9 @@ import {
 } from "@heroicons/vue/24/outline";
 import { HeartIcon as HeartIconSolid } from "@heroicons/vue/24/solid";
 
+// NOTE: For shallowRef optimization, uncomment below:
+// import { useVuexFavourites } from '@/composables/useVuexShallowRef'
+
 export default {
   components: {
     HeartIcon,

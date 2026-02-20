@@ -191,12 +191,12 @@ const columns = [
   { key: 'serial', label: '#', sortable: false },
   { key: 'id', label: 'ID' },
   { key: 'name', label: 'Name' },
-  { key: 'title', label: 'Title' },
-  { key: 'description', label: 'Description' },
   { key: 'icon', label: 'Icon' },
   { key: 'parent_id', label: 'Parent ID' },
   { key: 'status', label: 'Status' },
-  { key: 'actions', label: 'Actions', sortable: false }
+  { key: 'actions', label: 'Actions', sortable: false },
+  { key: 'title', label: 'Title' },
+  { key: 'description', label: 'Description' }
 ]
 
 const filteredData = computed(() => {

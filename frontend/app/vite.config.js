@@ -35,6 +35,110 @@ export default defineConfig({
       workbox: {
         navigateFallback: '/',
         navigateFallbackDenylist: [/^\/api\//],
+        // Runtime caching strategies for API calls and assets
+        runtimeCaching: [
+          // API calls - NetworkFirst (prefer fresh data, fallback to cache)
+          {
+            urlPattern: /^https:\/\/.*\/api\/v1\/products/,
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'products-api-cache',
+              networkTimeoutSeconds: 5,
+              expiration: {
+                maxEntries: 200,
+                maxAgeSeconds: 10 * 60, // 10 minutes
+              },
+              cacheableResponse: {
+                statuses: [0, 200],
+              },
+            },
+          },
+          {
+            urlPattern: /^https:\/\/.*\/api\/v1\/search/,
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'search-api-cache',
+              networkTimeoutSeconds: 5,
+              expiration: {
+                maxEntries: 150,
+                maxAgeSeconds: 5 * 60, // 5 minutes
+              },
+              cacheableResponse: {
+                statuses: [0, 200],
+              },
+            },
+          },
+          {
+            urlPattern: /^https:\/\/.*\/api\/v1\/favourite/,
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'favourites-api-cache',
+              networkTimeoutSeconds: 3,
+              expiration: {
+                maxEntries: 100,
+                maxAgeSeconds: 5 * 60, // 5 minutes
+              },
+              cacheableResponse: {
+                statuses: [0, 200],
+              },
+            },
+          },
+          // Generic API fallback
+          {
+            urlPattern: /^https:\/\/.*\/api\//,
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'api-cache',
+              networkTimeoutSeconds: 5,
+              expiration: {
+                maxEntries: 100,
+                maxAgeSeconds: 5 * 60, // 5 minutes
+              },
+              cacheableResponse: {
+                statuses: [0, 200],
+              },
+            },
+          },
+          // Images - CacheFirst (use cache first, update in background)
+          {
+            urlPattern: /^https:\/\/.*\/(storage|media|images)\//,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'image-cache',
+              expiration: {
+                maxEntries: 300,
+                maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
+              },
+              cacheableResponse: {
+                statuses: [0, 200],
+              },
+            },
+          },
+          // Static assets - CacheFirst with long expiration
+          {
+            urlPattern: /^https:\/\/.*\.(js|css|woff|woff2|ttf|eot)$/,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'static-assets',
+              expiration: {
+                maxEntries: 150,
+                maxAgeSeconds: 60 * 60 * 24 * 30, // 30 days
+              },
+            },
+          },
+          // External assets
+          {
+            urlPattern: /^https:\/\/flagcdn\.com\//,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'external-assets',
+              expiration: {
+                maxEntries: 50,
+                maxAgeSeconds: 60 * 60 * 24 * 7, // 7 days
+              },
+            },
+          },
+        ],
       },
       // enable during dev so SW behaves same way
       devOptions: {

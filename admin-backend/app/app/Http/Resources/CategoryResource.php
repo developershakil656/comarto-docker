@@ -19,7 +19,7 @@ class CategoryResource extends JsonResource
             "name" => $this->name,
             "slug" => $this->slug,
             "icon" => $this->icon ? image_url($this->icon) : '',
-            "parent" => $this->parent->name,
+            "parent" => $this?->parent?->name,
             "parent_id" => $this->parent_id,
             "status" => $this->status,
             "title" => $this->title,

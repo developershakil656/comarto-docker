@@ -1086,7 +1086,8 @@ export default {
         stock: form.value.stock,
         category_ids: form.value.category_ids,
         video_url: form.value.video_url,
-        status: form.value.status
+        status: form.value.status,
+        business_id: form.value.business_id
       };
     };
 
