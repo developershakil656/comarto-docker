@@ -74,9 +74,9 @@
                             <DevicePhoneMobileIcon class="text-3xl text-blue-500 mb-2 w-10 h-10" />
                             <div class="font-semibold mb-1">Download App</div>
                             <div class="text-gray-500 text-sm mb-2 text-center">Download App for Quick Access</div>
-                            <button @click="handleDownloadApp"
+                            <a href="comarto.com/app/download"
                                 class="px-4 py-2 mt-auto bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition">Download
-                                QR</button>
+                                QR</a>
                         </div>
 
                         <div class="bg-white rounded-xl shadow p-6 flex flex-col items-center h-full">
@@ -263,10 +263,6 @@ export default {
         },
         handleIncreaseScoreClick() {
             push.info('Opening business profile score management');
-        },
-        handleDownloadApp() {
-            push.info('Comming soon!');
-            // Implement actual QR code download logic here
         },
         handleAddAddress() {
             // push.info('Opening address management');

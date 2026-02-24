@@ -119,7 +119,14 @@ const routes = [
     ]
   },
 
-  // --- GROUP 3: Authentication Callbacks (No Layout) ---
+  // --- GROUP 3: App Download/Install Handler ---
+  {
+    path: '/app/download',
+    name: 'app-download',
+    component: () => import('../views/AppDownloadView.vue')
+  },
+
+  // --- GROUP 4: Authentication Callbacks (No Layout) ---
   {
     path: '/user/auth/google/callback',
     name: 'google-callback',

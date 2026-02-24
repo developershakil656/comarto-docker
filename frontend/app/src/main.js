@@ -10,6 +10,8 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import { configure, defineRule } from 'vee-validate';
+import axios from 'axios';
+import setupAxiosInterceptors from './utils/axiosInterceptor';
 import { required, email, url, min, max, numeric, regex } from '@vee-validate/rules';
 import { Form, Field } from 'vee-validate';
 import * as yup from 'yup';
@@ -18,6 +20,9 @@ const app = createApp(App)
 const head = createHead()
 
 app.use(head)
+
+// Setup axios interceptors for offline cache support
+setupAxiosInterceptors(axios);
 
 // Make Yup globally available
 app.config.globalProperties.$yup = yup;

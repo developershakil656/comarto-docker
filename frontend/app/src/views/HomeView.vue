@@ -1,26 +1,34 @@
-<template lang="">
+<template>
   <div>
-    <!-- main header -->
     <BottomHeader />
 
     <div class="bg-gray-50">
       <div class="lg:flex container py-4 md:py-8 mx-auto">
-        <!-- Slider: takes remaining space -->
         <div class="lg:w-[70%]">
           <MainSlider />
         </div>
 
-        <!-- Sidebar: takes only its own width -->
         <div class="lg:w-[30%]">
           <BuyPostListBusiness />
         </div>
       </div>
     </div>
 
-    <!-- Category Grid -->
+    <div
+      v-if="showInstallButton"
+      class="block md:hidden bg-primary text-white text-center py-2.5 my-3 mx-4 rounded"
+    >
+      <a
+        href="https://comarto.com/app/download"
+        class="font-medium flex items-center justify-center w-full"
+      >
+        <ArrowDownTrayIcon class="h-5 w-5 mr-2" />
+        Download Comarto App
+      </a>
+    </div>
+
     <CategoryGrid />
 
-    <!-- Suggested Categories based on user's search history -->
     <CategoryWiseSubcategories
       v-for="(group, idx) in suggestedCategories"
       :key="`suggested-${idx}`"
@@ -34,7 +42,6 @@
       :odd="(categoryGroups.length + idx) % 2 === 0"
     />
 
-    <!-- Category-wise Subcategories -->
     <CategoryWiseSubcategories
       v-for="(group, idx) in categoryGroups"
       :key="idx"
@@ -48,21 +55,19 @@
       :odd="idx % 2 === 0"
     />
 
-    <!-- Business Registration Encouragement Section -->
     <BusinessRegistrationCTA
       v-if="shouldShowBusinessRegistration"
       @register-click="navigateToBusinessRegistration"
     />
 
     <div class="block md:hidden"><Footer /></div>
-    <!-- Mobile Bottom Navigation -->
     <MobileBottomNavigation />
   </div>
 </template>
 
 <script>
 import axios from "axios";
-import { useSEO } from '@/composables/useSEO';
+import { useSEO } from "@/composables/useSEO";
 import BottomHeader from "@/components/header/BottomHeader.vue";
 import MainSlider from "@/components/home/MainSlider.vue";
 import CategoryGrid from "@/components/home/CategoryGrid.vue";
@@ -72,6 +77,7 @@ import BuyPostListBusiness from "@/components/home/BuyPostListBusiness.vue";
 import authMixin from "@/mixins/authMixin.js";
 import MobileBottomNavigation from "@/components/common/MobileBottomNavigation.vue";
 import Footer from "@/components/common/Footer.vue";
+import { ArrowDownTrayIcon } from "@heroicons/vue/24/solid";
 
 export default {
   mixins: [authMixin],
@@ -84,107 +90,109 @@ export default {
     BuyPostListBusiness,
     MobileBottomNavigation,
     Footer,
+    ArrowDownTrayIcon,
   },
 
   data() {
     return {
       categoryGroups: [],
       suggestedCategories: [],
+      showInstallButton: false
     };
   },
+
   computed: {
     shouldShowBusinessRegistration() {
-      // Show the section if user is not logged in OR if user is logged in but doesn't have a business
       return (
         !this.isAuthenticated || (this.isAuthenticated && !this.user?.business)
       );
     },
   },
-  async mounted() {
-    // Set SEO meta tags for Bangladesh B2B directory
+
+  mounted() {
+    this.checkInstallState();
+
+    // Android/Desktop install event
+    window.addEventListener("appinstalled", () => {
+      localStorage.setItem("pwa_installed", "1");
+      this.showInstallButton = false;
+    });
+
+    // Detect display-mode change (Chrome desktop/mobile)
+    window.matchMedia("(display-mode: standalone)").addEventListener("change", (e) => {
+      if (e.matches) {
+        localStorage.setItem("pwa_installed", "1");
+        this.showInstallButton = false;
+      }
+    });
+
+    // Also hide after successful install
+    window.addEventListener('appinstalled', () => {
+      this.showInstallButton = false;
+    });
+    // SEO and Auth logic
     const { setMetaTags } = useSEO();
     setMetaTags(
-      'Comarto - Bangladesh B2B Marketplace for Wholesale Suppliers & Manufacturers',
-      'Connect with verified wholesale suppliers, manufacturers, and businesses in Bangladesh. Find reliable suppliers for all your business needs on Comarto.',
+      "Comarto - Bangladesh B2B Marketplace for Wholesale Suppliers & Manufacturers",
+      "Connect with verified wholesale suppliers, manufacturers, and businesses in Bangladesh.",
       null,
-      'Comarto, B2B, wholesale, suppliers, manufacturers, Bangladesh, marketplace, trade, commerce, import, export'
+      "Comarto, B2B, wholesale, suppliers, manufacturers, Bangladesh",
     );
 
-    // Handle authentication status messages
-    const urlParams = new URLSearchParams(window.location.search);
-    const success = urlParams.get("success");
-    const error = urlParams.get("error");
-
-    if (success === "login") {
-      // Show success message
-      this.showNotification("Login successful!", "success");
-      // Clean up URL
-      this.$router.replace("/");
-    } else if (error) {
-      // Show error message
-      let errorMessage = "Authentication failed";
-      switch (error) {
-        case "auth_failed":
-          errorMessage = "Google authentication failed";
-          break;
-        case "no_code":
-          errorMessage = "No authorization code received";
-          break;
-        case "callback_failed":
-          errorMessage = "Failed to process authentication";
-          break;
-      }
-      this.showNotification(errorMessage, "error");
-      // Clean up URL
-      this.$router.replace("/");
-    }
-
-    // Load top categories for the home sections
-    await this.fetchTopCategories();
-
-    // Load suggested categories based on user's search history
-    await this.fetchSuggestedCategories();
+    this.handleAuthParams();
+    this.fetchTopCategories();
+    this.fetchSuggestedCategories();
   },
+
   methods: {
+    checkInstallState() {
+      const isStandalone =
+        window.matchMedia("(display-mode: standalone)").matches ||
+        window.navigator.standalone === true; // iOS
+
+      const savedState = localStorage.getItem("pwa_installed") === "1";
+
+      // Final decision
+      if (isStandalone || savedState) {
+        this.showInstallButton = false;
+      } else {
+        this.showInstallButton = true;
+      }
+    },
+
     async fetchTopCategories() {
       try {
         const { data } = await axios.get("/top/categories");
-        // Expecting data to be an array of groups: { category: {name,slug}, categories: [...] }
-        if (Array.isArray(data)) {
-          this.categoryGroups = data;
-        } else if (Array.isArray(data?.data)) {
-          // fallback if API wraps in { data: [...] }
-          this.categoryGroups = data.data;
-        }
+        this.categoryGroups = Array.isArray(data) ? data : data?.data || [];
       } catch (e) {
         console.error(e);
       }
     },
-    showNotification(message, type = "info") {
-      // You can implement a toast notification system here
-      if (type === "success") {
-        alert("✅ " + message);
-      } else if (type === "error") {
-        alert("❌ " + message);
-      } else {
-        alert(message);
-      }
-    },
+
     async fetchSuggestedCategories() {
       try {
         const response = await this.$store.dispatch("fetchSuggestedCategories");
-        // Expecting data to be an array of groups: { category: {name,slug}, categories: [...] }
-        if (Array.isArray(response)) {
-          this.suggestedCategories = response;
-        } else if (Array.isArray(response?.data)) {
-          // fallback if API wraps in { data: [...] }
-          this.suggestedCategories = response.data;
-        }
+        this.suggestedCategories = Array.isArray(response)
+          ? response
+          : response?.data || [];
       } catch (e) {
         console.error("Error fetching suggested categories:", e);
-        this.suggestedCategories = [];
       }
     },
+
+    handleAuthParams() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const success = urlParams.get("success");
+      if (success === "login") {
+        this.showNotification("Login successful!", "success");
+        this.$router.replace("/");
+      }
+    },
+
+    showNotification(message, type = "info") {
+      alert((type === "success" ? "✅ " : "❌ ") + message);
+    },
+
     navigateToBusinessRegistration() {
       if (
         !this.isAuthenticated ||
@@ -196,5 +204,3 @@ export default {
   },
 };
 </script>
-
-<style lang=""></style>
