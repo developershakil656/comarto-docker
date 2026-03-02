@@ -91,6 +91,26 @@
               </div>
               <ErrorMessage name="number" class="text-red-500 text-xs mt-1" />
             </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Whatsapp Number</label>
+              <div class="flex gap-2">
+                <span class="inline-flex items-center px-3 bg-gray-100 border border-gray-200 rounded-l-md">+88</span>
+                <Field
+                  name="alternate_number"
+                  as="input"
+                  class="admin-input rounded-l-none"
+                  v-model="formData.alternate_number"
+                />
+              </div>
+              <ErrorMessage name="alternate_number" class="text-red-500 text-xs mt-1" />
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+              <Field name="email" as="input" type="email" class="admin-input" v-model="formData.email" />
+              <ErrorMessage name="email" class="text-red-500 text-xs mt-1" />
+            </div>
           </div>
         </div>
 
@@ -406,6 +426,7 @@ const validationSchema = yup.object({
   business_type: yup.array().min(1, 'Select at least one type'),
   name: yup.string().required(),
   number: yup.string().required().matches(/^\d{11}$/, '11 digits required'),
+  email: yup.string().email('Please enter a valid email address').optional(),
   address: yup.string().required(),
   post_code: yup.string().required().matches(/^\d{4}$/, '4 digits required'),
   location_id: yup.number().required('Location required'),

@@ -107,7 +107,7 @@
             </div>
 
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-1">Alternate Number</label>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Whatsapp Number</label>
               <div class="flex gap-2">
                 <span class="inline-flex items-center px-3 bg-gray-100 border border-gray-200 rounded-l-md text-gray-700">+88</span>
                 <Field 
@@ -115,7 +115,7 @@
                   as="input" 
                   type="text"
                   class="admin-input rounded-l-none" 
-                  placeholder="Alternate Number" 
+                  placeholder="Whatsapp Number" 
                   v-model="formData.alternate_number"
                 />
               </div>
