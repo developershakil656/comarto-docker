@@ -183,7 +183,7 @@ export default {
             const whatsappNumber = this.businessData?.alternate_number;
             if (whatsappNumber) {
                 const message = `Hi ${this.businessData?.name || 'there'}, I'm interested in your business ${this.businessData?.business_name || ''}. Can you please provide more information about your products/services?`;
-                const whatsappUrl = `https://wa.me/${whatsappNumber.replace(/\D/g, '')}?text=${encodeURIComponent(message)}`;
+                const whatsappUrl = `https://wa.me/88${whatsappNumber.replace(/\D/g, '')}?text=${encodeURIComponent(message)}`;
                 window.open(whatsappUrl, '_blank');
             } else {
                 alert('WhatsApp number not available');

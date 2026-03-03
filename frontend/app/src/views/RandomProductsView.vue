@@ -104,7 +104,7 @@
                <a
                v-if="item.business.alternate_number"
                @click.stop
-               :href="`https://wa.me/${
+               :href="`https://wa.me/88${
                  item.business.alternate_number
                }?text=${encodeURIComponent(
                  'Hello, I am interested in your product!'

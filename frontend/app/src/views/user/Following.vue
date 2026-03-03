@@ -206,7 +206,7 @@ export default {
         },
         whatsappBusiness(number) {
             const message = `Hi, I'm interested in your products. Can you provide more information?`
-            const whatsappUrl = `https://wa.me/${number}?text=${encodeURIComponent(message)}`
+            const whatsappUrl = `https://wa.me/88${number}?text=${encodeURIComponent(message)}`
             window.open(whatsappUrl, '_blank')
         },
         async startBestPriceChat(business) {

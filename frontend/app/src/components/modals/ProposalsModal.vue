@@ -216,7 +216,7 @@ export default {
     openWhatsApp(phoneNumber) {
       const message = `Hi, I'm interested in your business proposal. Can you provide more information?`;
       const cleanedNumber = phoneNumber.replace(/\D/g, '');
-      const whatsappUrl = `https://wa.me/${cleanedNumber}?text=${encodeURIComponent(message)}`;
+      const whatsappUrl = `https://wa.me/88${cleanedNumber}?text=${encodeURIComponent(message)}`;
       window.open(whatsappUrl, '_blank');
     },
 

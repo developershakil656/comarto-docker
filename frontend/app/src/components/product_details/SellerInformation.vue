@@ -98,7 +98,7 @@ export default {
       if (!number) return;
       const url = window.location.href;
       const message = encodeURIComponent(`Hello, I am interested in your product! ${url}`);
-      window.open(`https://wa.me/${number}?text=${message}`, '_blank');
+      window.open(`https://wa.me/88${number}?text=${message}`, '_blank');
     },
     async startBestPriceChat() {
       try {

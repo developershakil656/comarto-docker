@@ -444,7 +444,7 @@ export default {
         }, I'm interested in your business ${
           this.businessData?.business_name || ""
         }. Can you please provide more information about your products/services?`;
-        const whatsappUrl = `https://wa.me/${whatsappNumber.replace(
+        const whatsappUrl = `https://wa.me/88${whatsappNumber.replace(
           /\D/g,
           ""
         )}?text=${encodeURIComponent(message)}`;
