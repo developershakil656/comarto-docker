@@ -29,6 +29,10 @@
 
     <CategoryGrid />
 
+    <!-- random products section inserted -->
+    <RandomProductsSection />
+
+
     <CategoryWiseSubcategories
       v-for="(group, idx) in suggestedCategories"
       :key="`suggested-${idx}`"
@@ -74,6 +78,7 @@ import CategoryGrid from "@/components/home/CategoryGrid.vue";
 import CategoryWiseSubcategories from "@/components/home/CategoryWiseSubcategories.vue";
 import BusinessRegistrationCTA from "@/components/home/BusinessRegistrationCTA.vue";
 import BuyPostListBusiness from "@/components/home/BuyPostListBusiness.vue";
+import RandomProductsSection from "@/components/home/RandomProductsSection.vue";
 import authMixin from "@/mixins/authMixin.js";
 import MobileBottomNavigation from "@/components/common/MobileBottomNavigation.vue";
 import Footer from "@/components/common/Footer.vue";
@@ -85,6 +90,7 @@ export default {
     BottomHeader,
     MainSlider,
     CategoryGrid,
+    RandomProductsSection,
     CategoryWiseSubcategories,
     BusinessRegistrationCTA,
     BuyPostListBusiness,

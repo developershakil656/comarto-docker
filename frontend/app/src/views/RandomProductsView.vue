@@ -107,7 +107,7 @@
                :href="`https://wa.me/88${
                  item.business.alternate_number
                }?text=${encodeURIComponent(
-                 'Hello, I am interested in your product!'
+                 'Hello, I am interested in your product! https://comarto.com/product/' + item.slug
                )}`"
                target="_blank"
                class="text-primary px-3 py-2 rounded-md flex justify-center text-center gap-1 text-xs md:text-sm font-medium border-primary border hover:bg-primary/15 transition-all whitespace-nowrap"
