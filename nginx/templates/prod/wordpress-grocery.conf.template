@@ -1,7 +1,3 @@
-upstream wordpress_grocery {
-    server wordpress_grocery:9000;
-}
-
 server {
     listen 80;
     server_name grocery.${APP_DOMAIN};
@@ -19,31 +15,11 @@ server {
     ssl_certificate /etc/letsencrypt/live/${APP_DOMAIN}/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/${APP_DOMAIN}/privkey.pem;
 
-    root /var/www/html;
-    index index.php index.html;
-    client_max_body_size 20M;
-
     location / {
-        try_files $uri $uri/ /index.php?$query_string;
-    }
-
-    location ~ \.php$ {
-        include fastcgi_params;
-        fastcgi_pass wordpress_grocery:9000;
-        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-        fastcgi_param HTTPS on;
-    }
-
-    # Cache static assets
-    location ~* \.(jpg|jpeg|png|gif|ico|svg|webp)$ {
-        expires 1y;
-        add_header Cache-Control "public, immutable";
-        add_header Vary Accept-Encoding;
-    }
-
-    location ~* \.(css|js)$ {
-        expires 1y;
-        add_header Cache-Control "public, immutable";
-        add_header Vary Accept-Encoding;
+        proxy_pass http://wordpress_grocery;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
     }
 }
