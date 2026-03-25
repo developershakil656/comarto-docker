@@ -14,6 +14,8 @@ services:
     depends_on:
       - backend
       - admin-backend
+    networks:
+      - comarto_network
 
   backend:
     build: ./backend
@@ -53,6 +55,8 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    networks:
+      - comarto_network
     
 
   phpmyadmin:
@@ -80,3 +84,7 @@ volumes:
   frontend_build:
   admin_frontend_build:
   shared_storage_volume:  # New shared volume for file storage
+
+networks:
+  comarto_network:
+    external: true
