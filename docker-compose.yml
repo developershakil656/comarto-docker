@@ -25,6 +25,8 @@ services:
       - ./docker-config/php-limits.ini:/usr/local/etc/php/conf.d/php-limits.ini
       - shared_storage_volume:/var/www/backend/storage/app/public
     command: php-fpm
+    networks:
+      - comarto_network
 
   admin-backend:
     build: ./admin-backend
@@ -34,14 +36,20 @@ services:
       - ./docker-config/php-limits.ini:/usr/local/etc/php/conf.d/php-limits.ini
       - shared_storage_volume:/var/www/admin-backend/storage/app/public
     command: php-fpm
+    networks:
+      - comarto_network
 
   frontend:
     build: ./frontend
     container_name: frontend
+    networks:
+      - comarto_network
 
   admin-frontend:
     build: ./admin-frontend
     container_name: admin-frontend
+    networks:
+      - comarto_network
 
   mysql:
     image: mysql:8.0
@@ -70,6 +78,8 @@ services:
       MAX_EXECUTION_TIME: 600
     depends_on:
       - mysql
+    networks:
+      - comarto_network
 
   meilisearch:
     image: getmeili/meilisearch:v1.12.0
@@ -78,6 +88,8 @@ services:
       - ./meilisearch/data:/meili_data
     environment:
       - MEILI_MASTER_KEY=${MEILI_MASTER_KEY}
+    networks:
+      - comarto_network
 
 volumes:
   mysql_data:
