@@ -83,8 +83,8 @@ services:
     env_file: ./env/wordpress.env
     environment:
       WORDPRESS_DB_HOST: mysql:3306
-      WORDPRESS_DB_USER: ${WORDPRESS_AKHLAQFOOD_DB_USER:-b2buser}
-      WORDPRESS_DB_PASSWORD: ${WORDPRESS_AKHLAQFOOD_DB_PASSWORD:-b2bpass}
+      WORDPRESS_DB_USER: ${WORDPRESS_AKHLAQFOOD_DB_USER}
+      WORDPRESS_DB_PASSWORD: ${WORDPRESS_AKHLAQFOOD_DB_PASSWORD}
       WORDPRESS_DB_NAME: ${WORDPRESS_AKHLAQFOOD_DB_NAME:-wordpress_akhlaqfood}
       WORDPRESS_TABLE_PREFIX: wp_akhlaqfood_
       WORDPRESS_SITE_URL: https://akhlaqfood.${APP_DOMAIN:-comarto.com}
@@ -102,8 +102,8 @@ services:
     env_file: ./env/wordpress.env
     environment:
       WORDPRESS_DB_HOST: mysql:3306
-      WORDPRESS_DB_USER: ${WORDPRESS_GADGET_DB_USER:-b2buser}
-      WORDPRESS_DB_PASSWORD: ${WORDPRESS_GADGET_DB_PASSWORD:-b2bpass}
+      WORDPRESS_DB_USER: ${WORDPRESS_GADGET_DB_USER}
+      WORDPRESS_DB_PASSWORD: ${WORDPRESS_GADGET_DB_PASSWORD}
       WORDPRESS_DB_NAME: ${WORDPRESS_GADGET_DB_NAME:-wordpress_gadget}
       WORDPRESS_TABLE_PREFIX: wp_gadget_
       WORDPRESS_SITE_URL: https://gadget.${APP_DOMAIN:-comarto.com}
