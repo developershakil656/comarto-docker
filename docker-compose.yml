@@ -74,8 +74,48 @@ services:
     environment:
       - MEILI_MASTER_KEY=${MEILI_MASTER_KEY}
 
+  # WordPress for Akhlaq Foods
+  wordpress-akhlaqfood:
+    image: wordpress:latest
+    container_name: wordpress-akhlaqfood
+    env_file: ./env/wordpress.env
+    environment:
+      WORDPRESS_DB_HOST: mysql:3306
+      WORDPRESS_DB_USER: ${WORDPRESS_DB_USER:-b2buser}
+      WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD:-b2bpass}
+      WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME:-business_directory}
+      WORDPRESS_TABLE_PREFIX: wp_akhlaqfood_
+      WORDPRESS_SITE_URL: https://akhlaqfood.${APP_DOMAIN:-comarto.com}
+      WORDPRESS_HOME: https://akhlaqfood.${APP_DOMAIN:-comarto.com}
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - default
+
+  # WordPress for Gadget
+  wordpress-gadget:
+    image: wordpress:latest
+    container_name: wordpress-gadget
+    env_file: ./env/wordpress.env
+    environment:
+      WORDPRESS_DB_HOST: mysql:3306
+      WORDPRESS_DB_USER: ${WORDPRESS_DB_USER:-b2buser}
+      WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD:-b2bpass}
+      WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME:-business_directory}
+      WORDPRESS_TABLE_PREFIX: wp_gadget_
+      WORDPRESS_SITE_URL: https://gadget.${APP_DOMAIN:-comarto.com}
+      WORDPRESS_HOME: https://gadget.${APP_DOMAIN:-comarto.com}
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - default
+
 volumes:
   mysql_data:
   frontend_build:
   admin_frontend_build:
   shared_storage_volume:  # New shared volume for file storage
+  wordpress_akhlaqfood_data:
+  wordpress_gadget_data:
