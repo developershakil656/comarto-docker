@@ -49,8 +49,5 @@ services:
       - /var/lib/letsencrypt:/var/lib/letsencrypt:ro
       - /var/www/certbot:/var/www/certbot:ro
 
-  certbot:
-    restart: always
-
   # mysql:
   #   restart: always
