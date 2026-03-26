@@ -30,9 +30,10 @@ server {
 
     location ~ \.php$ {
         fastcgi_pass wordpress-akhlaqfood:9000;
-        fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+        fastcgi_param SCRIPT_FILENAME /var/www/html$fastcgi_script_name;
         include fastcgi_params;
         fastcgi_read_timeout 300;
+        fastcgi_intercept_errors on;
     }
 
     location ~ /\.ht {
@@ -41,8 +42,9 @@ server {
 
     location ~* /wp-admin/admin-ajax\.php$ {
         fastcgi_pass wordpress-akhlaqfood:9000;
-        fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+        fastcgi_param SCRIPT_FILENAME /var/www/html$fastcgi_script_name;
         include fastcgi_params;
         fastcgi_read_timeout 300;
+        fastcgi_intercept_errors on;
     }
 }
