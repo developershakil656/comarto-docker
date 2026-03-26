@@ -78,7 +78,7 @@ services:
 
   # WordPress for Akhlaq Foods
   wordpress-akhlaqfood:
-    image: wordpress:latest
+    image: wordpress:php8.3-fpm
     container_name: wordpress-akhlaqfood
     env_file: ./env/wordpress.env
     environment:
@@ -97,7 +97,7 @@ services:
 
   # WordPress for Gadget
   wordpress-gadget:
-    image: wordpress:latest
+    image: wordpress:php8.3-fpm
     container_name: wordpress-gadget
     env_file: ./env/wordpress.env
     environment:
